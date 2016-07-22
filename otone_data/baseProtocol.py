@@ -87,8 +87,10 @@ class baseProtocol:
                 "to":{"locName":toLocs[i]},
                 "volume":volumes[i]
             }
-            for key,value in changeSettings[i].items():
-                transferDict[key]=
+            for key in changeSettings[i]:
+                if key=="from" or key=="to":
+                    transferDict[key][
+
             transferGroup.append(transferDict)
 
         return transferGroup
