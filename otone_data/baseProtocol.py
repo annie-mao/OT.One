@@ -3,7 +3,7 @@ import datetime
 from collections import OrderedDict
 from containers import Containers
 
-class baseProtocol:
+class BaseProtocol:
     """ Python representation of a liquid-handling protocol
     Enables smart selection of containers and deck layout
     """
@@ -17,22 +17,22 @@ class baseProtocol:
         }
         self.locations={}
         self.ingredients={}
-        self.instructions={}
+        self.instructions=[]
         self.transfer_defaults={
             "from":{
                 "tip-offset":0,
                 "touch-tip":False,
                 "delay":0,
                 "liquid-tracking":True
-            }
+            },
             "to":{
                 "tip-offset":0,
                 "touch-tip":True,
                 "delay":0,
                 "liquid-tracking":True
-            }
+            },
             "blowout":True,
-            "extra-pull"False
+            "extra-pull":False
 
         }
         self.mix_defaults={
@@ -53,48 +53,120 @@ class baseProtocol:
     def configure_mix(key,value):
         self.mix_defaults[key]=value
 
-    def add_ingredient(self,ingName,locName,volume):
-        if(ingName is not in self.ingredients):
-            #add ingredient to dict
-            self.ingredients[ingName]={locName:volume}
-            if(locName is not in self.locations and locName is not None):
+    def add_ingredient(self,ingrName,locName,volume):
+        if(ingrName not in self.ingredients):
+            #if adding to an unspecified location (None), pool all volumes of the same
+            #ingredient in one initial pool called ingrName_initial
+            if not locName:
+                locName = ingrName+"_initial"
+            #new ingredient -- add ingredient to dict
+            self.ingredients[ingrName]={locName:volume}
+            if locName not in self.locations:
                 #if ingredient and location are new
                 #add location to dict
                 self.locations[locName]={
                     "volume":volume,
                     "maxVol":volume
                 }
-            if(locName is in self.locations and locName is not None):
+            elif locName in self.locations:
                 #if new ingredient but existing location
                 #update location
-                self.locations[locName]["volume"]+=volume
-                if(self.locations[locName]["volume"]>self.locations[locName]["maxVol"]):
-                    self.locations[locName]["maxVol"]=self.locations[locName]["volume"]
-                #add new initial location
-                self.locations[locName+"_initial"]={
+                self.update_loc_vol(locName,volume,True)
+                #add new initial location for the ingredient
+                self.locations[ingrName+"_initial"]={
                     "volume":0,
                     "maxVol":volume
                 }
                 #add instruction to transfer ingr from initial location to current location
-                self.instructions
+                self.make_transfer_group([ingrName+"_initial"],[locName],[volume])
 
-    def make_transfer_group(ingr,fromLocs,toLocs,volumes,changeSettings=[]):
+        else:
+            #existing ingredient
+            #if adding to unspecified location, set location to ingredient's initial pool
+            if not locName:
+                locName = ingrName+"_initial"
+            #update volume in ingredients dictionary
+            self.ingredients[ingrName][locName]=self.ingredients[ingrName].setdefault(locName,0)+volume
+            if locName not in self.locations:
+                #if existing ingredient to new location
+                #add location to dict
+                self.locations[locName]={
+                    "volume":volume,
+                    "maxVol":volume
+                }
+            elif locName in self.locations and locName != ingrName+"_initial":
+                #if existing ingredient to existing location
+                #update location
+                self.update_loc_vol(locName,volume,True)
+                #assume ingredient is coming from ingredient's initial pool
+                #create initial pool location if not already in locations dict
+                if(ingrName+"_initial" not in self.locations):
+                    self.locations[ingrName+"_initial"]={
+                        "volume":0,
+                        "maxVol":volume
+                    }
+                #update initial pool if already in dict
+                else:
+                    self.update_loc_vol(ingrName+"_initial",volume,False)
+                #add instruction to transfer ingr from initial location to current location
+                self.make_transfer_group([ingrName+"_initial"],[locName],[volume])
+            elif locName == ingrName+"_initial":
+                #if adding existing ingredient to its initial pool
+                #update location
+                self.update_loc_vol((ingrName+"_initial"),volume,True)
+        return "Added "+ingrName+" to "+locName
+
+    def update_loc_vol(self,locName,addVol,keepVol):
+        #sanity check to make sure volume does not go negative
+        if self.locations[locName]["volume"]+addVol<0:
+            print("Error: attempt to create negative volume at {0}".format(locName))
+            return
+        elif (self.locations[locName]["volume"]+addVol)>self.locations[locName]["maxVol"]:
+            self.locations[locName]["maxVol"]=self.locations[locName]["volume"]+addVol
+        if keepVol:
+            self.locations[locName]["volume"]+=addVol
+
+    def update_ingr_vol(self,ingrName,locsToChange,volChanges):
+        for i in range(0,len(locsToChange)):
+            self.ingredients[ingrName][locsToChange[i]]+=volChanges
+
+    def make_transfer_group(self,fromLocs,toLocs,volumes,changeSettings=None):
+        # add instruction to list
         transferGroup = []
         for i in range(0,len(fromLocs)):
             transferDict={
-                "ingredient":ingr,
                 "from":{"locName":fromLocs[i]},
                 "to":{"locName":toLocs[i]},
                 "volume":volumes[i]
             }
-            for key in changeSettings[i]:
-                if key=="from" or key=="to":
-                    transferDict[key][
-
+            if changeSettings:
+                for key,value in changeSettings[i].items():
+                    if key=="from" or key=="to":
+                        for nextkey,nextvalue in value.items():
+                            transferDict[key][nextkey]=nextvalue
+                    else:
+                        transferDict[key]=value
+            # fill in missing fields with defaults
+            transferDict=self.fill_transfer_defaults(transferDict)
+            # add to list of transfers in this group (same tip)
             transferGroup.append(transferDict)
+            # update locations dict
+            self.update_loc_vol(fromLocs[i],-volumes[i])
+            self.update_loc_vol(toLocs[i],volumes[i])
+            # update ingredients dict
+            self.update_ingr_vol([fromLocs[i],toLocs[i]],[-volumes[i],volumes[i]])
+        self.instructions.append(transferGroup)
 
-        return transferGroup
+        # update volumes of ingredient and location dicts
 
-    def add_transfer(self,transferGroup,settings=self.transfer_defaults):
-        self.instructions["transfer"
-
+    
+    def fill_transfer_defaults(self,transferDict):
+        # go through transfer defaults and transferDict and fill in any
+        # missing fields
+        for key,value in self.transfer_defaults.items():
+            if key=="from" or key=="to":
+                for nextkey,nextvalue in value.items():
+                    transferDict[key].setdefault(nextkey,nextvalue)
+            else:
+                transferDict.setdefault(key,value)
+        return transferDict
