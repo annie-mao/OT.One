@@ -91,6 +91,48 @@ class BaseProtocol:
                 self.update_ingr_vol(ingrName,locName,volume)
         return "Added "+str(volume)+"uL of "+ingrName+" to "+locName
 
+    def add_transfer_group(self,fromLocs,toLocs,volumes,changeSettings=None):
+        # add transfer group to instructions list
+        transferGroup = {"transfer":[]}
+        for i in range(0,len(fromLocs)):
+            transferDict={
+                "from":{"locName":fromLocs[i]},
+                "to":{"locName":toLocs[i]},
+                "volume":volumes[i]
+            }
+            if changeSettings:
+                for key,value in changeSettings[i].items():
+                    if key=="from" or key=="to":
+                        for nextkey,nextvalue in value.items():
+                            transferDict[key][nextkey]=nextvalue
+                    else:
+                        transferDict[key]=value
+            # fill in missing fields with defaults
+            transferDict=self.fill_instruction_defaults(transferDict,self.transfer_defaults)
+            # add to list of transfers in this group (same tip)
+            transferGroup["transfer"].append(transferDict)
+            # update locations dict
+            self.update_loc_vol(fromLocs[i],-volumes[i])
+            self.update_loc_vol(toLocs[i],volumes[i])
+        self.instructions.append(transferGroup)
+
+    def add_mix_group(self,mixLocs,volumes,changeSettings=None):
+        # add mix group to instructions list
+        mixGroup = {"mix":[]}
+        for i in range(0,len(mixLocs)):
+            mixDict={
+                "locName":mixLocs[i],
+                "volume":volumes[i]
+            }
+            if changeSettings:
+                for key,value in changeSettings[i].items():
+                    mixDict[key]=value
+            #fill in missing fields with defaults
+            mixDict=self.fill_instruction_defaults(mixDict,self.mix_defaults)
+            #add to list of mixes in this group (same tip)
+            mixGroup["mix"].append(mixDict)
+        self.instructions.append(mixGroup)
+
     def update_loc_vol(self,locName,addVol):
         #if adding to a new location
         if locName not in self.locations:
@@ -108,41 +150,13 @@ class BaseProtocol:
     def update_ingr_vol(self,ingrName,locName,addVol):
         self.ingredients[ingrName][locName]=self.ingredients[ingrName].setdefault(locName,0)+addVol
 
-    def add_transfer_group(self,fromLocs,toLocs,volumes,changeSettings=None):
-        # add instruction to list
-        transferGroup = []
-        for i in range(0,len(fromLocs)):
-            transferDict={
-                "from":{"locName":fromLocs[i]},
-                "to":{"locName":toLocs[i]},
-                "volume":volumes[i]
-            }
-            if changeSettings:
-                for key,value in changeSettings[i].items():
-                    if key=="from" or key=="to":
-                        for nextkey,nextvalue in value.items():
-                            transferDict[key][nextkey]=nextvalue
-                    else:
-                        transferDict[key]=value
-            # fill in missing fields with defaults
-            transferDict=self.fill_transfer_defaults(transferDict)
-            # add to list of transfers in this group (same tip)
-            transferGroup.append(transferDict)
-            # update locations dict
-            self.update_loc_vol(fromLocs[i],-volumes[i])
-            self.update_loc_vol(toLocs[i],volumes[i])
-        self.instructions.append(transferGroup)
-
-        # update volumes of ingredient and location dicts
-
-    
-    def fill_transfer_defaults(self,transferDict):
+    def fill_instruction_defaults(self,instDict,instDefaults):
         # go through transfer defaults and transferDict and fill in any
         # missing fields
-        for key,value in self.transfer_defaults.items():
+        for key,value in instDefaults.items():
             if key=="from" or key=="to":
                 for nextkey,nextvalue in value.items():
-                    transferDict[key].setdefault(nextkey,nextvalue)
+                    instDict[key].setdefault(nextkey,nextvalue)
             else:
-                transferDict.setdefault(key,value)
-        return transferDict
+                instDict.setdefault(key,value)
+        return instDict
