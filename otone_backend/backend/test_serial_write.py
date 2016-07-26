@@ -16,6 +16,9 @@ while waiting:
         if resp == 'OPEN\r\n':
             waiting=False
             ser.write('LID CLOSE\r\n')
+        elif resp == 'CLOSED\r\n':
+            waiting=False
+            ser.write('LID OPEN\r\n')
     except serial.SerialException:
         pass
 #ser.write('LID OPEN\r\n')
