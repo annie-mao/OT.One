@@ -147,8 +147,8 @@ class Cycler:
                 return False
         else:
         #returns program name in "", cur control method, cur lid state
-            runParams = self.send(self._run['params'])
-            return formatOutput(runParams)
+            runParams = self.send(self._runQ['params'])
+            return self.formatOutput(runParams)
         
  
 #----------------------------- COMMANDS --------------------------------
@@ -171,4 +171,7 @@ class Cycler:
         sendStr = self.formatInput(['RUN '+progName,ctrl,lid])
         self.send(sendStr)
     
-      
+    def cancel(self):
+        """cancel the current running program
+        """
+        self.send(self._runCmd['cancel'])
