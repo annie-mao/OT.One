@@ -26,22 +26,29 @@ class Cycler:
         'holdTime':'HTIME?\r\n',
         'timeLeft':'ETIME?\r\n',
         'blockTemp':'BLOCKTEMP?\r\n',
+        'lidTemp':'LIDTEMP?\r\n',
         'calcTemp':'CALCTEMP?\r\n',
-        'isPaused':'PAUSE?\r\n'
+        'isPaused':'PAUSE?\r\n',
+        'vesselType':'VESSEL?\r\n',
+        'vesselVol':'VOLUME?\r\n',
+        'block':'BLOCK?\r\n'
     }
 
     _runCmd={
         'nextStep':'PROCEED\r\n',
         'cancel':'CANCEL\r\n',
         'pause':'PAUSE\r\n',
-        'resume':'RESUME\r\n'
+        'resume':'RESUME\r\n',
+        'incubate':'INCUBATE'
     }
 
     _sys={
         'block':'BLOCK?\r\n',
-        'folders':'FOLDERS?',
+        'folders':'FOLDERS?\r\n',
         'progs':'PROGRAMS?',
-        'progInfo':'PROGRAM?'
+        'progInfo':'PROGRAM?',
+        'vesselType':'VESSEL',
+        'vesselVol':'VOLUME'
     }
 
     progName = None
@@ -51,7 +58,7 @@ class Cycler:
     lidMode = '"TRACKING"'
     lidOffset = 0
     lidMin = 20
-    vesselType = "Tubes"
+    vesselType = '"Tubes"'
     vesselVol = 100
 
     def __init__(self,port='/dev/ttyUSB0'):
@@ -92,36 +99,6 @@ class Cycler:
         return rawStr[:-2].split(',')
  
 #--------------------------- GETTER/SETTERS ----------------------------
-#    def get_lid(self,query=None):
-#        """ get info about the state of the lid
-#        by default, return lid mode, offset/set temp, lid min"""
-#        if query:
-#            try:
-#                resp = self.send(self._lid[query])
-#                return resp
-#            except KeyError:
-#                print("Invalid lid query. Please try again.")
-#                return False
-#        else:
-#        #returns mode("TRACKING" or "CONSTANT"),offset(if "TRACKING") 
-#        #or set temp(if "CONSTANT"), and lid minimum
-#            lidParams=self.send(self._lid['params'])
-#            return lidParams[:-2].split(',') #remove \r\n
-#
-#    def set_lid(self,mode,offsetOrTemp,lidMin):
-#        """change lid parameters. Returns True if success, False if error
-#        """
-#        lidParamsStr = self.formatInput(['HOTLID'+mode,offsetOrTemp,lidMin],',')
-#        resp = self.send(lidParamsStr)
-#        if resp == self._lid['changeSuccess']:
-#            return True
-#        elif resp == self._lid['tempErr'] or\
-#        resp == self._lid['offsetErr'] or\
-#        resp == self._lid['modeErr'] or\
-#        resp == self._lid['minErr']:
-#            print(resp)
-#            return False
- 
     def get_run(self,query=None): 
         """ get info about the current program running
         Returns info if successful, None if unsuccessful
@@ -140,6 +117,7 @@ class Cycler:
 
     def find_program(self,progName):
         """ checks if program exists on cycler.
+        Name must be in quotes
         Returns True if yes, False if not
         """
         sendStr = self.formatInput([self._sys['progInfo'],progName],' ')
@@ -147,6 +125,18 @@ class Cycler:
             return True
         else:
             return False
+
+    def set_calc(self,vesselType=None,vesselVol=None):
+        """ set the vessel type and volume used in the temperature
+        calculation algorithm
+        vesselType can be "Tubes" or "Plate" and vesseVol between 10-100
+        "Tubes" and 100uL by default
+        """
+        vesselType = vesselType or self.vesselType
+        vesselVol = vesselVol or self.vesselVol
+        self.send(self.formatInput([self._sys['vesselType'],vesselType],' '))
+        self.send(self.formatInput([self._sys['vesselVol'],str(vesselVol)],' '))
+
 
 #----------------------------- COMMANDS --------------------------------
     def toggle_lid(self):
@@ -167,10 +157,12 @@ class Cycler:
         else:
             return False
 
-    def run_program(self,progName,ctrl=None,lid=None):
-        """run a named program in the cycler's files.
+    def run_program(self,progName,ctrl=None,lid=None,vesselType=None,vesselVol=None):
+        """run a named program in the cycler's files
+        Name must be in quotes
         specify control method BLOCK, PROBE, or CALC. CALC by default
         specify heated lid on or off. On by default
+        specify vessel type ('"Tubes"' or '"Plate"') and volume (10-100)
         Returns True if successful, False if not
         """
         # first check if program exists and exit program if not
@@ -183,11 +175,30 @@ class Cycler:
         # control method is CALC by default, lid ON by default
         ctrl = ctrl or self.ctrl
         lid = lid or self.lid
+        # set temp calc algorithm parameters
+        self.set_calc(vesselType,vesselVol)
         # send run command to cycler
         sendStr = self.formatInput(['RUN '+progName,ctrl,lid],',')
         self.send(sendStr)
         return True
-    
+
+    def incubate(self,temp,override=False):
+        """activate current sample block and set to target temp(C)
+        if override is set to True, the incubate command will override
+        a currently running program. If override is False and a program
+        is running, incubate() will exit and return False. If incubate
+        is successful fn will return True
+        """
+        # if running another program, cancel
+        if self.get_run()[0]:
+            if override:
+                self.cancel()
+            else:
+                return False
+        sendStr = self.formatInput([self._runCmd['incubate'],str(temp)],' ')
+        self.send(sendStr)
+        return True
+
     def cancel(self):
         """cancel the current running program
         check that RUN? returns an empty program name before returning
