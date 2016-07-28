@@ -95,6 +95,21 @@ class Smoothie(object):
         }
     }
 
+    # ANNIE'S EDITS
+    # areas which intersect with thermal cycler space
+    cyclerZone = {
+        'home':{
+            'x':[60,360],
+            'y':[0,270],
+            'z':[None,None]
+        },
+        'move':{
+            'x':[0,0],
+            'y':[0,0],
+            'z':[0,0]
+        }
+    }
+
     old_msg = ""
     
     def __init__(self, outer):
@@ -522,21 +537,50 @@ class Smoothie(object):
             self.try_add(homeCommand)
             homeCommand = ''
 
+        # ANNIE'S EDITS
         if 'x' in axis_dict or 'X' in axis_dict:
-            homeCommand += self._dict['home']
-            homeCommand += 'X'
+            # check if in collision zone
+            if (self.theState['x'] in range(self.cyclerZone['home']['x'][0],\
+                self.cyclerZone['home']['x'][1])) and \
+                (self.theState['y'] in range(self.cyclerZone['home']['y'][0],\
+                self.cyclerZone['home']['y'][1])):
+                # first adjust in y direction before homing x
+                # move to self.cyclerZone['home'][y][1]
+                self.move({'y':self.cyclerZone['home']['y'][1]})
+                # home x
+            homeCommand = self._dict['home']+'X\r\n'
             self.theState['homing']['x'] = True
-            homingX = True
+            self.try_add(homeCommand)
 
         if 'y' in axis_dict or 'Y' in axis_dict:
-            if homingX == False:
-                homeCommand += self._dict['home']
-            homeCommand += 'Y'
+            # check if in collision zone
+            if (self.theState['x'] in range(self.cyclerZone['home']['x'][0],\
+                self.cyclerZone['home']['x'][1])) and \
+                (self.theState['y'] in range(self.cyclerZone['home']['y'][0],\
+                self.cyclerZone['home']['y'][1])):
+                # first adjust in y direction before homing y
+                # move to self.cyclerZone['home'][y][1]
+                self.move({'x':self.cyclerZone['home']['x'][0]})
+            # home y
+            homeCommand = self._dict['home']+'Y\r\n'
             self.theState['homing']['y'] = True
-
-        if len(homeCommand)>=3:
-            homeCommand += '\r\n'
             self.try_add(homeCommand)
+
+#        if 'x' in axis_dict or 'X' in axis_dict:
+#            homeCommand += self._dict['home']
+#            homeCommand += 'X'
+#            self.theState['homing']['x'] = True
+#            homingX = True
+#
+#        if 'y' in axis_dict or 'Y' in axis_dict:
+#            if homingX == False:
+#                homeCommand += self._dict['home']
+#            homeCommand += 'Y'
+#            self.theState['homing']['y'] = True
+#
+#        if len(homeCommand)>=3:
+#            homeCommand += '\r\n'
+#            self.try_add(homeCommand)
 
 
     def halt(self):
