@@ -17,8 +17,8 @@ while True:
     print(resp)
     if resp[0] == '""':
         print("Run Ended")
-        break
+        break 
     c.cancel()
-    time.sleep(1)
-#c.toggle_lid()
-#print(c.ask(self._lid[status]))
+    time.sleep(1) 
+##c.toggle_lid()
+##print(c.ask(self._lid[status])) 
