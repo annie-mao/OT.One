@@ -1,7 +1,7 @@
-import Cycler
+import cycler
 import time
 
-c = Cycler.Cycler()
+c = cycler.Cycler()
 #print(c.get_run('vesselType'))
 #print(c.get_run('vesselVol'))
 #c.set_calc()

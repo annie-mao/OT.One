@@ -2,9 +2,9 @@
 basic user command line for interacting with cycler
 """
 
-import Cycler
+import cycler
 
-c = Cycler.Cycler()
+c = cycler.Cycler()
 while True:
     try:
         userIn = input("Input: ")
