@@ -343,7 +343,7 @@ class Head:
         q_prev = self.quadrant(prevLoc['x'],prevLoc['y'],xLim,yLim)
         for i in range(0,len(locations)):
             #check quadrant of each location and the location before it
-            q_now = self.quadrant(loc[i]['x'],loc[i]['y'],xLim,yLim)
+            q_now = self.quadrant(locations[i]['x'],locations[i]['y'],xLim,yLim)
             if [q_prev,q_now] in self.cycler.move_between['safe']:
                 # collision-free
             elif [q_prev,q_now] in self.cycler.move_betwen['collision']:
