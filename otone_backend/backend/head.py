@@ -334,11 +334,75 @@ class Head:
 
         """
         if debug == True: FileIO.log('head.move called')
+        
+        lid = None
+        if(self.cycler.lidOpen):
+            lid = 'open'
+        else:
+            lid = 'closed'
+        xLim = self.cycler.bounds['x'][lid]
+        yLim = self.cycler.bounds['y'][lid]
+        
+        
         if locations:
+            loc_prev = locations[0]
+            if loc_prev['relative']:
+                loc_prev['relative'] = False
+                state = self.get_state()
+                try:
+                    loc_prev['x'] = state['x']
+                    loc_prev['y'] = state['y']
+                    loc_prev['z'] = state['z']
+                    loc_prev['a'] = state['a']
+                    loc_prev['b'] = state['b']
+                except KeyError:
+                    pass
+            q_prev = self.quadrant(loc_prev['x'],loc_prev['y'],xLim,yLim)
+            for i in range(0,len(locations)):
+                #convert relative to absolute location if necessary
+                if locations[i]['relative']:
+                    locations[i] = self.rel_to_abs(locations[i]) 
+                #check target quadrant
+                try:
+                    q_now = self.quadrant(locations[i]['x'],locations[i]['y'],xLim,yLim)
+                except KeyError:
+                    q_now = q_prev
+                #check for collisions moving from previous to target quadrant
+                if [q_prev,q_now] in self.cycler.move_between['safe']:
+                    #collision-free
+                    pass
+                elif [q_prev,q_now] in self.cycler.move_between['collision']:
+                    #add intermediate location to prevent collision
+                    for k in range(0,abs(q_now-q_prev)-1):
+                        #for every skipped quadrant, add int. step
+                        #quadrant next to q_prev
+                        q_int = q_prev + math.copysign(1,q_now-q_prev)*(k+1)
+                        intLoc = self.cycler.quad_nodes[str(q_int)]
+                        #insert int location in locations
+                        locations.insert(i+1,intLoc)
+                #if moving to cycler quadrant, check lid
+                if[q_prev,q_now] in self.cycler.move_between['check_lid']:
+                    #if lid is unopen, open lid
+                    if not self.cycler.lidOpen:
+                        self.cycler.toggle_lid()
+                #set current quadrant as q_prev for next iteration
+                q_prev = q_now
+                loc_prev = locations[i]
+
             if debug == True and verbose == True:
                 FileIO.log('locations:\n',locations)
             self.theQueue.add(locations)
         
+    def rel_to_abs(loc_prev,loc_now):
+        loc_now['relative'] = False
+        keys = ['x','y','z','a','b']
+        for key in keys:
+            try:
+                loc_now[key] = loc_prev[key] + loc_now[key]
+            except KeyError:
+                pass
+        return loc_now
+    
     #from planner.js
     #function step (locations)
     #doesn't map to smoothieAPI
@@ -664,8 +728,30 @@ class Head:
         if debug == True: FileIO.log('head.publish_calibrations called')
         self.pubber.send_message('containerLocations',self.get_deck())
         self.pubber.send_message('pipetteValues',self.get_pipettes())
-       
+      
+
+    def quadrant(self,x,y,xBound,yBound):
+        """ Returns quadrant of x,y location given an x boundary and
+        y boundary
+        0-------------x
+        |1     |4     |
+        |      |cycler|
+        |-------------|
+        |2     |3     |
+        |      |      |
+        y-------------.
+        """
+        if (x < xBound) and (y <= yBound):
+            return 1
+        elif (x < xBound) and (y > yBound):
+            return 2
+        elif (x >= xBound) and (y > yBound):
+            return 3
+        elif (x >= xBound) and (y <= yBound):
+            return 4
+        else:
+            return None #indicates error
+
+
 #if __name__ == "__main__":
-#    c = Cycler()
-#    c.connect()
-#    c.toggle_lid()
+#    print('hello')
