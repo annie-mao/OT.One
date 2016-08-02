@@ -101,12 +101,7 @@ class Smoothie(object):
         'home':{
             'x':60,
             'y':270,
-            'z':[None,None]
-        },
-        'move':{
-            'x':[0,0],
-            'y':[0,0],
-            'z':[0,0]
+            'z':None
         }
     }
 
@@ -128,7 +123,6 @@ class Smoothie(object):
         self.delay_handler = None
         self.delay_start = 0
         self.delay_end = 0
-        self.textdump = open("textdump.txt","w")
 
     class CB_Factory(asyncio.Protocol):
         proc_data = ""
@@ -295,7 +289,7 @@ class Smoothie(object):
                 #print('homing[key]: ',self.theState['homing'][key])
                 if key!='stat' and key!='homing' and key!='delaying':
                     if key.isalnum() and value == 0 and self.theState['homing'][key]==True:
-                        if debug == True and verbose == True:
+                        if ebug == True and verbose == True:
                             FileIO.log('smoothie_ser2net:\n\tchanging key [',key,'] homing to False')
                         self.theState['homing'][key] = False
                         self.theState['direction'][key] = 0

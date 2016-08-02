@@ -1,11 +1,11 @@
-#!/usr/bin/env python3
-import json, os
+import json, os, math
 
 import smoothie_ser2net as openSmoothie
 
 from the_queue import TheQueue
 from file_io import FileIO
 from pipette import Pipette
+
 from cycler.cycler import Cycler
 
 debug = True
@@ -49,10 +49,10 @@ class Head:
         self.dir_par_par_path = os.path.dirname(self.dir_par_path)      
 
         self.load_pipette_values()
-
-        #connect with cycler
-        self.cycler = Cycler()
-        self.cycler.toggle_lid()
+        
+        #cycler object
+        #self.cycler = cycler.Cycler()
+        #if debug == True: FileIO.log('cycler init')
 
     def __str__(self):
         return "Head"
@@ -332,6 +332,35 @@ class Head:
         'b' : 32
         }
 
+        
+        lid = None
+        if(self.cycler.lidOpen):
+            lid = 'open'
+        else:
+            lid = 'closed'
+        xLim = self.cycler.bounds['x'][lid]
+        yLim = self.cycler.bounds['y'][lid]
+        prevLoc = locations[0]
+        q_prev = self.quadrant(prevLoc['x'],prevLoc['y'],xLim,yLim)
+        for i in range(0,len(locations)):
+            #check quadrant of each location and the location before it
+            q_now = self.quadrant(locations[i]['x'],locations[i]['y'],xLim,yLim)
+            if [q_prev,q_now] in self.cycler.move_between['safe']:
+                # collision-free
+            elif [q_prev,q_now] in self.cycler.move_betwen['collision']:
+                # add intermediate locations to prevent collision
+                for k in range(0,abs(q_now-qprev)-1):
+                    # for every skippped quadrant, add an int. step
+                    # quadrant next to q_prev
+                    q_int = q_prev + math.copysign(1,q_now-q_prev)*(k+1)
+                    intLoc = self.cycler.quad_nodes[str(q_int)]
+                    # insert intermediate location in locations
+                    locations.insert(i+1,intLoc)
+            if[q_prev,q_now] in self.cycler.move_between['lid']:
+                # check that lid is open. If not, open lid
+
+            # set current quadrant as q_prev for next iteration
+            q_prev = q_now
         """
         if debug == True: FileIO.log('head.move called')
         if locations:
@@ -664,8 +693,27 @@ class Head:
         if debug == True: FileIO.log('head.publish_calibrations called')
         self.pubber.send_message('containerLocations',self.get_deck())
         self.pubber.send_message('pipetteValues',self.get_pipettes())
-       
-#if __name__ == "__main__":
-#    c = Cycler()
-#    c.connect()
-#    c.toggle_lid()
+      
+"""
+    def quadrant(self,x,y,xBound,yBound):
+        """ Returns quadrant of x,y location given an x boundary and
+        y boundary
+        0-------------x
+        |1     |4     |
+        |      |cycler|
+        |-------------|
+        |2     |3     |
+        |      |      |
+        y-------------.
+        """
+        if (x < xBound) and (y <= yBound):
+            return 1
+        elif (x < xBound) and (y > yBound):
+            return 2
+        elif (x >= xBound) and (y > yBound):
+            return 3
+        elif (x >= xBound) and (y <= yBound):
+            return 4
+        else:
+            return None #indicates error
+"""

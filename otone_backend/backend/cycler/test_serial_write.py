@@ -6,6 +6,8 @@ import time
 
 ser = serial.Serial('/dev/ttyUSB0',baudrate=9600,bytesize=serial.EIGHTBITS,parity=serial.PARITY_NONE,stopbits=serial.STOPBITS_ONE)
 
+print(ser.isOpen())
+"""
 waiting = True
 resp = None
 ser.timeout=1
@@ -26,3 +28,4 @@ while waiting:
 #ser.write('LID CLOSE\r\n')
 
 ser.close
+"""

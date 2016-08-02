@@ -1,5 +1,4 @@
-import serial
-import time
+import serial, time
 
 class Cycler:
     
@@ -66,9 +65,9 @@ class Cycler:
     }
 
     move_between = {
-        'safe':{[[1,1],[1,2],[2,1],[2,2],[2,3],[3,2],[3,3],[4,4],[3,4],[4,3]]},
-        'collision':{[1,3],[3,1],[2,4],[4,2],[4,1],[1,4]},
-        'check_lid':{[1,4],[2,4],[3,4]}
+        'safe':[[1,1],[1,2],[2,1],[2,2],[2,3],[3,2],[3,3],[4,4],[3,4],[4,3]],
+        'collision':[[1,3],[3,1],[2,4],[4,2],[4,1],[1,4]],
+        'check_lid':[[1,4],[2,4],[3,4]]
     }
 
     quad_nodes = {
@@ -77,8 +76,15 @@ class Cycler:
         '3':{'x':300,'y':360,'z':0},
         '4':{'x':300,'y':135,'z':0}
     }
+   
+    # state variables
+    lidOpen = None
+    portOpen = None
+
+    def __init__(self):
+        self.portOpen = self.connect()
     
-    def __init__(self,port='/dev/ttyUSB0'):
+    def connect(self,port='/dev/ttyUSB0'):
         """open serial connection
         Must disable Linux connection to serial port for terminal
         use sudo raspi-config
@@ -91,16 +97,22 @@ class Cycler:
         parity=serial.PARITY_NONE,\
         stopbits=serial.STOPBITS_ONE)
         self.ser.timeout=1
+
+        self.lidOpen = self.is_lid_open()
+        if self.lidOpen is not None:
+            self.portOpen = True
+
+
 #-------------------------- RAW DATA PROCESSING -------------------------
     def send(self,sendMsg):
         """send query to Cycler and return its response
         """
         resp=None
-        self.ser.write(sendMsg)
+        self.ser.write(sendMsg.encode())
         try:
             resp=self.ser.read(1000)
             if len(resp)>0:
-                return resp
+                return resp.decode()
         except serial.SerialException:
             print("Serial error")
 
@@ -159,20 +171,23 @@ class Cycler:
     def toggle_lid(self):
         """close lid if open, open if closed
         """
-        lidStatus=self.send(self._lid['status'])
-        if lidStatus == self._lid['isOpen']:
+        if self.lidOpen == True:
             self.send(self._lid['close'])
-        elif lidStatus == self._lid['isClosed']:
+            self.lidOpen = False
+        elif self.lidOpen == False:
             self.send(self._lid['open'])
-       
+            self.lidOpen = True
+
     def is_lid_open(self):
         """Returns True if lid is open, False if closed
         """
         lidStatus=self.send(self._lid['status'])
         if lidStatus == self._lid['isOpen']:
             return True
-        else:
+        elif lidStatus == self._lid['isClosed']:
             return False
+        else:
+            return None
 
     def run_program(self,progName,ctrl=None,lid=None,vesselType=None,vesselVol=None):
         """run a named program in the cycler's files
@@ -187,7 +202,7 @@ class Cycler:
             print("Program does not exist")
             return False
         # make sure lid is closed
-        if self.is_lid_open():
+        if self.lidOpen:
             self.toggle_lid()
         # control method is CALC by default, lid ON by default
         ctrl = ctrl or self.ctrl
