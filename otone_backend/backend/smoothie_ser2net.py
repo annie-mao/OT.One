@@ -395,7 +395,7 @@ class Smoothie(object):
             cmd = header
 
             for n, value in coords_list.items():
-                if debug == True and verbose == True:
+                if debug == True:
                     FileIO.log('smoothie_ser2net:\n\tn:     ',n)
                     FileIO.log('smoothie_ser2net:\n\tvalue: ',value,'\n')
                     FileIO.log('smoothie_ser2net:\n\tvalue type: ', type(value),'\n')
@@ -426,7 +426,7 @@ class Smoothie(object):
                                 value = value + self.theState['direction'][n]
                                 self.theState['direction'][n] = 0
                     cmd = cmd + str(value)
-                    if debug == True and verbose == True: FileIO.log('smoothie_ser2net:\n\tcmd: ',cmd,'\n')
+                    if debug == True: FileIO.log('smoothie_ser2net:\n\tcmd: ',cmd,'\n')
 
                 if debug == True and verbose == True: FileIO.log('smoothie_ser2net:\n\tmy_transport not none? ',self.my_transport is not None)
 

@@ -120,8 +120,8 @@ class Subscriber():
                 self.dispatch(dictum['type'],dictum['data'])
             else:
                 self.dispatch(dictum['type'],None)
-        except:
-            FileIO.log('*** error in subscriber.dispatch_message ***')
+        except Exception as ex:
+            FileIO.log('*** {0} in subscriber.dispatch_message with args\n{1!r}\n***'.format(type(ex).__name___,ex.args))
             raise
 
 

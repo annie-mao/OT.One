@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-import json, os
+import json, os, math
+
+from collections import OrderedDict
 
 import smoothie_ser2net as openSmoothie
 
@@ -333,7 +335,7 @@ class Head:
         }
 
         """
-        if debug == True: FileIO.log('head.move called')
+        if debug == True: FileIO.log('head.move called!!!')
         
         lid = None
         if(self.cycler.lidOpen):
@@ -345,62 +347,68 @@ class Head:
         
         
         if locations:
-            loc_prev = locations[0]
-            if loc_prev['relative']:
-                loc_prev['relative'] = False
+            try:
+                if debug == True: FileIO.log('head.move locations found')
+                # set up initial location as the current state of the robot
                 state = self.get_state()
-                try:
-                    loc_prev['x'] = state['x']
-                    loc_prev['y'] = state['y']
-                    loc_prev['z'] = state['z']
-                    loc_prev['a'] = state['a']
-                    loc_prev['b'] = state['b']
-                except KeyError:
-                    pass
-            q_prev = self.quadrant(loc_prev['x'],loc_prev['y'],xLim,yLim)
-            for i in range(0,len(locations)):
-                #convert relative to absolute location if necessary
-                if locations[i]['relative']:
-                    locations[i] = self.rel_to_abs(locations[i]) 
-                #check target quadrant
-                try:
-                    q_now = self.quadrant(locations[i]['x'],locations[i]['y'],xLim,yLim)
-                except KeyError:
-                    q_now = q_prev
-                #check for collisions moving from previous to target quadrant
-                if [q_prev,q_now] in self.cycler.move_between['safe']:
-                    #collision-free
-                    pass
-                elif [q_prev,q_now] in self.cycler.move_between['collision']:
-                    #add intermediate location to prevent collision
-                    for k in range(0,abs(q_now-q_prev)-1):
-                        #for every skipped quadrant, add int. step
-                        #quadrant next to q_prev
-                        q_int = q_prev + math.copysign(1,q_now-q_prev)*(k+1)
-                        intLoc = self.cycler.quad_nodes[str(q_int)]
-                        #insert int location in locations
-                        locations.insert(i+1,intLoc)
-                #if moving to cycler quadrant, check lid
-                if[q_prev,q_now] in self.cycler.move_between['check_lid']:
-                    #if lid is unopen, open lid
-                    if not self.cycler.lidOpen:
-                        self.cycler.toggle_lid()
-                #set current quadrant as q_prev for next iteration
-                q_prev = q_now
-                loc_prev = locations[i]
+                loc_prev = {
+                    'x' : state['x'],
+                    'y' : state['y'],
+                    'z' : state['z'],
+                    'a' : state['a'],
+                    'b' : state['b']
+                }
+                if debug == True: FileIO.log('state\n{0}'.format(loc_prev))
+                q_prev = self.quadrant(loc_prev['x'],loc_prev['y'],xLim,yLim)
+                for i in range(0,len(locations)):
+                    if debug == True: FileIO.log('head.move location: {0}'.format(locations[i]))
+                    #convert relative to absolute location if necessary
+                    if locations[i].get('relative'):
+                        locations[i] = self.rel_to_abs(locations[i]) 
+                    #check target quadrant
+                    try:
+                        q_now = self.quadrant(locations[i].setdefault('x',loc_prev['x']),locations[i].setdefault('y',loc_prev['y']),xLim,yLim)
+                    except KeyError as ex:
+                        if debug == True: FileIO.log('Error getting q_now\n{0} {1!r}'.format(type(ex).__name__,ex.args))
+                        q_now = q_prev
+                    #check for collisions moving from previous to target quadrant
+                    if debug == True: FileIO.log('q_prev {0}  q_now {1}'.format(q_prev,q_now))
+                    if [q_prev,q_now] in self.cycler.move_between['safe']:
+                        #collision-free
+                        if debug == True: FileIO.log('head.move collision-free')
+                        pass
+                    elif [q_prev,q_now] in self.cycler.move_between['collision']:
+                        #add intermediate location to prevent collision
+                        if debug == True: FileIO.log('head.move collision')
+                        for k in range(0,abs(q_now-q_prev)-1):
+                            #for every skipped quadrant, add int. step
+                            #quadrant next to q_prev
+                            q_int = int(q_prev + math.copysign(1,q_now-q_prev)*(k+1))
+                            intLoc = OrderedDict(sorted(self.cycler.quad_nodes[str(q_int)].items()))
+                            #insert int location in locations
+                            locations.insert(i,intLoc)
+                    #if moving to cycler quadrant, check lid
+                    if[q_prev,q_now] in self.cycler.move_between['check_lid']:
+                        #if lid is unopen, open lid
+                        if debug == True: FileIO.log('head.move checking lid')
+                        if not self.cycler.lidOpen:
+                            self.cycler.toggle_lid()
+                    #set current quadrant as q_prev for next iteration
+                    q_prev = q_now
+                    loc_prev = locations[i]
 
-            if debug == True and verbose == True:
-                FileIO.log('locations:\n',locations)
-            self.theQueue.add(locations)
-        
+                if debug == True and verbose == True:
+                    FileIO.log('locations:\n',locations)
+                self.theQueue.add(locations)
+            except Exception as ex:
+                if debug == True: FileIO.log('Error in move\n{0} {1!r}'.format(type(ex).__name__,ex.args))
+                raise
+
     def rel_to_abs(loc_prev,loc_now):
         loc_now['relative'] = False
         keys = ['x','y','z','a','b']
         for key in keys:
-            try:
-                loc_now[key] = loc_prev[key] + loc_now[key]
-            except KeyError:
-                pass
+            loc_now[key] = loc_prev.get(key,0) + loc_now.get(key,0)
         return loc_now
     
     #from planner.js
