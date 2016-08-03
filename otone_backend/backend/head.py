@@ -366,11 +366,13 @@ class Head:
                     if locations[i].get('relative'):
                         locations[i] = self.rel_to_abs(locations[i]) 
                     #check target quadrant
-                    try:
-                        q_now = self.quadrant(locations[i].setdefault('x',loc_prev['x']),locations[i].setdefault('y',loc_prev['y']),xLim,yLim)
-                    except KeyError as ex:
-                        if debug == True: FileIO.log('Error getting q_now\n{0} {1!r}'.format(type(ex).__name__,ex.args))
-                        q_now = q_prev
+                    #try:
+                    q_now = self.quadrant(locations[i].get('x',loc_prev['x']),\
+                                        locations[i].get('y',loc_prev['y']),xLim,yLim)
+                    #except KeyError as ex:
+                    #    if debug == True: FileIO.log('Error getting q_now\n{0} {1!r}'\
+                    #                                .format(type(ex).__name__,ex.args))
+                    #   q_now = q_prev
                     #check for collisions moving from previous to target quadrant
                     if debug == True: FileIO.log('q_prev {0}  q_now {1}'.format(q_prev,q_now))
                     if [q_prev,q_now] in self.cycler.move_between['safe']:
@@ -386,7 +388,7 @@ class Head:
                             q_int = int(q_prev + math.copysign(1,q_now-q_prev)*(k+1))
                             intLoc = OrderedDict(sorted(self.cycler.quad_nodes[str(q_int)].items()))
                             #insert int location in locations
-                            locations.insert(i,intLoc)
+                            locations.insert(i+k,intLoc)
                     #if moving to cycler quadrant, check lid
                     if[q_prev,q_now] in self.cycler.move_between['check_lid']:
                         #if lid is unopen, open lid
@@ -395,7 +397,10 @@ class Head:
                             self.cycler.toggle_lid()
                     #set current quadrant as q_prev for next iteration
                     q_prev = q_now
-                    loc_prev = locations[i]
+                    #set current location as loc_prev for next iteration
+                    for n in ['x','y','z']:
+                        loc_prev[n]=locations[i].get(n,loc_prev[n])
+
 
                 if debug == True and verbose == True:
                     FileIO.log('locations:\n',locations)
