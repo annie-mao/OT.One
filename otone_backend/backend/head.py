@@ -336,7 +336,10 @@ class Head:
 
         """
         if debug == True: FileIO.log('head.move called!!!')
-        
+       
+        # make sure locations is a list
+        if not isinstance(locations,list):
+            locations = [locations]
         lid = None
         if(self.cycler.lidOpen):
             lid = 'open'
@@ -365,15 +368,9 @@ class Head:
                     #convert relative to absolute location if necessary
                     if locations[i].get('relative'):
                         locations[i] = self.rel_to_abs(locations[i]) 
-                    #check target quadrant
-                    #try:
+                    #check target quadrant 
                     q_now = self.quadrant(locations[i].get('x',loc_prev['x']),\
                                         locations[i].get('y',loc_prev['y']),xLim,yLim)
-                    #except KeyError as ex:
-                    #    if debug == True: FileIO.log('Error getting q_now\n{0} {1!r}'\
-                    #                                .format(type(ex).__name__,ex.args))
-                    #   q_now = q_prev
-                    #check for collisions moving from previous to target quadrant
                     if debug == True: FileIO.log('q_prev {0}  q_now {1}'.format(q_prev,q_now))
                     if [q_prev,q_now] in self.cycler.move_between['safe']:
                         #collision-free

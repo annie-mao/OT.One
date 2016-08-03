@@ -40063,3 +40063,3994 @@ len(self.instructionArray): 0
 2016-08-03 20:38:28.218161 - smoothie_ser2net:
 	didStateChange?: False
 
+2016-08-03 20:42:47.627170 - subscriber.dispatch_message called
+2016-08-03 20:42:47.627971 - 
+message: {"type":"step","data":{"x":-20}}
+
+2016-08-03 20:42:47.629160 - 	dictum[type]: step
+2016-08-03 20:42:47.630051 - 	dictum[data]:
+
+{
+    "x": -20
+}
+
+2016-08-03 20:42:47.630519 - subscriber.dispatch called
+2016-08-03 20:42:47.630943 - 
+
+	type_: step
+	data:OrderedDict([('x', -20)])
+
+2016-08-03 20:42:47.631609 - head.step called
+2016-08-03 20:42:47.631999 - 	locations:
+
+OrderedDict([('x', -20)])
+
+2016-08-03 20:42:47.632490 - head:
+	len(self.theQueue.qlist): 0
+
+2016-08-03 20:42:47.633109 - head:
+	self.theQueue.is_busy?: False
+
+2016-08-03 20:42:47.633560 - head.move called!!!
+2016-08-03 20:42:47.633954 - head.move locations found
+2016-08-03 20:42:47.634363 - head.get_state called
+2016-08-03 20:42:47.634730 - smoothie_ser2net.get_state called
+2016-08-03 20:42:47.635169 - state
+{'z': 0.0, 'y': 49.996, 'b': 0.0, 'a': 0.0, 'x': 360.0}
+2016-08-03 20:42:47.635771 - Error in move
+KeyError (0,)
+2016-08-03 20:42:53.975492 - subscriber.dispatch_message called
+2016-08-03 20:42:53.976497 - 
+message: {"type":"step","data":{"z":10}}
+
+2016-08-03 20:42:53.978322 - 	dictum[type]: step
+2016-08-03 20:42:53.979599 - 	dictum[data]:
+
+{
+    "z": 10
+}
+
+2016-08-03 20:42:53.980357 - subscriber.dispatch called
+2016-08-03 20:42:53.981041 - 
+
+	type_: step
+	data:OrderedDict([('z', 10)])
+
+2016-08-03 20:42:53.981954 - head.step called
+2016-08-03 20:42:53.982908 - 	locations:
+
+OrderedDict([('z', 10)])
+
+2016-08-03 20:42:53.983877 - head:
+	len(self.theQueue.qlist): 0
+
+2016-08-03 20:42:53.984542 - head:
+	self.theQueue.is_busy?: False
+
+2016-08-03 20:42:53.985381 - head.move called!!!
+2016-08-03 20:42:53.986083 - head.move locations found
+2016-08-03 20:42:53.986892 - head.get_state called
+2016-08-03 20:42:53.987524 - smoothie_ser2net.get_state called
+2016-08-03 20:42:53.988347 - state
+{'z': 0.0, 'y': 49.996, 'b': 0.0, 'a': 0.0, 'x': 360.0}
+2016-08-03 20:42:53.989166 - Error in move
+KeyError (0,)
+2016-08-03 20:42:57.925835 - subscriber.dispatch_message called
+2016-08-03 20:42:57.926761 - 
+message: {"type":"move","data":[{"z":0},{"x":320,"y":320}]}
+
+2016-08-03 20:42:57.928136 - 	dictum[type]: move
+2016-08-03 20:42:57.929153 - 	dictum[data]:
+
+[
+    {
+        "z": 0
+    },
+    {
+        "x": 320,
+        "y": 320
+    }
+]
+
+2016-08-03 20:42:57.929696 - subscriber.dispatch called
+2016-08-03 20:42:57.930059 - 
+
+	type_: move
+	data:[OrderedDict([('z', 0)]), OrderedDict([('x', 320), ('y', 320)])]
+
+2016-08-03 20:42:57.930789 - head.move called!!!
+2016-08-03 20:42:57.931222 - head.move locations found
+2016-08-03 20:42:57.931561 - head.get_state called
+2016-08-03 20:42:57.931922 - smoothie_ser2net.get_state called
+2016-08-03 20:42:57.932450 - state
+{'z': 0.0, 'y': 49.996, 'b': 0.0, 'a': 0.0, 'x': 360.0}
+2016-08-03 20:42:57.933137 - head.move location: OrderedDict([('z', 0)])
+2016-08-03 20:42:57.933726 - q_prev 4  q_now 4
+2016-08-03 20:42:57.934099 - head.move collision-free
+2016-08-03 20:42:57.934586 - head.move location: OrderedDict([('x', 320), ('y', 320)])
+2016-08-03 20:42:57.935055 - q_prev 4  q_now 3
+2016-08-03 20:42:57.935428 - head.move collision-free
+2016-08-03 20:42:57.935791 - locations:
+[OrderedDict([('z', 0)]), OrderedDict([('x', 320), ('y', 320)])]
+2016-08-03 20:42:57.936498 - the_queue.add called
+2016-08-03 20:42:57.936910 - the_queue.step called
+2016-08-03 20:42:57.937360 - smoothie_ser2net.move called
+2016-08-03 20:42:57.937816 - smoothie_ser2net:
+	n:     z
+2016-08-03 20:42:57.938142 - smoothie_ser2net:
+	value: 0
+
+2016-08-03 20:42:57.938514 - smoothie_ser2net:
+	value type: <class 'int'>
+
+2016-08-03 20:42:57.938913 - smoothie_ser2net:
+	cmd: G90
+G0Z0
+
+2016-08-03 20:42:57.939314 - smoothie_ser2net.try_add called
+2016-08-03 20:42:57.939656 - smoothie_ser2net.try_step called
+2016-08-03 20:42:57.940002 - self.already_trying: False
+2016-08-03 20:42:57.940381 - self.theState['stat']: 0
+2016-08-03 20:42:57.940748 - self.theState['delaying']: 0
+2016-08-03 20:42:57.941115 - smoothie_ser2net.send called
+2016-08-03 20:42:57.941427 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:42:57.949803 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 20:42:57.950844 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:42:57.952731 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:42:57.959495 - ok... self.already_trying: False
+2016-08-03 20:42:57.960870 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":1}
+{"stat":0}
+ok
+
+
+2016-08-03 20:42:57.961774 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:42:57.962728 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:42:57.969593 - smoothie_ser2net.on_state_change called
+2016-08-03 20:42:57.970601 - head.on_state_change called
+2016-08-03 20:42:57.971399 - 
+
+	Head state:
+
+{'y': 49.996, 'delaying': 0, 'a': 0.0, 'z': 0.0, 'c': 0, 'b': 0.0, 'homing': {'y': True, 'a': True, 'z': True, 'c': False, 'b': True, 'x': True}, 'direction': {'y': 0.5, 'a': 0, 'z': 0, 'c': 0, 'b': 0, 'x': 0}, 'stat': 1, 'x': 360.0}
+
+2016-08-03 20:42:57.972194 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 20:42:57.973083 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:42:57.973715 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:42:57.980332 - smoothie_ser2net.on_state_change called
+2016-08-03 20:42:57.981310 - head.on_state_change called
+2016-08-03 20:42:57.981788 - the_queue.step called
+2016-08-03 20:42:57.982209 - smoothie_ser2net.move called
+2016-08-03 20:42:57.982883 - smoothie_ser2net:
+	n:     x
+2016-08-03 20:42:57.983311 - smoothie_ser2net:
+	value: 320
+
+2016-08-03 20:42:57.983703 - smoothie_ser2net:
+	value type: <class 'int'>
+
+2016-08-03 20:42:57.984241 - smoothie_ser2net:
+	cmd: G90
+G0X319.5
+
+2016-08-03 20:42:57.984639 - smoothie_ser2net:
+	n:     y
+2016-08-03 20:42:57.984993 - smoothie_ser2net:
+	value: 320
+
+2016-08-03 20:42:57.985431 - smoothie_ser2net:
+	value type: <class 'int'>
+
+2016-08-03 20:42:57.985824 - smoothie_ser2net:
+	cmd: G90
+G0X319.5Y320
+
+2016-08-03 20:42:57.986176 - smoothie_ser2net.try_add called
+2016-08-03 20:42:57.986588 - smoothie_ser2net.try_step called
+2016-08-03 20:42:57.986971 - self.already_trying: False
+2016-08-03 20:42:57.987282 - self.theState['stat']: 0
+2016-08-03 20:42:57.987638 - self.theState['delaying']: 0
+2016-08-03 20:42:57.987987 - smoothie_ser2net.send called
+2016-08-03 20:42:57.988365 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:42:57.993259 - 
+
+	Head state:
+
+{'y': 49.996, 'delaying': 0, 'a': 0.0, 'z': 0.0, 'c': 0, 'b': 0.0, 'homing': {'y': True, 'a': True, 'z': True, 'c': False, 'b': True, 'x': True}, 'direction': {'y': 0, 'a': 0, 'z': 0, 'c': 0, 'b': 0, 'x': 0.5}, 'stat': 0, 'x': 360.0}
+
+2016-08-03 20:42:57.994471 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 20:42:57.994968 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:42:57.995346 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:42:57.997303 - ok... self.already_trying: False
+2016-08-03 20:42:57.998328 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 20:42:58.000854 - ok... self.already_trying: False
+2016-08-03 20:42:58.003462 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":1}
+
+
+2016-08-03 20:42:58.004310 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:42:58.004878 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:42:58.007059 - smoothie_ser2net.on_state_change called
+2016-08-03 20:42:58.007802 - head.on_state_change called
+2016-08-03 20:42:58.008379 - 
+
+	Head state:
+
+{'y': 49.996, 'delaying': 0, 'a': 0.0, 'z': 0.0, 'c': 0, 'b': 0.0, 'homing': {'y': True, 'a': True, 'z': True, 'c': False, 'b': True, 'x': True}, 'direction': {'y': 0, 'a': 0, 'z': 0, 'c': 0, 'b': 0, 'x': 0.5}, 'stat': 1, 'x': 360.0}
+
+2016-08-03 20:42:58.009090 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 20:42:58.211019 - smoothie_ser2net:
+	CBFactory.data_received: {"x":359.267,"y":57.194,"stat":2}
+
+
+2016-08-03 20:42:58.219928 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:42:58.220634 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:42:58.227387 - smoothie_ser2net.on_position_data called
+2016-08-03 20:42:58.232841 - smoothie_ser2net.on_state_change called
+2016-08-03 20:42:58.233622 - head.on_state_change called
+2016-08-03 20:42:58.234065 - 
+
+	Head state:
+
+{'y': 57.194, 'delaying': 0, 'a': 0.0, 'z': 0.0, 'c': 0, 'b': 0.0, 'homing': {'y': True, 'a': True, 'z': True, 'c': False, 'b': True, 'x': True}, 'direction': {'y': 0, 'a': 0, 'z': 0, 'c': 0, 'b': 0, 'x': 0.5}, 'stat': 2, 'x': 359.767}
+
+2016-08-03 20:42:58.234630 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 20:42:58.544894 - smoothie_ser2net:
+	CBFactory.data_received: {"x":357.58,"y":73.672}
+
+
+2016-08-03 20:42:58.545540 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:42:58.546015 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:42:58.551632 - smoothie_ser2net.on_position_data called
+2016-08-03 20:42:58.557534 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:42:58.878824 - smoothie_ser2net:
+	CBFactory.data_received: {"x":354.103,"y":90.113}
+
+
+2016-08-03 20:42:58.879654 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:42:58.880091 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:42:58.885839 - smoothie_ser2net.on_position_data called
+2016-08-03 20:42:58.891706 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:42:59.214119 - smoothie_ser2net:
+	CBFactory.data_received: {"x":351.893,"y":106.591,"stat":2}
+
+
+2016-08-03 20:42:59.215196 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:42:59.215693 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:42:59.221548 - smoothie_ser2net.on_position_data called
+2016-08-03 20:42:59.227655 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:42:59.548007 - smoothie_ser2net:
+	CBFactory.data_received: {"x":349.697,"y":123.69}
+
+
+2016-08-03 20:42:59.548836 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:42:59.549345 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:42:59.553066 - smoothie_ser2net.on_position_data called
+2016-08-03 20:42:59.555782 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:42:59.881868 - smoothie_ser2net:
+	CBFactory.data_received: {"x":346.742,"y":139.509}
+
+
+2016-08-03 20:42:59.882902 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:42:59.883364 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:42:59.889097 - smoothie_ser2net.on_position_data called
+2016-08-03 20:42:59.892814 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:00.217209 - smoothie_ser2net:
+	CBFactory.data_received: {"x":344.532,"y":155.987,"stat":2}
+
+
+2016-08-03 20:43:00.218025 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:00.218576 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:00.223155 - smoothie_ser2net.on_position_data called
+2016-08-03 20:43:00.225832 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:00.448996 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 20:43:00.450431 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:00.451331 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:00.460310 - ok... self.already_trying: False
+2016-08-03 20:43:00.550190 - smoothie_ser2net:
+	CBFactory.data_received: {"x":341.590,"y":172.465}
+
+
+2016-08-03 20:43:00.551449 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:00.552208 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:00.561870 - smoothie_ser2net.on_position_data called
+2016-08-03 20:43:00.571811 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:00.884284 - smoothie_ser2net:
+	CBFactory.data_received: {"x":339.381,"y":188.905}
+
+
+2016-08-03 20:43:00.885763 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:00.886472 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:00.893439 - smoothie_ser2net.on_position_data called
+2016-08-03 20:43:00.897585 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:01.220028 - smoothie_ser2net:
+	CBFactory.data_received: {"x":337.171,"y":205.383,"stat":2}
+
+
+2016-08-03 20:43:01.222014 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:01.223626 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:01.230907 - smoothie_ser2net.on_position_data called
+2016-08-03 20:43:01.238667 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:01.553124 - smoothie_ser2net:
+	CBFactory.data_received: {"x":334.229,"y":221.861}
+
+
+2016-08-03 20:43:01.554044 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:01.554498 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:01.560643 - smoothie_ser2net.on_position_data called
+2016-08-03 20:43:01.567981 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:01.886762 - smoothie_ser2net:
+	CBFactory.data_received: {"x":332.20,"y":238.301}
+
+
+2016-08-03 20:43:01.887715 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:01.888180 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:01.893171 - smoothie_ser2net.on_position_data called
+2016-08-03 20:43:01.896101 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:02.221998 - smoothie_ser2net:
+	CBFactory.data_received: {"x":329.810,"y":254.792,"stat":2}
+
+
+2016-08-03 20:43:02.222848 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:02.223356 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:02.225917 - smoothie_ser2net.on_position_data called
+2016-08-03 20:43:02.228605 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:02.554745 - smoothie_ser2net:
+	CBFactory.data_received: {"x":326.868,"y":271.257}
+
+
+2016-08-03 20:43:02.555608 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:02.556120 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:02.561794 - smoothie_ser2net.on_position_data called
+2016-08-03 20:43:02.567626 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:02.888607 - smoothie_ser2net:
+	CBFactory.data_received: {"x":324.659,"y":287.698}
+
+
+2016-08-03 20:43:02.889405 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:02.889927 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:02.895658 - smoothie_ser2net.on_position_data called
+2016-08-03 20:43:02.901436 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:03.223631 - smoothie_ser2net:
+	CBFactory.data_received: {"x":322.449,"y":304.188,"stat":2}
+
+
+2016-08-03 20:43:03.238804 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:03.239344 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:03.245307 - smoothie_ser2net.on_position_data called
+2016-08-03 20:43:03.251389 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:03.557567 - smoothie_ser2net:
+	CBFactory.data_received: {"x":320.239,"y":319.672}
+
+
+2016-08-03 20:43:03.558623 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:03.559078 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:03.563144 - smoothie_ser2net.on_position_data called
+2016-08-03 20:43:03.565952 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:03.604113 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 20:43:03.604885 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:03.605394 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:03.610731 - smoothie_ser2net.on_state_change called
+2016-08-03 20:43:03.611565 - head.on_state_change called
+2016-08-03 20:43:03.612002 - the_queue.step called
+2016-08-03 20:43:03.612478 - publisher.on_finish called
+2016-08-03 20:43:03.617885 - instruction_queue.ins_step called,
+len(self.instructionArray): 0
+
+2016-08-03 20:43:03.618737 - 
+
+	Head state:
+
+{'y': 319.672, 'delaying': 0, 'a': 0.0, 'z': 0.0, 'c': 0, 'b': 0.0, 'homing': {'y': True, 'a': True, 'z': True, 'c': False, 'b': True, 'x': True}, 'direction': {'y': 0, 'a': 0, 'z': 0, 'c': 0, 'b': 0, 'x': 0.5}, 'stat': 0, 'x': 320.739}
+
+2016-08-03 20:43:03.619642 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 20:43:03.892931 - smoothie_ser2net:
+	CBFactory.data_received: {"x":319.494,"y":320.0}
+
+
+2016-08-03 20:43:03.893849 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:03.894264 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:03.899773 - smoothie_ser2net.on_position_data called
+2016-08-03 20:43:03.905776 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:04.226861 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 20:43:04.227824 - smoothie_ser2net.smoothie_handler called
+2016-08-03 20:43:04.228252 - smoothie_ser2net.on_raw_data called
+2016-08-03 20:43:04.233909 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 20:43:05.360211 - subscriber.dispatch_message called
+2016-08-03 20:43:05.361512 - 
+message: {"type":"step","data":{"x":-10}}
+
+2016-08-03 20:43:05.363608 - 	dictum[type]: step
+2016-08-03 20:43:05.365209 - 	dictum[data]:
+
+{
+    "x": -10
+}
+
+2016-08-03 20:43:05.366115 - subscriber.dispatch called
+2016-08-03 20:43:05.366759 - 
+
+	type_: step
+	data:OrderedDict([('x', -10)])
+
+2016-08-03 20:43:05.367851 - head.step called
+2016-08-03 20:43:05.368495 - 	locations:
+
+OrderedDict([('x', -10)])
+
+2016-08-03 20:43:05.369390 - head:
+	len(self.theQueue.qlist): 0
+
+2016-08-03 20:43:05.370084 - head:
+	self.theQueue.is_busy?: False
+
+2016-08-03 20:43:05.370755 - head.move called!!!
+2016-08-03 20:43:05.371514 - head.move locations found
+2016-08-03 20:43:05.372092 - head.get_state called
+2016-08-03 20:43:05.372934 - smoothie_ser2net.get_state called
+2016-08-03 20:43:05.373692 - state
+{'z': 0.0, 'y': 320.0, 'b': 0.0, 'a': 0.0, 'x': 319.994}
+2016-08-03 20:43:05.374692 - Error in move
+KeyError (0,)
+2016-08-03 21:06:41.432503 - starting up
+2016-08-03 21:06:41.522447 - subscriber.__init__ called
+2016-08-03 21:06:41.523189 - publisher.__init__ called
+2016-08-03 21:06:41.523661 - trying to make a connection...
+2016-08-03 21:06:41.558754 - error while trying to make a connection, sleeping for 5 seconds
+2016-08-03 21:06:46.564577 - trying to make a connection...
+2016-08-03 21:07:00.062845 - error while trying to make a connection, sleeping for 5 seconds
+2016-08-03 21:07:05.064448 - trying to make a connection...
+2016-08-03 21:07:05.070990 - error while trying to make a connection, sleeping for 5 seconds
+2016-08-03 21:07:10.076773 - trying to make a connection...
+2016-08-03 21:07:10.105654 - otone_client : WampComponent.onJoin called
+2016-08-03 21:07:10.106349 - instantiate_objects called
+2016-08-03 21:07:10.111024 - head.__init__ called
+2016-08-03 21:07:10.111698 - pipette.__init__ called
+2016-08-03 21:07:10.112159 - tool.__init__ called
+2016-08-03 21:07:10.112606 - pipette.__init__ called
+2016-08-03 21:07:10.113002 - tool.__init__ called
+2016-08-03 21:07:10.113406 - smoothie_ser2net.set_raw_callback called
+2016-08-03 21:07:10.113783 - smoothie_ser2net.set_position_callback called
+2016-08-03 21:07:10.114154 - smoothie_ser2net.set_limit_hit_callback called
+2016-08-03 21:07:10.114709 - smoothie_ser2net.set_move_callback called
+2016-08-03 21:07:10.115141 - the_queue.__init__ called
+2016-08-03 21:07:10.115622 - smoothie_ser2net.connect called
+2016-08-03 21:07:10.116046 - smoothie_ser2net:
+	CB_Factory.__init__ called
+2016-08-03 21:07:10.116816 - head.load_pipette_values called
+2016-08-03 21:07:10.133736 - old_values:
+OrderedDict([('a', OrderedDict([('axis', 'a'), ('blowout', 28.6), ('bottom', 25.9), ('bottom_distance', 2), ('droptip', 30.5), ('offset', [0, 0, 0]), ('resting', 0), ('theContainers', OrderedDict([('p10-rack', OrderedDict([('rel_x', 66.30099999999999), ('rel_y', 268.047), ('rel_z', -4.998000000000005), ('x', 208.99699999999999), ('y', 378.97400000000005), ('z', 88.99199999999999)])), ('p200-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 142.696), ('y', 110.927), ('z', 93.49)])), ('plate', OrderedDict([('rel_x', -94.217), ('rel_y', 132.503), ('rel_z', 10.009), ('x', 48.479), ('y', 243.43), ('z', 103.999)])), ('source', OrderedDict([('rel_x', 92.47999999999999), ('rel_y', 131.55), ('rel_z', -44.49999999999999), ('x', 235.176), ('y', 242.477), ('z', 49.49)])), ('trash', OrderedDict([('rel_x', -53.70500000000001), ('rel_y', -60.946999999999996), ('rel_z', -93.498), ('x', 88.99099999999999), ('y', 49.98000000000001), ('z', 0.4919999999999902)]))])), ('tip_rack_origin', 'p200-rack'), ('tip_racks', [OrderedDict([('container', 'p200-rack')])]), ('toolname', 'a_pipette'), ('tooltype', 'pipette'), ('top', 9.8), ('trash_container', OrderedDict([('container', 'trash')])), ('volume', 200)])), ('b', OrderedDict([('axis', 'b'), ('blowout', 19.0), ('bottom', 16.9), ('bottom_distance', 2), ('droptip', 21.0), ('offset', [0, 0, 0]), ('resting', 0), ('theContainers', OrderedDict([('p10-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])), ('p200-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])), ('plate', OrderedDict([('rel_x', -92.01300000000002), ('rel_y', -138.378), ('rel_z', 29.498999999999995), ('x', 116.484), ('y', 241.103), ('z', 114.996)])), ('source', OrderedDict([('rel_x', 94.69200000000001), ('rel_y', -138.516), ('rel_z', -25.008000000000003), ('x', 303.189), ('y', 240.965), ('z', 60.489)])), ('trash', OrderedDict([('rel_x', -60.202), ('rel_y', -328.60400000000004), ('rel_z', -88.999), ('x', 148.29500000000002), ('y', 50.87699999999995), ('z', -3.5019999999999953)]))])), ('tip_rack_origin', 'p10-rack'), ('tip_racks', [OrderedDict([('container', 'p10-rack')])]), ('toolname', 'b_pipette'), ('tooltype', 'pipette'), ('top', 0.5), ('trash_container', OrderedDict([('container', 'trash')])), ('volume', 10)]))])
+
+2016-08-03 21:07:10.137621 - self.PIPETTES[b]:
+
+'b_pipette'
+
+2016-08-03 21:07:12.144045 - head string: Head
+2016-08-03 21:07:12.145827 - head representation: Head(KeysView(OrderedDict([('p200', OrderedDict([('tool', 'pipette'), ('tip-racks', [OrderedDict([('container', 'p200-rack')])]), ('trash-container', OrderedDict([('container', 'trash')])), ('tip-depth', 5), ('tip-height', 45), ('tip-total', 8), ('axis', 'a'), ('volume', 160)])), ('p1000', OrderedDict([('tool', 'pipette'), ('tip-racks', [OrderedDict([('container', 'p1000-rack')])]), ('trash-container', OrderedDict([('container', 'trash')])), ('tip-depth', 7), ('tip-height', 65), ('tip-total', 8), ('axis', 'b'), ('volume', 800)]))])))
+2016-08-03 21:07:12.146402 - Head configured!
+2016-08-03 21:07:12.146909 - deck.__init__ called
+2016-08-03 21:07:12.147554 - deck string: Deck
+2016-08-03 21:07:12.148005 - deck representation: Deck(KeysView(OrderedDict()))
+2016-08-03 21:07:12.148350 - protocol_runner.__init__ called
+2016-08-03 21:07:12.148702 - instruction_queue.__init__ called
+2016-08-03 21:07:12.149340 - deck.configure_deck called
+2016-08-03 21:07:12.149761 - deck_module.__init__ called
+2016-08-03 21:07:12.150217 - deck_module.__init__ called
+2016-08-03 21:07:12.150623 - deck_module.__init__ called
+2016-08-03 21:07:12.150960 - deck_module.__init__ called
+2016-08-03 21:07:12.151279 - deck_module.__init__ called
+2016-08-03 21:07:12.151673 - deck_module.__init__ called
+2016-08-03 21:07:12.152017 - deck_module.__init__ called
+2016-08-03 21:07:12.152328 - Deck configured!
+2016-08-03 21:07:12.152637 - ingredients.__init__ called
+2016-08-03 21:07:12.152983 - ingredients.configure_ingredients called
+2016-08-03 21:07:12.153366 - Ingredients imported!
+2016-08-03 21:07:12.153665 - this is a test
+2016-08-03 21:07:12.153963 - publisher.set_head called
+2016-08-03 21:07:12.154285 - publisher.set_runner called
+2016-08-03 21:07:12.154941 - subscriber.set_head called
+2016-08-03 21:07:12.155403 - subscriber.set_runner called
+2016-08-03 21:07:12.156124 - about to publish com.opentrons.robot_ready TRUE
+2016-08-03 21:07:12.170871 - smoothie_ser2net:
+	CB_Factory.connection_made called
+2016-08-03 21:07:12.172099 - smoothie_ser2net:
+	CBFactory.data_received: Smoothie
+ok
+
+
+2016-08-03 21:07:12.172731 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:12.173246 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:12.175448 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:12.176040 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:12.177970 - ok... self.already_trying: False
+2016-08-03 21:07:14.187353 - smoothie_ser2net.on_success_connecting called
+2016-08-03 21:07:14.188934 - smoothie_ser2net.send called
+2016-08-03 21:07:14.190024 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:14.198525 - smoothie_ser2net.home called
+2016-08-03 21:07:14.199785 - smoothie_ser2net.halt called
+2016-08-03 21:07:14.200646 - smoothie_ser2net.try_add called
+2016-08-03 21:07:14.202367 - smoothie_ser2net.try_step called
+2016-08-03 21:07:14.203403 - self.already_trying: False
+2016-08-03 21:07:14.204270 - self.theState['stat']: 1
+2016-08-03 21:07:14.205295 - self.theState['delaying']: 0
+2016-08-03 21:07:14.206416 - smoothie_ser2net.try_add called
+2016-08-03 21:07:14.207286 - smoothie_ser2net.try_step called
+2016-08-03 21:07:14.208005 - self.already_trying: False
+2016-08-03 21:07:14.208762 - self.theState['stat']: 1
+2016-08-03 21:07:14.209531 - self.theState['delaying']: 0
+2016-08-03 21:07:14.210371 - smoothie_ser2net.send called
+2016-08-03 21:07:14.211149 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:14.215713 - smoothie_ser2net.try_add called
+2016-08-03 21:07:14.217288 - smoothie_ser2net.try_step called
+2016-08-03 21:07:14.218146 - self.already_trying: False
+2016-08-03 21:07:14.218841 - self.theState['stat']: 1
+2016-08-03 21:07:14.219479 - self.theState['delaying']: 0
+2016-08-03 21:07:14.220195 - smoothie_ser2net.try_add called
+2016-08-03 21:07:14.220896 - smoothie_ser2net.try_step called
+2016-08-03 21:07:14.221543 - self.already_trying: False
+2016-08-03 21:07:14.222159 - self.theState['stat']: 1
+2016-08-03 21:07:14.222771 - self.theState['delaying']: 0
+2016-08-03 21:07:14.223514 - smoothie_ser2net.try_add called
+2016-08-03 21:07:14.224217 - smoothie_ser2net.try_step called
+2016-08-03 21:07:14.225178 - self.already_trying: False
+2016-08-03 21:07:14.225940 - self.theState['stat']: 1
+2016-08-03 21:07:14.226634 - self.theState['delaying']: 0
+2016-08-03 21:07:14.272583 - smoothie_ser2net.on_connect called
+2016-08-03 21:07:14.274948 - smoothie_ser2net:
+	CBFactory.data_received: feedback engaged
+ok
+ok
+
+
+2016-08-03 21:07:14.275790 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:14.276337 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:14.280826 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:14.281572 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:14.284696 - ok... self.already_trying: False
+2016-08-03 21:07:14.287744 - ok... self.already_trying: False
+2016-08-03 21:07:14.537984 - smoothie_ser2net:
+	CBFactory.data_received: {"x":0.0,"y":0.0,"z":0.0,"a":0.0,"b":0.0,"c":0.0}
+
+
+2016-08-03 21:07:14.538950 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:14.539401 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:15.204465 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:07:15.205321 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:15.205821 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:15.209808 - smoothie_ser2net.try_step called
+2016-08-03 21:07:15.210475 - self.already_trying: False
+2016-08-03 21:07:15.210911 - self.theState['stat']: 0
+2016-08-03 21:07:15.211275 - self.theState['delaying']: 0
+2016-08-03 21:07:15.211641 - smoothie_ser2net.send called
+2016-08-03 21:07:15.211982 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:15.215927 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:07:15.223430 - smoothie_ser2net:
+	CBFactory.data_received: ok Emergency Stop Requested - reset or M999 required to continue
+
+
+2016-08-03 21:07:15.224097 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:15.224645 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:15.228190 - ok... self.already_trying: False
+2016-08-03 21:07:16.205400 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:07:16.206313 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:16.206855 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:16.210810 - smoothie_ser2net.try_step called
+2016-08-03 21:07:16.211582 - self.already_trying: False
+2016-08-03 21:07:16.212071 - self.theState['stat']: 0
+2016-08-03 21:07:16.212431 - self.theState['delaying']: 0
+2016-08-03 21:07:16.212772 - smoothie_ser2net.send called
+2016-08-03 21:07:16.213102 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:16.216991 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:16.218602 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 21:07:16.219252 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:16.219667 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:16.223150 - ok... self.already_trying: False
+2016-08-03 21:07:17.204093 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:07:17.205129 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:17.205586 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:17.209245 - smoothie_ser2net.try_step called
+2016-08-03 21:07:17.209855 - self.already_trying: False
+2016-08-03 21:07:17.210255 - self.theState['stat']: 0
+2016-08-03 21:07:17.210597 - self.theState['delaying']: 0
+2016-08-03 21:07:17.210937 - smoothie_ser2net.send called
+2016-08-03 21:07:17.211254 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:17.214942 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:17.540491 - smoothie_ser2net:
+	CBFactory.data_received: {"z":0.0,"a":0.4294966476,"b":0.4294966476}
+
+
+2016-08-03 21:07:17.541266 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:17.541686 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:18.212247 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-5.4294967266,"a":-5.4294967273,"b":-5.4294967193,"stat":4}
+
+2016-08-03 21:07:18.213102 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:18.213775 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:18.218856 - json.loads(msg) error:
+
+msg is...
+
+{"z":-5.4294967266,"a":-5.4294967273,"b":-5.4294967193,"stat":4
+
+
+original message was...
+
+b'{"z":-5.4294967266,"a":-5.4294967273,"b":-5.4294967193,"stat":4}'
+
+2016-08-03 21:07:18.223368 - smoothie_ser2net:
+	CBFactory.data_received: 
+
+
+2016-08-03 21:07:18.224676 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:18.225413 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:18.231006 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:18.236307 - smoothie_ser2net.try_step called
+2016-08-03 21:07:18.238959 - self.already_trying: False
+2016-08-03 21:07:18.239514 - self.theState['stat']: 4
+2016-08-03 21:07:18.239959 - self.theState['delaying']: 0
+2016-08-03 21:07:18.240373 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:07:18.549759 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-4.4294966335,"a":-4.4294966850,"b":-4.4294966770}
+
+
+2016-08-03 21:07:18.550552 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:18.550983 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:18.554939 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:18.557503 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:18.886412 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-4.4294967010,"a":-3.4294966479,"b":-3.4294966400}
+
+
+2016-08-03 21:07:18.887413 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:18.888000 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:18.890833 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:18.893757 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:19.225341 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-3.4294966681,"a":-3.4294967110,"b":-3.4294967030,"stat":4}
+
+
+2016-08-03 21:07:19.226232 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:19.226680 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:19.231240 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:19.234695 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:19.565412 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-2.4294966354,"a":-2.4294966741,"b":-2.4294966662}
+
+
+2016-08-03 21:07:19.566221 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:19.566664 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:19.570594 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:19.574591 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:19.899307 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-2.4294967027,"a":-1.4294966371,"b":-2.4294967291}
+
+
+2016-08-03 21:07:19.900118 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:19.900573 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:19.904618 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:19.908491 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:20.237063 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-1.4294966699,"a":-1.4294967002,"b":-1.4294966923,"stat":4}
+
+
+2016-08-03 21:07:20.237880 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:20.238330 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:20.242273 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:20.246227 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:20.574762 - smoothie_ser2net:
+	CBFactory.data_received: {"z":0.4294966372,"a":0.4294966634,"b":0.4294966555}
+
+
+2016-08-03 21:07:20.575545 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:20.575973 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:20.579948 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:20.584013 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:20.911528 - smoothie_ser2net:
+	CBFactory.data_received: {"z":0.4294967265,"a":0.4294967260,"b":0.4294967180}
+
+
+2016-08-03 21:07:20.912835 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:20.913408 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:20.916884 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:20.919900 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:21.250207 - smoothie_ser2net:
+	CBFactory.data_received: {"z":0.4294967263,"a":0.4294966739,"b":0.4294966660,"stat":4}
+
+
+2016-08-03 21:07:21.251170 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:21.251621 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:21.256464 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:21.260871 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:21.586710 - smoothie_ser2net:
+	CBFactory.data_received: {"z":0.4294966599,"a":-1.4294967108,"b":-1.4294967029}
+
+
+2016-08-03 21:07:21.587745 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:21.588229 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:21.592713 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:21.597268 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:21.923085 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-1.4294966927,"a":-1.4294966479,"b":-1.4294966400}
+
+
+2016-08-03 21:07:21.923985 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:21.924606 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:21.929098 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:21.933577 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:22.262094 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-2.4294967255,"a":-2.4294966848,"b":-2.4294966769,"stat":4}
+
+
+2016-08-03 21:07:22.263181 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:22.263885 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:22.268833 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:22.273246 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:22.599712 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-2.4294966582,"a":-3.4294967216,"b":-3.4294967137}
+
+
+2016-08-03 21:07:22.600678 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:22.601159 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:22.605736 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:22.610129 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:22.938615 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-3.4294966908,"a":-3.4294966586,"b":-3.4294966507}
+
+
+2016-08-03 21:07:22.939856 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:22.940478 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:22.946690 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:22.952587 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:23.274623 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-4.4294967237,"a":-4.4294966956,"b":-4.4294966876,"stat":4}
+
+
+2016-08-03 21:07:23.276160 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:23.277093 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:23.282290 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:23.287010 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:23.312025 - otone_client : WampComponent.set_client_status called
+2016-08-03 21:07:23.400235 - subscriber.dispatch_message called
+2016-08-03 21:07:23.400995 - 
+message: {"type":"getContainers"}
+
+2016-08-03 21:07:23.402267 - 	dictum[type]: getContainers
+2016-08-03 21:07:23.402768 - subscriber.dispatch called
+2016-08-03 21:07:23.403148 - 
+
+	type_: getContainers
+	data:None
+
+2016-08-03 21:07:23.403541 - deck.publish_containers called
+2016-08-03 21:07:23.403882 - deck.get_containers called
+2016-08-03 21:07:24.494174 - subscriber.dispatch_message called
+2016-08-03 21:07:24.495356 - 
+message: {"type":"getCalibrations"}
+
+2016-08-03 21:07:24.496660 - 	dictum[type]: getCalibrations
+2016-08-03 21:07:24.497465 - subscriber.dispatch called
+2016-08-03 21:07:24.498142 - 
+
+	type_: getCalibrations
+	data:None
+
+2016-08-03 21:07:24.498768 - subscriber.get_calibrations called
+2016-08-03 21:07:24.499244 - head.publish_calibrations called
+2016-08-03 21:07:24.499689 - head.get_deck called
+2016-08-03 21:07:24.500168 - self.PIPETTES[a].theContainers:
+
+OrderedDict([('p10-rack', OrderedDict([('rel_x', 66.30099999999999), ('rel_y', 268.047), ('rel_z', -4.998000000000005), ('x', 208.99699999999999), ('y', 378.97400000000005), ('z', 88.99199999999999)])), ('p200-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 142.696), ('y', 110.927), ('z', 93.49)])), ('plate', OrderedDict([('rel_x', -94.217), ('rel_y', 132.503), ('rel_z', 10.009), ('x', 48.479), ('y', 243.43), ('z', 103.999)])), ('source', OrderedDict([('rel_x', 92.47999999999999), ('rel_y', 131.55), ('rel_z', -44.49999999999999), ('x', 235.176), ('y', 242.477), ('z', 49.49)])), ('trash', OrderedDict([('rel_x', -53.70500000000001), ('rel_y', -60.946999999999996), ('rel_z', -93.498), ('x', 88.99099999999999), ('y', 49.98000000000001), ('z', 0.4919999999999902)]))])
+2016-08-03 21:07:24.502249 - self.PIPETTES[a].theContainers[p10-rack]:
+
+OrderedDict([('rel_x', 66.30099999999999), ('rel_y', 268.047), ('rel_z', -4.998000000000005), ('x', 208.99699999999999), ('y', 378.97400000000005), ('z', 88.99199999999999)])
+2016-08-03 21:07:24.503443 - self.PIPETTES[a].theContainers[p200-rack]:
+
+OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 142.696), ('y', 110.927), ('z', 93.49)])
+2016-08-03 21:07:24.504265 - self.PIPETTES[a].theContainers[plate]:
+
+OrderedDict([('rel_x', -94.217), ('rel_y', 132.503), ('rel_z', 10.009), ('x', 48.479), ('y', 243.43), ('z', 103.999)])
+2016-08-03 21:07:24.505039 - self.PIPETTES[a].theContainers[source]:
+
+OrderedDict([('rel_x', 92.47999999999999), ('rel_y', 131.55), ('rel_z', -44.49999999999999), ('x', 235.176), ('y', 242.477), ('z', 49.49)])
+2016-08-03 21:07:24.505655 - self.PIPETTES[a].theContainers[trash]:
+
+OrderedDict([('rel_x', -53.70500000000001), ('rel_y', -60.946999999999996), ('rel_z', -93.498), ('x', 88.99099999999999), ('y', 49.98000000000001), ('z', 0.4919999999999902)])
+2016-08-03 21:07:24.506256 - self.PIPETTES[b].theContainers:
+
+OrderedDict([('p10-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])), ('p200-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])), ('plate', OrderedDict([('rel_x', -92.01300000000002), ('rel_y', -138.378), ('rel_z', 29.498999999999995), ('x', 116.484), ('y', 241.103), ('z', 114.996)])), ('source', OrderedDict([('rel_x', 94.69200000000001), ('rel_y', -138.516), ('rel_z', -25.008000000000003), ('x', 303.189), ('y', 240.965), ('z', 60.489)])), ('trash', OrderedDict([('rel_x', -60.202), ('rel_y', -328.60400000000004), ('rel_z', -88.999), ('x', 148.29500000000002), ('y', 50.87699999999995), ('z', -3.5019999999999953)]))])
+2016-08-03 21:07:24.507611 - self.PIPETTES[b].theContainers[p10-rack]:
+
+OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])
+2016-08-03 21:07:24.508164 - self.PIPETTES[b].theContainers[p200-rack]:
+
+OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])
+2016-08-03 21:07:24.508697 - self.PIPETTES[b].theContainers[plate]:
+
+OrderedDict([('rel_x', -92.01300000000002), ('rel_y', -138.378), ('rel_z', 29.498999999999995), ('x', 116.484), ('y', 241.103), ('z', 114.996)])
+2016-08-03 21:07:24.509238 - self.PIPETTES[b].theContainers[source]:
+
+OrderedDict([('rel_x', 94.69200000000001), ('rel_y', -138.516), ('rel_z', -25.008000000000003), ('x', 303.189), ('y', 240.965), ('z', 60.489)])
+2016-08-03 21:07:24.509941 - self.PIPETTES[b].theContainers[trash]:
+
+OrderedDict([('rel_x', -60.202), ('rel_y', -328.60400000000004), ('rel_z', -88.999), ('x', 148.29500000000002), ('y', 50.87699999999995), ('z', -3.5019999999999953)])
+2016-08-03 21:07:24.510617 - head.save_pipette_values called
+2016-08-03 21:07:24.516894 - filetext: {
+    "a": {
+        "axis": "a",
+        "blowout": 28.6,
+        "bottom": 25.9,
+        "bottom_distance": 2,
+        "droptip": 30.5,
+        "offset": [
+            0,
+            0,
+            0
+        ],
+        "resting": 0,
+        "theContainers": {
+            "p10-rack": {
+                "rel_x": 66.30099999999999,
+                "rel_y": 268.047,
+                "rel_z": -4.998000000000005,
+                "x": 208.99699999999999,
+                "y": 378.97400000000005,
+                "z": 88.99199999999999
+            },
+            "p200-rack": {
+                "rel_x": 0.0,
+                "rel_y": 0.0,
+                "rel_z": 0.0,
+                "x": 142.696,
+                "y": 110.927,
+                "z": 93.49
+            },
+            "plate": {
+                "rel_x": -94.217,
+                "rel_y": 132.503,
+                "rel_z": 10.009,
+                "x": 48.479,
+                "y": 243.43,
+                "z": 103.999
+            },
+            "source": {
+                "rel_x": 92.47999999999999,
+                "rel_y": 131.55,
+                "rel_z": -44.49999999999999,
+                "x": 235.176,
+                "y": 242.477,
+                "z": 49.49
+            },
+            "trash": {
+                "rel_x": -53.70500000000001,
+                "rel_y": -60.946999999999996,
+                "rel_z": -93.498,
+                "x": 88.99099999999999,
+                "y": 49.98000000000001,
+                "z": 0.4919999999999902
+            }
+        },
+        "tip_rack_origin": "p200-rack",
+        "tip_racks": [
+            {
+                "container": "p200-rack"
+            }
+        ],
+        "toolname": "a_pipette",
+        "tooltype": "pipette",
+        "top": 9.8,
+        "trash_container": {
+            "container": "trash"
+        },
+        "volume": 200
+    },
+    "b": {
+        "axis": "b",
+        "blowout": 19.0,
+        "bottom": 16.9,
+        "bottom_distance": 2,
+        "droptip": 21.0,
+        "offset": [
+            0,
+            0,
+            0
+        ],
+        "resting": 0,
+        "theContainers": {
+            "p10-rack": {
+                "rel_x": 0.0,
+                "rel_y": 0.0,
+                "rel_z": 0.0,
+                "x": 208.497,
+                "y": 379.481,
+                "z": 85.497
+            },
+            "p200-rack": {
+                "rel_x": 0.0,
+                "rel_y": 0.0,
+                "rel_z": 0.0,
+                "x": 208.497,
+                "y": 379.481,
+                "z": 85.497
+            },
+            "plate": {
+                "rel_x": -92.01300000000002,
+                "rel_y": -138.378,
+                "rel_z": 29.498999999999995,
+                "x": 116.484,
+                "y": 241.103,
+                "z": 114.996
+            },
+            "source": {
+                "rel_x": 94.69200000000001,
+                "rel_y": -138.516,
+                "rel_z": -25.008000000000003,
+                "x": 303.189,
+                "y": 240.965,
+                "z": 60.489
+            },
+            "trash": {
+                "rel_x": -60.202,
+                "rel_y": -328.60400000000004,
+                "rel_z": -88.999,
+                "x": 148.29500000000002,
+                "y": 50.87699999999995,
+                "z": -3.5019999999999953
+            }
+        },
+        "tip_rack_origin": "p10-rack",
+        "tip_racks": [
+            {
+                "container": "p10-rack"
+            }
+        ],
+        "toolname": "b_pipette",
+        "tooltype": "pipette",
+        "top": 0.5,
+        "trash_container": {
+            "container": "trash"
+        },
+        "volume": 10
+    }
+}
+2016-08-03 21:07:24.517736 - file_io.writeFile called, filetext: {
+    "a": {
+        "axis": "a",
+        "blowout": 28.6,
+        "bottom": 25.9,
+        "bottom_distance": 2,
+        "droptip": 30.5,
+        "offset": [
+            0,
+            0,
+            0
+        ],
+        "resting": 0,
+        "theContainers": {
+            "p10-rack": {
+                "rel_x": 66.30099999999999,
+                "rel_y": 268.047,
+                "rel_z": -4.998000000000005,
+                "x": 208.99699999999999,
+                "y": 378.97400000000005,
+                "z": 88.99199999999999
+            },
+            "p200-rack": {
+                "rel_x": 0.0,
+                "rel_y": 0.0,
+                "rel_z": 0.0,
+                "x": 142.696,
+                "y": 110.927,
+                "z": 93.49
+            },
+            "plate": {
+                "rel_x": -94.217,
+                "rel_y": 132.503,
+                "rel_z": 10.009,
+                "x": 48.479,
+                "y": 243.43,
+                "z": 103.999
+            },
+            "source": {
+                "rel_x": 92.47999999999999,
+                "rel_y": 131.55,
+                "rel_z": -44.49999999999999,
+                "x": 235.176,
+                "y": 242.477,
+                "z": 49.49
+            },
+            "trash": {
+                "rel_x": -53.70500000000001,
+                "rel_y": -60.946999999999996,
+                "rel_z": -93.498,
+                "x": 88.99099999999999,
+                "y": 49.98000000000001,
+                "z": 0.4919999999999902
+            }
+        },
+        "tip_rack_origin": "p200-rack",
+        "tip_racks": [
+            {
+                "container": "p200-rack"
+            }
+        ],
+        "toolname": "a_pipette",
+        "tooltype": "pipette",
+        "top": 9.8,
+        "trash_container": {
+            "container": "trash"
+        },
+        "volume": 200
+    },
+    "b": {
+        "axis": "b",
+        "blowout": 19.0,
+        "bottom": 16.9,
+        "bottom_distance": 2,
+        "droptip": 21.0,
+        "offset": [
+            0,
+            0,
+            0
+        ],
+        "resting": 0,
+        "theContainers": {
+            "p10-rack": {
+                "rel_x": 0.0,
+                "rel_y": 0.0,
+                "rel_z": 0.0,
+                "x": 208.497,
+                "y": 379.481,
+                "z": 85.497
+            },
+            "p200-rack": {
+                "rel_x": 0.0,
+                "rel_y": 0.0,
+                "rel_z": 0.0,
+                "x": 208.497,
+                "y": 379.481,
+                "z": 85.497
+            },
+            "plate": {
+                "rel_x": -92.01300000000002,
+                "rel_y": -138.378,
+                "rel_z": 29.498999999999995,
+                "x": 116.484,
+                "y": 241.103,
+                "z": 114.996
+            },
+            "source": {
+                "rel_x": 94.69200000000001,
+                "rel_y": -138.516,
+                "rel_z": -25.008000000000003,
+                "x": 303.189,
+                "y": 240.965,
+                "z": 60.489
+            },
+            "trash": {
+                "rel_x": -60.202,
+                "rel_y": -328.60400000000004,
+                "rel_z": -88.999,
+                "x": 148.29500000000002,
+                "y": 50.87699999999995,
+                "z": -3.5019999999999953
+            }
+        },
+        "tip_rack_origin": "p10-rack",
+        "tip_racks": [
+            {
+                "container": "p10-rack"
+            }
+        ],
+        "toolname": "b_pipette",
+        "tooltype": "pipette",
+        "top": 0.5,
+        "trash_container": {
+            "container": "trash"
+        },
+        "volume": 10
+    }
+}
+2016-08-03 21:07:24.519145 - head.get_deck response:
+
+{'a': {'plate': OrderedDict([('rel_x', -94.217), ('rel_y', 132.503), ('rel_z', 10.009), ('x', 48.479), ('y', 243.43), ('z', 103.999)]), 'p10-rack': OrderedDict([('rel_x', 66.30099999999999), ('rel_y', 268.047), ('rel_z', -4.998000000000005), ('x', 208.99699999999999), ('y', 378.97400000000005), ('z', 88.99199999999999)]), 'p200-rack': OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 142.696), ('y', 110.927), ('z', 93.49)]), 'source': OrderedDict([('rel_x', 92.47999999999999), ('rel_y', 131.55), ('rel_z', -44.49999999999999), ('x', 235.176), ('y', 242.477), ('z', 49.49)]), 'trash': OrderedDict([('rel_x', -53.70500000000001), ('rel_y', -60.946999999999996), ('rel_z', -93.498), ('x', 88.99099999999999), ('y', 49.98000000000001), ('z', 0.4919999999999902)])}, 'b': {'plate': OrderedDict([('rel_x', -92.01300000000002), ('rel_y', -138.378), ('rel_z', 29.498999999999995), ('x', 116.484), ('y', 241.103), ('z', 114.996)]), 'p10-rack': OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)]), 'p200-rack': OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)]), 'source': OrderedDict([('rel_x', 94.69200000000001), ('rel_y', -138.516), ('rel_z', -25.008000000000003), ('x', 303.189), ('y', 240.965), ('z', 60.489)]), 'trash': OrderedDict([('rel_x', -60.202), ('rel_y', -328.60400000000004), ('rel_z', -88.999), ('x', 148.29500000000002), ('y', 50.87699999999995), ('z', -3.5019999999999953)])}}
+2016-08-03 21:07:24.529231 - head.get_pipettes called
+2016-08-03 21:07:24.530155 - head.get_pipettes response:
+
+{'a': {'tooltype': 'pipette', 'bottom': 25.9, 'offset': [0, 0, 0], 'resting': 0, 'theContainers': OrderedDict([('p10-rack', OrderedDict([('rel_x', 66.30099999999999), ('rel_y', 268.047), ('rel_z', -4.998000000000005), ('x', 208.99699999999999), ('y', 378.97400000000005), ('z', 88.99199999999999)])), ('p200-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 142.696), ('y', 110.927), ('z', 93.49)])), ('plate', OrderedDict([('rel_x', -94.217), ('rel_y', 132.503), ('rel_z', 10.009), ('x', 48.479), ('y', 243.43), ('z', 103.999)])), ('source', OrderedDict([('rel_x', 92.47999999999999), ('rel_y', 131.55), ('rel_z', -44.49999999999999), ('x', 235.176), ('y', 242.477), ('z', 49.49)])), ('trash', OrderedDict([('rel_x', -53.70500000000001), ('rel_y', -60.946999999999996), ('rel_z', -93.498), ('x', 88.99099999999999), ('y', 49.98000000000001), ('z', 0.4919999999999902)]))]), 'top': 9.8, 'volume': 200, 'axis': 'a', 'tip_rack_origin': 'p200-rack', 'droptip': 30.5, 'bottom_distance': 2, 'toolname': 'a_pipette', 'trash_container': OrderedDict([('container', 'trash')]), 'blowout': 28.6, 'tip_racks': [OrderedDict([('container', 'p200-rack')])]}, 'b': {'tooltype': 'pipette', 'bottom': 16.9, 'offset': [0, 0, 0], 'resting': 0, 'theContainers': OrderedDict([('p10-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])), ('p200-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])), ('plate', OrderedDict([('rel_x', -92.01300000000002), ('rel_y', -138.378), ('rel_z', 29.498999999999995), ('x', 116.484), ('y', 241.103), ('z', 114.996)])), ('source', OrderedDict([('rel_x', 94.69200000000001), ('rel_y', -138.516), ('rel_z', -25.008000000000003), ('x', 303.189), ('y', 240.965), ('z', 60.489)])), ('trash', OrderedDict([('rel_x', -60.202), ('rel_y', -328.60400000000004), ('rel_z', -88.999), ('x', 148.29500000000002), ('y', 50.87699999999995), ('z', -3.5019999999999953)]))]), 'top': 0.5, 'volume': 10, 'axis': 'b', 'tip_rack_origin': 'p10-rack', 'droptip': 21.0, 'bottom_distance': 2, 'toolname': 'b_pipette', 'trash_container': OrderedDict([('container', 'trash')]), 'blowout': 19.0, 'tip_racks': [OrderedDict([('container', 'p10-rack')])]}}
+2016-08-03 21:07:24.545167 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-4.4294966565,"a":-4.4294966324}
+{"x":0.0,"y":0.0,"z":0.4294967264,"a":-5.0,"b":-5.0,"c":0.0}
+{"z":0.0,"a":-4.4294967171,"stat":4}
+
+
+2016-08-03 21:07:24.546142 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:24.546781 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:24.549485 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:24.552576 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:24.553355 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:24.553971 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:24.951074 - smoothie_ser2net:
+	CBFactory.data_received: {"a":-1.4294966419}
+
+
+2016-08-03 21:07:24.952290 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:24.953038 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:24.957029 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:24.961319 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:25.286122 - smoothie_ser2net:
+	CBFactory.data_received: {"a":0.4294967102,"stat":4}
+
+
+2016-08-03 21:07:25.287319 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:25.288023 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:25.295293 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:25.303674 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:25.619807 - smoothie_ser2net:
+	CBFactory.data_received: {"a":0.0,"b":-4.4294966471}
+
+
+2016-08-03 21:07:25.620718 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:25.621181 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:26.287435 - smoothie_ser2net:
+	CBFactory.data_received: {"b":-3.4294967126,"stat":4}
+
+
+2016-08-03 21:07:26.288262 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:26.288701 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:26.293744 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:26.299170 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:26.596358 - smoothie_ser2net:
+	CBFactory.data_received: ***
+ok
+
+
+2016-08-03 21:07:26.597150 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:26.608097 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:26.613029 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:26.613734 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:26.618703 - ok... self.already_trying: False
+2016-08-03 21:07:26.620425 - smoothie_ser2net:
+	CBFactory.data_received: {"b":0.0}
+
+
+2016-08-03 21:07:26.621053 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:26.621449 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:27.288133 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:07:27.288940 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:27.289379 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:27.294478 - smoothie_ser2net.try_step called
+2016-08-03 21:07:27.295163 - self.already_trying: False
+2016-08-03 21:07:27.295568 - self.theState['stat']: 0
+2016-08-03 21:07:27.295912 - self.theState['delaying']: 0
+2016-08-03 21:07:27.296274 - smoothie_ser2net.send called
+2016-08-03 21:07:27.296608 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:27.301506 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:07:27.622628 - smoothie_ser2net:
+	CBFactory.data_received: {"x":0.4294967284}
+
+
+2016-08-03 21:07:27.623820 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:27.624708 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:27.631406 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:27.637683 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:27.955871 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-9.4294966435}
+
+
+2016-08-03 21:07:27.956677 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:27.957116 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:27.962025 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:27.967335 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:28.291374 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-21.4294966794,"stat":4}
+
+
+2016-08-03 21:07:28.292456 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:28.293126 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:28.301392 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:28.309714 - smoothie_ser2net.try_step called
+2016-08-03 21:07:28.310823 - self.already_trying: False
+2016-08-03 21:07:28.311630 - self.theState['stat']: 4
+2016-08-03 21:07:28.312403 - self.theState['delaying']: 0
+2016-08-03 21:07:28.312987 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:07:28.625389 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-33.4294967127}
+
+
+2016-08-03 21:07:28.626543 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:28.627245 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:28.635227 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:28.639224 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:28.959774 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-44.4294966435}
+
+
+2016-08-03 21:07:28.960588 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:28.961077 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:28.966497 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:28.971898 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:29.294219 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-56.4294966794,"stat":4}
+
+
+2016-08-03 21:07:29.295098 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:29.295621 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:29.300961 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:29.306536 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:29.628128 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-68.4294967127}
+
+
+2016-08-03 21:07:29.628925 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:29.629408 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:29.634720 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:29.640276 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:29.962152 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-79.4294966448}
+
+
+2016-08-03 21:07:29.963097 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:29.963559 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:29.966051 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:29.972044 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:30.297059 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-91.4294966794,"stat":4}
+
+
+2016-08-03 21:07:30.297839 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:30.298272 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:30.303412 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:30.308729 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:30.631071 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-103.4294967140}
+
+
+2016-08-03 21:07:30.631837 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:30.632281 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:30.637415 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:30.642562 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:30.966166 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-114.4294966448}
+
+
+2016-08-03 21:07:30.966890 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:30.967376 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:30.972373 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:30.977662 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:31.301345 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-126.4294966781,"stat":4}
+
+
+2016-08-03 21:07:31.302059 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:31.302482 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:31.307654 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:31.312862 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:31.635250 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-138.4294967102}
+
+
+2016-08-03 21:07:31.636016 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:31.645846 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:31.651045 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:31.656502 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:31.971380 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-149.4294966410}
+
+
+2016-08-03 21:07:31.972907 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:31.973859 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:31.979758 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:31.994459 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:32.305587 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-161.4294966769,"stat":4}
+
+
+2016-08-03 21:07:32.306542 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:32.306976 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:32.309471 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:32.312697 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:32.639564 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-173.4294967077}
+
+
+2016-08-03 21:07:32.640467 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:32.640900 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:32.644856 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:32.647558 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:32.973375 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-184.4294966397}
+
+
+2016-08-03 21:07:32.974121 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:32.974633 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:32.976759 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:32.979375 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:33.310188 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-196.4294966731,"stat":4}
+
+
+2016-08-03 21:07:33.311584 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:33.312323 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:33.316140 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:33.320289 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:33.644016 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-208.4294967039}
+
+
+2016-08-03 21:07:33.645307 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:33.645990 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:33.649418 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:33.653507 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:33.979280 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-219.4294966360}
+
+
+2016-08-03 21:07:33.980416 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:33.981097 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:33.988920 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:33.997150 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:34.314075 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-231.4294966693,"stat":4}
+
+
+2016-08-03 21:07:34.315064 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:34.315541 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:34.318283 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:34.321071 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:34.648038 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-243.4294967001}
+
+
+2016-08-03 21:07:34.648899 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:34.649338 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:34.651571 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:34.654266 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:34.983168 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-254.4294966322}
+
+
+2016-08-03 21:07:34.983926 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:34.984432 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:34.986706 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:34.989402 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:35.318366 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-266.4294966655,"stat":4}
+
+
+2016-08-03 21:07:35.319143 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:35.319575 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:35.324753 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:35.329950 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:35.652200 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-278.4294966988}
+
+
+2016-08-03 21:07:35.652848 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:35.653277 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:35.658226 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:35.663414 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:35.986209 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-290.0}
+
+
+2016-08-03 21:07:35.986931 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:35.987382 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:35.992275 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:35.997578 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:36.321428 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-301.4294966630,"stat":4}
+
+
+2016-08-03 21:07:36.322181 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:36.322622 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:36.327742 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:36.333012 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:36.655293 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-313.4294966988}
+
+
+2016-08-03 21:07:36.656261 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:39.841974 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:39.847802 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:39.853112 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:39.854172 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-324.4294967029}
+{"x":-319.4294966928,"stat":4}
+{"x":-5.0,"y":0.0,"z":0.0,"a":0.0,"b":0.0,"c":0.0}
+ok
+{"x":0.0}
+{"stat":0}
+{"stat":0}
+
+
+2016-08-03 21:07:39.854899 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:39.855336 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:39.860127 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:39.864754 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:39.865701 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:39.866206 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:39.868815 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:39.872000 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:39.872966 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:39.873638 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:40.328016 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:07:40.328809 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:40.329261 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:40.334182 - smoothie_ser2net.try_step called
+2016-08-03 21:07:40.334962 - self.already_trying: False
+2016-08-03 21:07:40.335379 - self.theState['stat']: 0
+2016-08-03 21:07:40.335721 - self.theState['delaying']: 0
+2016-08-03 21:07:40.336056 - smoothie_ser2net.send called
+2016-08-03 21:07:40.336389 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:40.341250 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:07:40.661932 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-9.4294966422}
+
+
+2016-08-03 21:07:40.662688 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:40.663135 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:40.668225 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:40.673488 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:40.887678 - subscriber.dispatch_message called
+2016-08-03 21:07:40.888348 - 
+message: {"type":"step","data":{"x":10}}
+
+2016-08-03 21:07:40.889427 - 	dictum[type]: step
+2016-08-03 21:07:40.890199 - 	dictum[data]:
+
+{
+    "x": 10
+}
+
+2016-08-03 21:07:40.890653 - subscriber.dispatch called
+2016-08-03 21:07:40.890989 - 
+
+	type_: step
+	data:OrderedDict([('x', 10)])
+
+2016-08-03 21:07:40.891466 - head.step called
+2016-08-03 21:07:40.891805 - 	locations:
+
+OrderedDict([('x', 10)])
+
+2016-08-03 21:07:40.892233 - head:
+	len(self.theQueue.qlist): 0
+
+2016-08-03 21:07:40.892556 - head:
+	self.theQueue.is_busy?: False
+
+2016-08-03 21:07:40.892923 - head.move called!!!
+2016-08-03 21:07:40.893276 - head.move locations found
+2016-08-03 21:07:40.893600 - head.get_state called
+2016-08-03 21:07:40.893913 - smoothie_ser2net.get_state called
+2016-08-03 21:07:40.894432 - state
+{'x': -5.0, 'b': 0.0, 'z': -4.4294966565, 'y': -9.4294966422, 'a': 0.0}
+2016-08-03 21:07:40.894917 - Error in move
+NameError ("name 'FileIo' is not defined",)
+2016-08-03 21:07:43.074755 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-21.4294966774,"stat":4}
+{"y":-33.4294967139}
+{"y":-44.4294966454}
+{"y":-56.4294966806,"stat":4}
+{"y":-68.4294967146}
+{"y":-79.4294966460}
+
+
+2016-08-03 21:07:43.075451 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:43.075856 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:43.078344 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:43.081119 - smoothie_ser2net.on_state_change called
+2016-08-03 21:07:43.081865 - head.on_state_change called
+2016-08-03 21:07:43.082438 - 
+
+	Head state:
+
+{'delaying': 0, 'x': -5.0, 'b': 0.0, 'z': -4.4294966565, 'c': 0, 'stat': 4, 'homing': {'x': True, 'a': True, 'z': True, 'c': False, 'y': True, 'b': True}, 'y': -21.4294966774, 'direction': {'x': 0, 'a': 0, 'z': 0, 'c': 0, 'y': 0, 'b': 0}, 'a': 0.0}
+
+2016-08-03 21:07:43.083145 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:07:43.083730 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:43.084262 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:43.086807 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:43.089536 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:43.090281 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:43.090822 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:43.093258 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:43.096145 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:43.096928 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:43.097485 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:43.100100 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:43.102846 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:43.103615 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:43.104162 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:43.106715 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:43.109359 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:43.110103 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:43.110645 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:43.113131 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:43.115973 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:43.336891 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-91.4294966825,"stat":4}
+
+
+2016-08-03 21:07:43.337817 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:43.338260 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:43.340930 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:43.343655 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:43.670821 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-103.4294967152}
+
+
+2016-08-03 21:07:43.671621 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:43.672044 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:43.677102 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:43.682362 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:44.006012 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-114.4294966479}
+
+
+2016-08-03 21:07:44.006740 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:44.007186 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:44.012117 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:44.017537 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:44.341140 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-126.4294966806,"stat":4}
+
+
+2016-08-03 21:07:44.341815 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:44.342234 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:44.347412 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:44.352658 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:44.675117 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-138.4294967120}
+
+
+2016-08-03 21:07:44.675837 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:44.676274 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:44.681288 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:44.686683 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:45.010202 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-149.4294966435}
+
+
+2016-08-03 21:07:45.010949 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:45.011370 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:45.016529 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:45.021811 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:45.345410 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-161.4294966774,"stat":4}
+
+
+2016-08-03 21:07:45.346171 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:45.346610 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:45.351711 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:45.357114 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:45.679432 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-173.4294967089}
+
+
+2016-08-03 21:07:45.680442 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:45.680984 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:45.683516 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:45.686888 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:46.014574 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-184.4294966403}
+
+
+2016-08-03 21:07:46.015449 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:46.015908 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:46.021486 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:46.027272 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:46.349774 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-196.4294966743,"stat":4}
+
+
+2016-08-03 21:07:46.350545 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:46.351088 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:46.354906 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:46.357640 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:46.683583 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-208.4294967057}
+
+
+2016-08-03 21:07:46.684428 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:46.684902 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:46.687092 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:46.689735 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:47.018717 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-219.4294966372}
+
+
+2016-08-03 21:07:47.019460 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:47.019884 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:47.024799 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:47.029970 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:47.353893 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-231.4294966712,"stat":4}
+
+
+2016-08-03 21:07:47.354671 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:47.355105 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:47.359996 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:47.365271 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:47.689114 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-243.4294967026}
+
+
+2016-08-03 21:07:47.690012 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:47.690465 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:47.692990 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:47.695876 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:48.022980 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-254.4294966341}
+
+
+2016-08-03 21:07:48.023756 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:48.024187 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:48.026437 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:48.029102 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:48.358491 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-266.4294966680,"stat":4}
+
+
+2016-08-03 21:07:48.359631 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:48.370222 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:48.374105 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:48.378488 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:48.692454 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-278.4294967020}
+
+
+2016-08-03 21:07:48.693597 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:48.694287 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:48.698005 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:48.702242 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:49.027609 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-289.4294966334}
+
+
+2016-08-03 21:07:49.028756 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:49.029449 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:49.037378 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:49.044901 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:49.362698 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-301.4294966674,"stat":4}
+
+
+2016-08-03 21:07:49.363811 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:49.364737 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:49.368449 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:49.372614 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:49.696640 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-313.4294966988}
+
+
+2016-08-03 21:07:49.697781 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:49.698458 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:49.701955 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:49.706452 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:50.032309 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-324.4294966303}
+
+
+2016-08-03 21:07:50.034025 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:50.035179 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:50.040528 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:50.046798 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:50.366725 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-320.4294967221,"stat":4}
+
+
+2016-08-03 21:07:50.367524 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:50.367965 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:50.370319 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:50.373089 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:50.700653 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-321.4294966737}
+
+
+2016-08-03 21:07:50.701416 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:50.701856 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:50.707139 - smoothie_ser2net.on_position_data called
+2016-08-03 21:07:50.712297 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:07:50.934526 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 21:07:50.935259 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:50.935673 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:50.940474 - ok... self.already_trying: False
+2016-08-03 21:07:51.037057 - smoothie_ser2net:
+	CBFactory.data_received: {"x":0.0,"y":0.0,"z":0.0,"a":0.0,"b":0.0,"c":0.0}
+
+
+2016-08-03 21:07:51.037714 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:51.038126 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:51.369858 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:07:51.370672 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:07:51.371124 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:07:51.375014 - smoothie_ser2net.on_state_change called
+2016-08-03 21:07:51.375889 - head.on_state_change called
+2016-08-03 21:07:51.376623 - the_queue.step called
+2016-08-03 21:07:51.377090 - publisher.on_finish called
+2016-08-03 21:07:51.379375 - instruction_queue.ins_step called,
+len(self.instructionArray): 0
+
+2016-08-03 21:07:51.380045 - 
+
+	Head state:
+
+{'delaying': 0, 'x': 0.0, 'b': 0.0, 'z': -4.4294966565, 'c': 0, 'stat': 0, 'homing': {'x': True, 'a': True, 'z': True, 'c': False, 'y': True, 'b': True}, 'y': -321.4294966737, 'direction': {'x': 0, 'a': 0, 'z': 0, 'c': 0, 'y': 0, 'b': 0}, 'a': 0.0}
+
+2016-08-03 21:07:51.381071 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:07:53.925995 - subscriber.dispatch_message called
+2016-08-03 21:07:53.941694 - 
+message: {"type":"step","data":{"x":10}}
+
+2016-08-03 21:07:53.943056 - 	dictum[type]: step
+2016-08-03 21:07:53.943922 - 	dictum[data]:
+
+{
+    "x": 10
+}
+
+2016-08-03 21:07:53.944630 - subscriber.dispatch called
+2016-08-03 21:07:53.945060 - 
+
+	type_: step
+	data:OrderedDict([('x', 10)])
+
+2016-08-03 21:07:53.945633 - head.step called
+2016-08-03 21:07:53.946090 - 	locations:
+
+OrderedDict([('x', 10)])
+
+2016-08-03 21:07:53.946625 - head:
+	len(self.theQueue.qlist): 0
+
+2016-08-03 21:07:53.947016 - head:
+	self.theQueue.is_busy?: False
+
+2016-08-03 21:07:53.947525 - head.move called!!!
+2016-08-03 21:07:53.947870 - head.move locations found
+2016-08-03 21:07:53.948181 - head.get_state called
+2016-08-03 21:07:53.948576 - smoothie_ser2net.get_state called
+2016-08-03 21:07:53.949250 - state
+{'x': 0.0, 'b': 0.0, 'z': -4.4294966565, 'y': -321.4294966737, 'a': 0.0}
+2016-08-03 21:07:53.949745 - Error in move
+NameError ("name 'FileIo' is not defined",)
+2016-08-03 21:08:54.624801 - subscriber.dispatch_message called
+2016-08-03 21:08:54.625699 - 
+message: {"type":"step","data":{"x":10}}
+
+2016-08-03 21:08:54.626951 - 	dictum[type]: step
+2016-08-03 21:08:54.627811 - 	dictum[data]:
+
+{
+    "x": 10
+}
+
+2016-08-03 21:08:54.628324 - subscriber.dispatch called
+2016-08-03 21:08:54.628738 - 
+
+	type_: step
+	data:OrderedDict([('x', 10)])
+
+2016-08-03 21:08:54.629317 - head.step called
+2016-08-03 21:08:54.629695 - 	locations:
+
+OrderedDict([('x', 10)])
+
+2016-08-03 21:08:54.630245 - head:
+	len(self.theQueue.qlist): 0
+
+2016-08-03 21:08:54.630620 - head:
+	self.theQueue.is_busy?: False
+
+2016-08-03 21:08:54.631007 - head.move called!!!
+2016-08-03 21:08:54.631424 - head.move locations found
+2016-08-03 21:08:54.631792 - head.get_state called
+2016-08-03 21:08:54.632111 - smoothie_ser2net.get_state called
+2016-08-03 21:08:54.632549 - state
+{'x': 0.0, 'b': 0.0, 'z': -4.4294966565, 'y': -321.4294966737, 'a': 0.0}
+2016-08-03 21:08:54.633077 - Error in move
+NameError ("name 'FileIo' is not defined",)
+2016-08-03 21:10:44.488931 - starting up
+2016-08-03 21:10:44.583499 - subscriber.__init__ called
+2016-08-03 21:10:44.584256 - publisher.__init__ called
+2016-08-03 21:10:44.584777 - trying to make a connection...
+2016-08-03 21:10:44.621468 - error while trying to make a connection, sleeping for 5 seconds
+2016-08-03 21:10:49.627337 - trying to make a connection...
+2016-08-03 21:10:51.494952 - otone_client : WampComponent.onJoin called
+2016-08-03 21:10:51.495700 - instantiate_objects called
+2016-08-03 21:10:51.500450 - head.__init__ called
+2016-08-03 21:10:51.501068 - pipette.__init__ called
+2016-08-03 21:10:51.501465 - tool.__init__ called
+2016-08-03 21:10:51.501832 - pipette.__init__ called
+2016-08-03 21:10:51.502160 - tool.__init__ called
+2016-08-03 21:10:51.502498 - smoothie_ser2net.set_raw_callback called
+2016-08-03 21:10:51.502813 - smoothie_ser2net.set_position_callback called
+2016-08-03 21:10:51.503116 - smoothie_ser2net.set_limit_hit_callback called
+2016-08-03 21:10:51.503415 - smoothie_ser2net.set_move_callback called
+2016-08-03 21:10:51.503744 - the_queue.__init__ called
+2016-08-03 21:10:51.504157 - smoothie_ser2net.connect called
+2016-08-03 21:10:51.504502 - smoothie_ser2net:
+	CB_Factory.__init__ called
+2016-08-03 21:10:51.505165 - head.load_pipette_values called
+2016-08-03 21:10:51.519937 - old_values:
+OrderedDict([('a', OrderedDict([('axis', 'a'), ('blowout', 28.6), ('bottom', 25.9), ('bottom_distance', 2), ('droptip', 30.5), ('offset', [0, 0, 0]), ('resting', 0), ('theContainers', OrderedDict([('p10-rack', OrderedDict([('rel_x', 66.30099999999999), ('rel_y', 268.047), ('rel_z', -4.998000000000005), ('x', 208.99699999999999), ('y', 378.97400000000005), ('z', 88.99199999999999)])), ('p200-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 142.696), ('y', 110.927), ('z', 93.49)])), ('plate', OrderedDict([('rel_x', -94.217), ('rel_y', 132.503), ('rel_z', 10.009), ('x', 48.479), ('y', 243.43), ('z', 103.999)])), ('source', OrderedDict([('rel_x', 92.47999999999999), ('rel_y', 131.55), ('rel_z', -44.49999999999999), ('x', 235.176), ('y', 242.477), ('z', 49.49)])), ('trash', OrderedDict([('rel_x', -53.70500000000001), ('rel_y', -60.946999999999996), ('rel_z', -93.498), ('x', 88.99099999999999), ('y', 49.98000000000001), ('z', 0.4919999999999902)]))])), ('tip_rack_origin', 'p200-rack'), ('tip_racks', [OrderedDict([('container', 'p200-rack')])]), ('toolname', 'a_pipette'), ('tooltype', 'pipette'), ('top', 9.8), ('trash_container', OrderedDict([('container', 'trash')])), ('volume', 200)])), ('b', OrderedDict([('axis', 'b'), ('blowout', 19.0), ('bottom', 16.9), ('bottom_distance', 2), ('droptip', 21.0), ('offset', [0, 0, 0]), ('resting', 0), ('theContainers', OrderedDict([('p10-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])), ('p200-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])), ('plate', OrderedDict([('rel_x', -92.01300000000002), ('rel_y', -138.378), ('rel_z', 29.498999999999995), ('x', 116.484), ('y', 241.103), ('z', 114.996)])), ('source', OrderedDict([('rel_x', 94.69200000000001), ('rel_y', -138.516), ('rel_z', -25.008000000000003), ('x', 303.189), ('y', 240.965), ('z', 60.489)])), ('trash', OrderedDict([('rel_x', -60.202), ('rel_y', -328.60400000000004), ('rel_z', -88.999), ('x', 148.29500000000002), ('y', 50.87699999999995), ('z', -3.5019999999999953)]))])), ('tip_rack_origin', 'p10-rack'), ('tip_racks', [OrderedDict([('container', 'p10-rack')])]), ('toolname', 'b_pipette'), ('tooltype', 'pipette'), ('top', 0.5), ('trash_container', OrderedDict([('container', 'trash')])), ('volume', 10)]))])
+
+2016-08-03 21:10:51.523559 - self.PIPETTES[b]:
+
+'b_pipette'
+
+2016-08-03 21:10:53.530160 - head string: Head
+2016-08-03 21:10:53.531808 - head representation: Head(KeysView(OrderedDict([('p200', OrderedDict([('tool', 'pipette'), ('tip-racks', [OrderedDict([('container', 'p200-rack')])]), ('trash-container', OrderedDict([('container', 'trash')])), ('tip-depth', 5), ('tip-height', 45), ('tip-total', 8), ('axis', 'a'), ('volume', 160)])), ('p1000', OrderedDict([('tool', 'pipette'), ('tip-racks', [OrderedDict([('container', 'p1000-rack')])]), ('trash-container', OrderedDict([('container', 'trash')])), ('tip-depth', 7), ('tip-height', 65), ('tip-total', 8), ('axis', 'b'), ('volume', 800)]))])))
+2016-08-03 21:10:53.532426 - Head configured!
+2016-08-03 21:10:53.532937 - deck.__init__ called
+2016-08-03 21:10:53.533528 - deck string: Deck
+2016-08-03 21:10:53.534055 - deck representation: Deck(KeysView(OrderedDict()))
+2016-08-03 21:10:53.534448 - protocol_runner.__init__ called
+2016-08-03 21:10:53.534783 - instruction_queue.__init__ called
+2016-08-03 21:10:53.535241 - deck.configure_deck called
+2016-08-03 21:10:53.535599 - deck_module.__init__ called
+2016-08-03 21:10:53.535946 - deck_module.__init__ called
+2016-08-03 21:10:53.536307 - deck_module.__init__ called
+2016-08-03 21:10:53.536712 - deck_module.__init__ called
+2016-08-03 21:10:53.537032 - deck_module.__init__ called
+2016-08-03 21:10:53.537344 - deck_module.__init__ called
+2016-08-03 21:10:53.537665 - deck_module.__init__ called
+2016-08-03 21:10:53.538061 - Deck configured!
+2016-08-03 21:10:53.538412 - ingredients.__init__ called
+2016-08-03 21:10:53.538762 - ingredients.configure_ingredients called
+2016-08-03 21:10:53.539102 - Ingredients imported!
+2016-08-03 21:10:53.539459 - this is a test
+2016-08-03 21:10:53.539902 - publisher.set_head called
+2016-08-03 21:10:53.540278 - publisher.set_runner called
+2016-08-03 21:10:53.540645 - subscriber.set_head called
+2016-08-03 21:10:53.541061 - subscriber.set_runner called
+2016-08-03 21:10:53.541618 - about to publish com.opentrons.robot_ready TRUE
+2016-08-03 21:10:53.554601 - smoothie_ser2net:
+	CB_Factory.connection_made called
+2016-08-03 21:10:53.555759 - smoothie_ser2net:
+	CBFactory.data_received: Smoothie
+ok
+
+
+2016-08-03 21:10:53.556312 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:10:53.556709 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:53.558556 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:10:53.559052 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:53.560842 - ok... self.already_trying: False
+2016-08-03 21:10:55.557959 - smoothie_ser2net.on_success_connecting called
+2016-08-03 21:10:55.558967 - smoothie_ser2net.send called
+2016-08-03 21:10:55.559560 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:55.562836 - smoothie_ser2net.home called
+2016-08-03 21:10:55.563603 - smoothie_ser2net.halt called
+2016-08-03 21:10:55.564175 - smoothie_ser2net.try_add called
+2016-08-03 21:10:55.564619 - smoothie_ser2net.try_step called
+2016-08-03 21:10:55.565065 - self.already_trying: False
+2016-08-03 21:10:55.565954 - self.theState['stat']: 1
+2016-08-03 21:10:55.566564 - self.theState['delaying']: 0
+2016-08-03 21:10:55.567212 - smoothie_ser2net.try_add called
+2016-08-03 21:10:55.567821 - smoothie_ser2net.try_step called
+2016-08-03 21:10:55.568385 - self.already_trying: False
+2016-08-03 21:10:55.568901 - self.theState['stat']: 1
+2016-08-03 21:10:55.569609 - self.theState['delaying']: 0
+2016-08-03 21:10:55.570344 - smoothie_ser2net.send called
+2016-08-03 21:10:55.570957 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:55.573656 - smoothie_ser2net.try_add called
+2016-08-03 21:10:55.574760 - smoothie_ser2net.try_step called
+2016-08-03 21:10:55.575421 - self.already_trying: False
+2016-08-03 21:10:55.575996 - self.theState['stat']: 1
+2016-08-03 21:10:55.576545 - self.theState['delaying']: 0
+2016-08-03 21:10:55.577192 - smoothie_ser2net.try_add called
+2016-08-03 21:10:55.577859 - smoothie_ser2net.try_step called
+2016-08-03 21:10:55.578360 - self.already_trying: False
+2016-08-03 21:10:55.578885 - self.theState['stat']: 1
+2016-08-03 21:10:55.579359 - self.theState['delaying']: 0
+2016-08-03 21:10:55.579922 - smoothie_ser2net.try_add called
+2016-08-03 21:10:55.580423 - smoothie_ser2net.try_step called
+2016-08-03 21:10:55.580892 - self.already_trying: False
+2016-08-03 21:10:55.581381 - self.theState['stat']: 1
+2016-08-03 21:10:55.581856 - self.theState['delaying']: 0
+2016-08-03 21:10:55.615590 - smoothie_ser2net.on_connect called
+2016-08-03 21:10:55.617726 - smoothie_ser2net:
+	CBFactory.data_received: feedback engaged
+ok
+ok
+
+
+2016-08-03 21:10:55.618580 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:10:55.619139 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:55.621991 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:10:55.622857 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:55.625634 - ok... self.already_trying: False
+2016-08-03 21:10:55.628959 - ok... self.already_trying: False
+2016-08-03 21:10:55.902325 - smoothie_ser2net:
+	CBFactory.data_received: {"x":0.0,"y":0.0,"z":0.0,"a":0.0,"b":0.0,"c":0.0}
+
+
+2016-08-03 21:10:55.903261 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:10:55.903719 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:56.568773 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:10:56.569539 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:10:56.570109 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:56.572297 - smoothie_ser2net.try_step called
+2016-08-03 21:10:56.572957 - self.already_trying: False
+2016-08-03 21:10:56.573503 - self.theState['stat']: 0
+2016-08-03 21:10:56.573965 - self.theState['delaying']: 0
+2016-08-03 21:10:56.574351 - smoothie_ser2net.send called
+2016-08-03 21:10:56.574683 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:56.576991 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:10:56.584071 - smoothie_ser2net:
+	CBFactory.data_received: ok Emergency Stop Requested - reset or M999 required to continue
+
+
+2016-08-03 21:10:56.584784 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:10:56.585209 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:56.587213 - ok... self.already_trying: False
+2016-08-03 21:10:57.569321 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:10:57.570277 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:10:57.570832 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:57.573573 - smoothie_ser2net.try_step called
+2016-08-03 21:10:57.574330 - self.already_trying: False
+2016-08-03 21:10:57.574969 - self.theState['stat']: 0
+2016-08-03 21:10:57.575492 - self.theState['delaying']: 0
+2016-08-03 21:10:57.575936 - smoothie_ser2net.send called
+2016-08-03 21:10:57.576360 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:57.579933 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:10:57.581334 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 21:10:57.582146 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:10:57.582764 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:57.587084 - ok... self.already_trying: False
+2016-08-03 21:10:58.568777 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:10:58.569992 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:10:58.570658 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:58.573557 - smoothie_ser2net.try_step called
+2016-08-03 21:10:58.574439 - self.already_trying: False
+2016-08-03 21:10:58.575154 - self.theState['stat']: 0
+2016-08-03 21:10:58.575754 - self.theState['delaying']: 0
+2016-08-03 21:10:58.576373 - smoothie_ser2net.send called
+2016-08-03 21:10:58.576842 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:58.582088 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:10:58.905245 - smoothie_ser2net:
+	CBFactory.data_received: {"z":0.0,"a":0.4294966488,"b":0.4294966488}
+
+
+2016-08-03 21:10:58.906517 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:10:58.907225 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:59.576930 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-5.4294967192,"a":-4.4294966308,"b":-5.4294967194,"stat":4}
+
+
+2016-08-03 21:10:59.578189 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:10:59.578910 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:59.585640 - smoothie_ser2net.on_position_data called
+2016-08-03 21:10:59.592549 - smoothie_ser2net.try_step called
+2016-08-03 21:10:59.593696 - self.already_trying: False
+2016-08-03 21:10:59.594498 - self.theState['stat']: 4
+2016-08-03 21:10:59.595190 - self.theState['delaying']: 0
+2016-08-03 21:10:59.595859 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:10:59.914455 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-5.4294967257,"a":-4.4294966882,"b":-4.4294966768}
+
+
+2016-08-03 21:10:59.915739 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:10:59.916467 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:10:59.923076 - smoothie_ser2net.on_position_data called
+2016-08-03 21:10:59.929289 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:00.251016 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-4.4294966931,"a":-3.4294966511,"b":-3.4294966397}
+
+
+2016-08-03 21:11:00.252452 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:00.253049 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:00.258021 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:00.262660 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:00.589839 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-3.4294966602,"a":-3.4294967142,"b":-3.4294967028,"stat":4}
+
+
+2016-08-03 21:11:00.590711 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:00.591277 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:00.596065 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:00.602437 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:00.926276 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-3.4294967275,"a":-2.4294966774,"b":-2.4294966660}
+
+
+2016-08-03 21:11:00.927331 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:00.927963 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:00.934344 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:00.943722 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:01.263730 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-2.4294966949,"a":-1.4294966404,"b":-2.4294967290}
+
+
+2016-08-03 21:11:01.264769 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:01.265263 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:01.271812 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:01.276256 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:01.605059 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-1.4294966621,"a":-1.4294967035,"b":-1.4294966920,"stat":4}
+
+
+2016-08-03 21:11:01.606007 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:01.606631 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:01.613607 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:01.618093 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:01.939012 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-1.4294967293,"a":0.4294966666,"b":0.4294966552}
+
+
+2016-08-03 21:11:01.939978 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:01.940445 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:01.944399 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:01.948194 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:02.274488 - smoothie_ser2net:
+	CBFactory.data_received: {"z":0.4294967191,"a":0.0,"b":0.4294967183}
+
+
+2016-08-03 21:11:02.275674 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:02.276395 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:02.613111 - smoothie_ser2net:
+	CBFactory.data_received: {"z":0.4294967190,"a":0.4294966781,"b":0.4294966667,"stat":4}
+
+
+2016-08-03 21:11:02.613883 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:02.614311 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:02.618269 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:02.622314 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:02.950768 - smoothie_ser2net:
+	CBFactory.data_received: {"z":0.4294966532,"a":-1.4294967151,"b":-1.4294967036}
+
+
+2016-08-03 21:11:02.951572 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:02.952031 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:02.955911 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:02.961062 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:03.287193 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-1.4294966859,"a":-1.4294966521,"b":-1.4294966407}
+
+
+2016-08-03 21:11:03.287995 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:03.288436 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:03.292401 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:03.296223 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:03.625056 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-2.4294967188,"a":-2.4294966891,"b":-2.4294966776,"stat":4}
+
+
+2016-08-03 21:11:03.625862 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:03.626311 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:03.628707 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:03.632615 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:03.962671 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-2.4294966516,"a":-3.4294967259,"b":-3.4294967145}
+
+
+2016-08-03 21:11:03.963442 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:03.963864 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:03.967679 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:03.971665 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:04.299189 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-3.4294966842,"a":-3.4294966629,"b":-3.4294966515}
+
+
+2016-08-03 21:11:04.300061 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:04.300513 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:04.304370 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:04.308191 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:04.638175 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-4.4294967170,"a":-4.4294966998,"b":-4.4294966884,"stat":4}
+
+
+2016-08-03 21:11:04.639099 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:04.639558 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:04.643685 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:04.647467 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:04.973330 - smoothie_ser2net:
+	CBFactory.data_received: {"z":-4.4294966497,"a":-4.4294966366}
+
+
+2016-08-03 21:11:04.974094 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:04.974522 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:04.978240 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:04.982118 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:05.310931 - smoothie_ser2net:
+	CBFactory.data_received: {"x":0.0,"y":0.0,"z":0.4294967258,"a":-5.0,"b":-5.0,"c":0.0}
+
+
+2016-08-03 21:11:05.311712 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:05.312139 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:05.646160 - smoothie_ser2net:
+	CBFactory.data_received: {"z":0.0,"a":-4.4294967165,"stat":4}
+
+
+2016-08-03 21:11:05.647024 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:05.647437 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:06.313946 - smoothie_ser2net:
+	CBFactory.data_received: {"a":-1.4294966410}
+
+
+2016-08-03 21:11:10.544766 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:10.546641 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:10.550609 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:10.554526 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:10.556479 - smoothie_ser2net:
+	CBFactory.data_received: {"a":0.4294967099,"stat":4}
+{"a":0.0,"b":-4.4294966466}
+{"b":0.4294966367,"stat":4}
+***
+ok
+{"b":0.0}
+{"stat":0}
+{"stat":0}
+
+
+2016-08-03 21:11:10.557707 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:10.558399 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:10.562591 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:10.566976 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:10.568083 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:10.568844 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:10.652842 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:11:10.654305 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:10.655277 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:10.660113 - smoothie_ser2net.try_step called
+2016-08-03 21:11:10.661409 - self.already_trying: False
+2016-08-03 21:11:10.662480 - self.theState['stat']: 0
+2016-08-03 21:11:10.663257 - self.theState['delaying']: 0
+2016-08-03 21:11:10.664168 - smoothie_ser2net.send called
+2016-08-03 21:11:10.665039 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:10.669136 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:11:10.984573 - smoothie_ser2net:
+	CBFactory.data_received: {"x":0.4294967284}
+
+
+2016-08-03 21:11:10.985449 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:10.985987 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:10.988404 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:10.991450 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:11.318430 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-3.4294966496}
+
+
+2016-08-03 21:11:11.319365 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:11.319884 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:11.322340 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:11.325326 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:11.653551 - smoothie_ser2net:
+	CBFactory.data_received: {"x":0.4294967246,"stat":4}
+
+
+2016-08-03 21:11:11.654526 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:11.654989 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:11.659248 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:11.663606 - smoothie_ser2net.try_step called
+2016-08-03 21:11:11.664400 - self.already_trying: False
+2016-08-03 21:11:11.664816 - self.theState['stat']: 4
+2016-08-03 21:11:11.665152 - self.theState['delaying']: 0
+2016-08-03 21:11:11.665605 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:11:11.990119 - smoothie_ser2net:
+	CBFactory.data_received: {"x":-5.0,"y":0.0,"z":0.0,"a":0.0,"b":0.0,"c":0.0}
+
+
+2016-08-03 21:11:11.991060 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:11.991501 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:12.119563 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 21:11:12.120544 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:12.121323 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:12.125791 - ok... self.already_trying: False
+2016-08-03 21:11:12.322890 - smoothie_ser2net:
+	CBFactory.data_received: {"x":0.0}
+
+
+2016-08-03 21:11:12.323794 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:12.324269 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:12.656701 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:11:12.657645 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:12.658091 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:12.662348 - smoothie_ser2net.try_step called
+2016-08-03 21:11:12.663086 - self.already_trying: False
+2016-08-03 21:11:12.663512 - self.theState['stat']: 0
+2016-08-03 21:11:12.663863 - self.theState['delaying']: 0
+2016-08-03 21:11:12.664269 - smoothie_ser2net.send called
+2016-08-03 21:11:12.664662 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:12.668806 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:11:12.990690 - smoothie_ser2net:
+	CBFactory.data_received: {"y":0.4294967284}
+
+
+2016-08-03 21:11:12.991663 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:12.992132 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:12.994421 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:12.997033 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:13.324530 - smoothie_ser2net:
+	CBFactory.data_received: {"y":-4.4294967146}
+
+
+2016-08-03 21:11:13.325306 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:13.325760 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:13.329413 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:13.333385 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:11:13.658354 - smoothie_ser2net:
+	CBFactory.data_received: {"y":0.4294966932,"stat":4}
+
+
+2016-08-03 21:11:13.659070 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:13.659492 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:13.663291 - smoothie_ser2net.on_position_data called
+2016-08-03 21:11:13.667155 - smoothie_ser2net.on_state_change called
+2016-08-03 21:11:13.667859 - head.on_state_change called
+2016-08-03 21:11:13.668284 - 
+
+	Head state:
+
+{'delaying': 0, 'homing': {'a': True, 'y': True, 'z': True, 'c': False, 'x': True, 'b': True}, 'a': 0.0, 'y': 0.4294966932, 'direction': {'a': 0, 'y': 0, 'z': 0, 'c': 0, 'x': 0, 'b': 0}, 'stat': 4, 'z': 0.0, 'c': 0, 'b': -4.4294966884, 'x': 0.0}
+
+2016-08-03 21:11:13.668889 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:11:13.996164 - smoothie_ser2net:
+	CBFactory.data_received: {"x":0.0,"y":-1.4294966422,"z":0.0,"a":0.0,"b":0.0,"c":0.0}
+
+
+2016-08-03 21:11:13.996949 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:13.997397 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:14.100085 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 21:11:14.100875 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:14.101322 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:14.104918 - ok... self.already_trying: False
+2016-08-03 21:11:14.327635 - smoothie_ser2net:
+	CBFactory.data_received: {"y":0.0}
+
+
+2016-08-03 21:11:14.328409 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:14.329081 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:14.661575 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:11:14.662351 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:11:14.662764 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:11:14.666445 - smoothie_ser2net.on_state_change called
+2016-08-03 21:11:14.667117 - head.on_state_change called
+2016-08-03 21:11:14.667560 - the_queue.step called
+2016-08-03 21:11:14.667963 - publisher.on_finish called
+2016-08-03 21:11:14.671438 - instruction_queue.ins_step called,
+len(self.instructionArray): 0
+
+2016-08-03 21:11:14.672150 - 
+
+	Head state:
+
+{'delaying': 0, 'homing': {'a': True, 'y': True, 'z': True, 'c': False, 'x': True, 'b': True}, 'a': 0.0, 'y': 0.0, 'direction': {'a': 0, 'y': 0, 'z': 0, 'c': 0, 'x': 0, 'b': 0}, 'stat': 0, 'z': 0.0, 'c': 0, 'b': -4.4294966884, 'x': 0.0}
+
+2016-08-03 21:11:14.672750 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:11:19.371199 - otone_client : WampComponent.set_client_status called
+2016-08-03 21:11:19.394975 - subscriber.dispatch_message called
+2016-08-03 21:11:19.395780 - 
+message: {"type":"getContainers"}
+
+2016-08-03 21:11:19.397592 - 	dictum[type]: getContainers
+2016-08-03 21:11:19.398341 - subscriber.dispatch called
+2016-08-03 21:11:19.398942 - 
+
+	type_: getContainers
+	data:None
+
+2016-08-03 21:11:19.401094 - deck.publish_containers called
+2016-08-03 21:11:19.401832 - deck.get_containers called
+2016-08-03 21:11:20.556180 - subscriber.dispatch_message called
+2016-08-03 21:11:20.557011 - 
+message: {"type":"getCalibrations"}
+
+2016-08-03 21:11:20.558086 - 	dictum[type]: getCalibrations
+2016-08-03 21:11:20.558680 - subscriber.dispatch called
+2016-08-03 21:11:20.559386 - 
+
+	type_: getCalibrations
+	data:None
+
+2016-08-03 21:11:20.560495 - subscriber.get_calibrations called
+2016-08-03 21:11:20.561182 - head.publish_calibrations called
+2016-08-03 21:11:20.561766 - head.get_deck called
+2016-08-03 21:11:20.562330 - self.PIPETTES[a].theContainers:
+
+OrderedDict([('p10-rack', OrderedDict([('rel_x', 66.30099999999999), ('rel_y', 268.047), ('rel_z', -4.998000000000005), ('x', 208.99699999999999), ('y', 378.97400000000005), ('z', 88.99199999999999)])), ('p200-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 142.696), ('y', 110.927), ('z', 93.49)])), ('plate', OrderedDict([('rel_x', -94.217), ('rel_y', 132.503), ('rel_z', 10.009), ('x', 48.479), ('y', 243.43), ('z', 103.999)])), ('source', OrderedDict([('rel_x', 92.47999999999999), ('rel_y', 131.55), ('rel_z', -44.49999999999999), ('x', 235.176), ('y', 242.477), ('z', 49.49)])), ('trash', OrderedDict([('rel_x', -53.70500000000001), ('rel_y', -60.946999999999996), ('rel_z', -93.498), ('x', 88.99099999999999), ('y', 49.98000000000001), ('z', 0.4919999999999902)]))])
+2016-08-03 21:11:20.564336 - self.PIPETTES[a].theContainers[p10-rack]:
+
+OrderedDict([('rel_x', 66.30099999999999), ('rel_y', 268.047), ('rel_z', -4.998000000000005), ('x', 208.99699999999999), ('y', 378.97400000000005), ('z', 88.99199999999999)])
+2016-08-03 21:11:20.565307 - self.PIPETTES[a].theContainers[p200-rack]:
+
+OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 142.696), ('y', 110.927), ('z', 93.49)])
+2016-08-03 21:11:20.566051 - self.PIPETTES[a].theContainers[plate]:
+
+OrderedDict([('rel_x', -94.217), ('rel_y', 132.503), ('rel_z', 10.009), ('x', 48.479), ('y', 243.43), ('z', 103.999)])
+2016-08-03 21:11:20.566866 - self.PIPETTES[a].theContainers[source]:
+
+OrderedDict([('rel_x', 92.47999999999999), ('rel_y', 131.55), ('rel_z', -44.49999999999999), ('x', 235.176), ('y', 242.477), ('z', 49.49)])
+2016-08-03 21:11:20.567910 - self.PIPETTES[a].theContainers[trash]:
+
+OrderedDict([('rel_x', -53.70500000000001), ('rel_y', -60.946999999999996), ('rel_z', -93.498), ('x', 88.99099999999999), ('y', 49.98000000000001), ('z', 0.4919999999999902)])
+2016-08-03 21:11:20.568916 - self.PIPETTES[b].theContainers:
+
+OrderedDict([('p10-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])), ('p200-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])), ('plate', OrderedDict([('rel_x', -92.01300000000002), ('rel_y', -138.378), ('rel_z', 29.498999999999995), ('x', 116.484), ('y', 241.103), ('z', 114.996)])), ('source', OrderedDict([('rel_x', 94.69200000000001), ('rel_y', -138.516), ('rel_z', -25.008000000000003), ('x', 303.189), ('y', 240.965), ('z', 60.489)])), ('trash', OrderedDict([('rel_x', -60.202), ('rel_y', -328.60400000000004), ('rel_z', -88.999), ('x', 148.29500000000002), ('y', 50.87699999999995), ('z', -3.5019999999999953)]))])
+2016-08-03 21:11:20.570956 - self.PIPETTES[b].theContainers[p10-rack]:
+
+OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])
+2016-08-03 21:11:20.571680 - self.PIPETTES[b].theContainers[p200-rack]:
+
+OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])
+2016-08-03 21:11:20.572264 - self.PIPETTES[b].theContainers[plate]:
+
+OrderedDict([('rel_x', -92.01300000000002), ('rel_y', -138.378), ('rel_z', 29.498999999999995), ('x', 116.484), ('y', 241.103), ('z', 114.996)])
+2016-08-03 21:11:20.572861 - self.PIPETTES[b].theContainers[source]:
+
+OrderedDict([('rel_x', 94.69200000000001), ('rel_y', -138.516), ('rel_z', -25.008000000000003), ('x', 303.189), ('y', 240.965), ('z', 60.489)])
+2016-08-03 21:11:20.573453 - self.PIPETTES[b].theContainers[trash]:
+
+OrderedDict([('rel_x', -60.202), ('rel_y', -328.60400000000004), ('rel_z', -88.999), ('x', 148.29500000000002), ('y', 50.87699999999995), ('z', -3.5019999999999953)])
+2016-08-03 21:11:20.574061 - head.save_pipette_values called
+2016-08-03 21:11:20.579544 - filetext: {
+    "a": {
+        "axis": "a",
+        "blowout": 28.6,
+        "bottom": 25.9,
+        "bottom_distance": 2,
+        "droptip": 30.5,
+        "offset": [
+            0,
+            0,
+            0
+        ],
+        "resting": 0,
+        "theContainers": {
+            "p10-rack": {
+                "rel_x": 66.30099999999999,
+                "rel_y": 268.047,
+                "rel_z": -4.998000000000005,
+                "x": 208.99699999999999,
+                "y": 378.97400000000005,
+                "z": 88.99199999999999
+            },
+            "p200-rack": {
+                "rel_x": 0.0,
+                "rel_y": 0.0,
+                "rel_z": 0.0,
+                "x": 142.696,
+                "y": 110.927,
+                "z": 93.49
+            },
+            "plate": {
+                "rel_x": -94.217,
+                "rel_y": 132.503,
+                "rel_z": 10.009,
+                "x": 48.479,
+                "y": 243.43,
+                "z": 103.999
+            },
+            "source": {
+                "rel_x": 92.47999999999999,
+                "rel_y": 131.55,
+                "rel_z": -44.49999999999999,
+                "x": 235.176,
+                "y": 242.477,
+                "z": 49.49
+            },
+            "trash": {
+                "rel_x": -53.70500000000001,
+                "rel_y": -60.946999999999996,
+                "rel_z": -93.498,
+                "x": 88.99099999999999,
+                "y": 49.98000000000001,
+                "z": 0.4919999999999902
+            }
+        },
+        "tip_rack_origin": "p200-rack",
+        "tip_racks": [
+            {
+                "container": "p200-rack"
+            }
+        ],
+        "toolname": "a_pipette",
+        "tooltype": "pipette",
+        "top": 9.8,
+        "trash_container": {
+            "container": "trash"
+        },
+        "volume": 200
+    },
+    "b": {
+        "axis": "b",
+        "blowout": 19.0,
+        "bottom": 16.9,
+        "bottom_distance": 2,
+        "droptip": 21.0,
+        "offset": [
+            0,
+            0,
+            0
+        ],
+        "resting": 0,
+        "theContainers": {
+            "p10-rack": {
+                "rel_x": 0.0,
+                "rel_y": 0.0,
+                "rel_z": 0.0,
+                "x": 208.497,
+                "y": 379.481,
+                "z": 85.497
+            },
+            "p200-rack": {
+                "rel_x": 0.0,
+                "rel_y": 0.0,
+                "rel_z": 0.0,
+                "x": 208.497,
+                "y": 379.481,
+                "z": 85.497
+            },
+            "plate": {
+                "rel_x": -92.01300000000002,
+                "rel_y": -138.378,
+                "rel_z": 29.498999999999995,
+                "x": 116.484,
+                "y": 241.103,
+                "z": 114.996
+            },
+            "source": {
+                "rel_x": 94.69200000000001,
+                "rel_y": -138.516,
+                "rel_z": -25.008000000000003,
+                "x": 303.189,
+                "y": 240.965,
+                "z": 60.489
+            },
+            "trash": {
+                "rel_x": -60.202,
+                "rel_y": -328.60400000000004,
+                "rel_z": -88.999,
+                "x": 148.29500000000002,
+                "y": 50.87699999999995,
+                "z": -3.5019999999999953
+            }
+        },
+        "tip_rack_origin": "p10-rack",
+        "tip_racks": [
+            {
+                "container": "p10-rack"
+            }
+        ],
+        "toolname": "b_pipette",
+        "tooltype": "pipette",
+        "top": 0.5,
+        "trash_container": {
+            "container": "trash"
+        },
+        "volume": 10
+    }
+}
+2016-08-03 21:11:20.580266 - file_io.writeFile called, filetext: {
+    "a": {
+        "axis": "a",
+        "blowout": 28.6,
+        "bottom": 25.9,
+        "bottom_distance": 2,
+        "droptip": 30.5,
+        "offset": [
+            0,
+            0,
+            0
+        ],
+        "resting": 0,
+        "theContainers": {
+            "p10-rack": {
+                "rel_x": 66.30099999999999,
+                "rel_y": 268.047,
+                "rel_z": -4.998000000000005,
+                "x": 208.99699999999999,
+                "y": 378.97400000000005,
+                "z": 88.99199999999999
+            },
+            "p200-rack": {
+                "rel_x": 0.0,
+                "rel_y": 0.0,
+                "rel_z": 0.0,
+                "x": 142.696,
+                "y": 110.927,
+                "z": 93.49
+            },
+            "plate": {
+                "rel_x": -94.217,
+                "rel_y": 132.503,
+                "rel_z": 10.009,
+                "x": 48.479,
+                "y": 243.43,
+                "z": 103.999
+            },
+            "source": {
+                "rel_x": 92.47999999999999,
+                "rel_y": 131.55,
+                "rel_z": -44.49999999999999,
+                "x": 235.176,
+                "y": 242.477,
+                "z": 49.49
+            },
+            "trash": {
+                "rel_x": -53.70500000000001,
+                "rel_y": -60.946999999999996,
+                "rel_z": -93.498,
+                "x": 88.99099999999999,
+                "y": 49.98000000000001,
+                "z": 0.4919999999999902
+            }
+        },
+        "tip_rack_origin": "p200-rack",
+        "tip_racks": [
+            {
+                "container": "p200-rack"
+            }
+        ],
+        "toolname": "a_pipette",
+        "tooltype": "pipette",
+        "top": 9.8,
+        "trash_container": {
+            "container": "trash"
+        },
+        "volume": 200
+    },
+    "b": {
+        "axis": "b",
+        "blowout": 19.0,
+        "bottom": 16.9,
+        "bottom_distance": 2,
+        "droptip": 21.0,
+        "offset": [
+            0,
+            0,
+            0
+        ],
+        "resting": 0,
+        "theContainers": {
+            "p10-rack": {
+                "rel_x": 0.0,
+                "rel_y": 0.0,
+                "rel_z": 0.0,
+                "x": 208.497,
+                "y": 379.481,
+                "z": 85.497
+            },
+            "p200-rack": {
+                "rel_x": 0.0,
+                "rel_y": 0.0,
+                "rel_z": 0.0,
+                "x": 208.497,
+                "y": 379.481,
+                "z": 85.497
+            },
+            "plate": {
+                "rel_x": -92.01300000000002,
+                "rel_y": -138.378,
+                "rel_z": 29.498999999999995,
+                "x": 116.484,
+                "y": 241.103,
+                "z": 114.996
+            },
+            "source": {
+                "rel_x": 94.69200000000001,
+                "rel_y": -138.516,
+                "rel_z": -25.008000000000003,
+                "x": 303.189,
+                "y": 240.965,
+                "z": 60.489
+            },
+            "trash": {
+                "rel_x": -60.202,
+                "rel_y": -328.60400000000004,
+                "rel_z": -88.999,
+                "x": 148.29500000000002,
+                "y": 50.87699999999995,
+                "z": -3.5019999999999953
+            }
+        },
+        "tip_rack_origin": "p10-rack",
+        "tip_racks": [
+            {
+                "container": "p10-rack"
+            }
+        ],
+        "toolname": "b_pipette",
+        "tooltype": "pipette",
+        "top": 0.5,
+        "trash_container": {
+            "container": "trash"
+        },
+        "volume": 10
+    }
+}
+2016-08-03 21:11:20.581629 - head.get_deck response:
+
+{'a': {'trash': OrderedDict([('rel_x', -53.70500000000001), ('rel_y', -60.946999999999996), ('rel_z', -93.498), ('x', 88.99099999999999), ('y', 49.98000000000001), ('z', 0.4919999999999902)]), 'plate': OrderedDict([('rel_x', -94.217), ('rel_y', 132.503), ('rel_z', 10.009), ('x', 48.479), ('y', 243.43), ('z', 103.999)]), 'p200-rack': OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 142.696), ('y', 110.927), ('z', 93.49)]), 'p10-rack': OrderedDict([('rel_x', 66.30099999999999), ('rel_y', 268.047), ('rel_z', -4.998000000000005), ('x', 208.99699999999999), ('y', 378.97400000000005), ('z', 88.99199999999999)]), 'source': OrderedDict([('rel_x', 92.47999999999999), ('rel_y', 131.55), ('rel_z', -44.49999999999999), ('x', 235.176), ('y', 242.477), ('z', 49.49)])}, 'b': {'trash': OrderedDict([('rel_x', -60.202), ('rel_y', -328.60400000000004), ('rel_z', -88.999), ('x', 148.29500000000002), ('y', 50.87699999999995), ('z', -3.5019999999999953)]), 'plate': OrderedDict([('rel_x', -92.01300000000002), ('rel_y', -138.378), ('rel_z', 29.498999999999995), ('x', 116.484), ('y', 241.103), ('z', 114.996)]), 'p200-rack': OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)]), 'p10-rack': OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)]), 'source': OrderedDict([('rel_x', 94.69200000000001), ('rel_y', -138.516), ('rel_z', -25.008000000000003), ('x', 303.189), ('y', 240.965), ('z', 60.489)])}}
+2016-08-03 21:11:20.591355 - head.get_pipettes called
+2016-08-03 21:11:20.592150 - head.get_pipettes response:
+
+{'a': {'toolname': 'a_pipette', 'tooltype': 'pipette', 'blowout': 28.6, 'droptip': 30.5, 'offset': [0, 0, 0], 'volume': 200, 'bottom': 25.9, 'tip_rack_origin': 'p200-rack', 'top': 9.8, 'bottom_distance': 2, 'resting': 0, 'axis': 'a', 'trash_container': OrderedDict([('container', 'trash')]), 'tip_racks': [OrderedDict([('container', 'p200-rack')])], 'theContainers': OrderedDict([('p10-rack', OrderedDict([('rel_x', 66.30099999999999), ('rel_y', 268.047), ('rel_z', -4.998000000000005), ('x', 208.99699999999999), ('y', 378.97400000000005), ('z', 88.99199999999999)])), ('p200-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 142.696), ('y', 110.927), ('z', 93.49)])), ('plate', OrderedDict([('rel_x', -94.217), ('rel_y', 132.503), ('rel_z', 10.009), ('x', 48.479), ('y', 243.43), ('z', 103.999)])), ('source', OrderedDict([('rel_x', 92.47999999999999), ('rel_y', 131.55), ('rel_z', -44.49999999999999), ('x', 235.176), ('y', 242.477), ('z', 49.49)])), ('trash', OrderedDict([('rel_x', -53.70500000000001), ('rel_y', -60.946999999999996), ('rel_z', -93.498), ('x', 88.99099999999999), ('y', 49.98000000000001), ('z', 0.4919999999999902)]))])}, 'b': {'toolname': 'b_pipette', 'tooltype': 'pipette', 'blowout': 19.0, 'droptip': 21.0, 'offset': [0, 0, 0], 'volume': 10, 'bottom': 16.9, 'tip_rack_origin': 'p10-rack', 'top': 0.5, 'bottom_distance': 2, 'resting': 0, 'axis': 'b', 'trash_container': OrderedDict([('container', 'trash')]), 'tip_racks': [OrderedDict([('container', 'p10-rack')])], 'theContainers': OrderedDict([('p10-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])), ('p200-rack', OrderedDict([('rel_x', 0.0), ('rel_y', 0.0), ('rel_z', 0.0), ('x', 208.497), ('y', 379.481), ('z', 85.497)])), ('plate', OrderedDict([('rel_x', -92.01300000000002), ('rel_y', -138.378), ('rel_z', 29.498999999999995), ('x', 116.484), ('y', 241.103), ('z', 114.996)])), ('source', OrderedDict([('rel_x', 94.69200000000001), ('rel_y', -138.516), ('rel_z', -25.008000000000003), ('x', 303.189), ('y', 240.965), ('z', 60.489)])), ('trash', OrderedDict([('rel_x', -60.202), ('rel_y', -328.60400000000004), ('rel_z', -88.999), ('x', 148.29500000000002), ('y', 50.87699999999995), ('z', -3.5019999999999953)]))])}}
+2016-08-03 21:11:22.699054 - subscriber.dispatch_message called
+2016-08-03 21:11:22.700112 - 
+message: {"type":"step","data":{"x":10}}
+
+2016-08-03 21:11:22.701670 - 	dictum[type]: step
+2016-08-03 21:11:22.702886 - 	dictum[data]:
+
+{
+    "x": 10
+}
+
+2016-08-03 21:11:22.703555 - subscriber.dispatch called
+2016-08-03 21:11:22.704129 - 
+
+	type_: step
+	data:OrderedDict([('x', 10)])
+
+2016-08-03 21:11:22.704828 - head.step called
+2016-08-03 21:11:22.705315 - 	locations:
+
+OrderedDict([('x', 10)])
+
+2016-08-03 21:11:22.706168 - head:
+	len(self.theQueue.qlist): 0
+
+2016-08-03 21:11:22.706918 - head:
+	self.theQueue.is_busy?: False
+
+2016-08-03 21:11:22.707880 - head.move called!!!
+2016-08-03 21:11:22.708761 - head.move locations found
+2016-08-03 21:11:22.709509 - head.get_state called
+2016-08-03 21:11:22.710320 - smoothie_ser2net.get_state called
+2016-08-03 21:11:22.711222 - state
+{'b': -4.4294966884, 'z': 0.0, 'a': 0.0, 'y': 0.0, 'x': 0.0}
+2016-08-03 21:11:22.711954 - loc_prev x: 0.0  loc_prev y: 0.0
+2016-08-03 21:11:22.712663 - q_prev: 1
+2016-08-03 21:11:22.713377 - Error in move
+KeyError (0,)
+2016-08-03 21:12:36.452886 - subscriber.dispatch_message called
+2016-08-03 21:12:36.454082 - 
+message: {"type":"move","data":[{"z":0},{"x":220,"y":50}]}
+
+2016-08-03 21:12:36.463033 - 	dictum[type]: move
+2016-08-03 21:12:36.464241 - 	dictum[data]:
+
+[
+    {
+        "z": 0
+    },
+    {
+        "x": 220,
+        "y": 50
+    }
+]
+
+2016-08-03 21:12:36.464906 - subscriber.dispatch called
+2016-08-03 21:12:36.465446 - 
+
+	type_: move
+	data:[OrderedDict([('z', 0)]), OrderedDict([('x', 220), ('y', 50)])]
+
+2016-08-03 21:12:36.466090 - head.move called!!!
+2016-08-03 21:12:36.466505 - head.move locations found
+2016-08-03 21:12:36.466957 - head.get_state called
+2016-08-03 21:12:36.467286 - smoothie_ser2net.get_state called
+2016-08-03 21:12:36.467731 - state
+{'b': -4.4294966884, 'z': 0.0, 'a': 0.0, 'y': 0.0, 'x': 0.0}
+2016-08-03 21:12:36.468206 - loc_prev x: 0.0  loc_prev y: 0.0
+2016-08-03 21:12:36.468562 - q_prev: 1
+2016-08-03 21:12:36.469206 - head.move location: OrderedDict([('z', 0)])
+2016-08-03 21:12:36.473624 - q_prev 1  q_now 1
+2016-08-03 21:12:36.474303 - head.move collision-free
+2016-08-03 21:12:36.474862 - head.move location: OrderedDict([('x', 220), ('y', 50)])
+2016-08-03 21:12:36.475477 - q_prev 1  q_now 4
+2016-08-03 21:12:36.475868 - head.move collision
+2016-08-03 21:12:36.476872 - head.move checking lid
+2016-08-03 21:12:36.477290 - locations:
+[OrderedDict([('z', 0)]), OrderedDict([('x', 30), ('y', 360), ('z', 0)]), OrderedDict([('x', 300), ('y', 360), ('z', 0)]), OrderedDict([('x', 220), ('y', 50)])]
+2016-08-03 21:12:36.478191 - the_queue.add called
+2016-08-03 21:12:36.478594 - the_queue.step called
+2016-08-03 21:12:36.478977 - smoothie_ser2net.move called
+2016-08-03 21:12:36.479352 - smoothie_ser2net:
+	n:     z
+2016-08-03 21:12:36.479891 - smoothie_ser2net:
+	value: 0
+
+2016-08-03 21:12:36.480293 - smoothie_ser2net:
+	value type: <class 'int'>
+
+2016-08-03 21:12:36.480669 - smoothie_ser2net:
+	cmd: G90
+G0Z0
+
+2016-08-03 21:12:36.481094 - smoothie_ser2net.try_add called
+2016-08-03 21:12:36.481463 - smoothie_ser2net.try_step called
+2016-08-03 21:12:36.481800 - self.already_trying: False
+2016-08-03 21:12:36.482116 - self.theState['stat']: 0
+2016-08-03 21:12:36.482507 - self.theState['delaying']: 0
+2016-08-03 21:12:36.482881 - smoothie_ser2net.send called
+2016-08-03 21:12:36.483187 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:36.490873 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 21:12:36.492113 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:36.492752 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:36.497909 - ok... self.already_trying: False
+2016-08-03 21:12:36.499043 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":1}
+{"stat":0}
+ok
+
+
+2016-08-03 21:12:36.499837 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:36.500288 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:36.505883 - smoothie_ser2net.on_state_change called
+2016-08-03 21:12:36.506597 - head.on_state_change called
+2016-08-03 21:12:36.507116 - 
+
+	Head state:
+
+{'delaying': 0, 'homing': {'a': True, 'y': True, 'z': True, 'c': False, 'x': True, 'b': True}, 'a': 0.0, 'y': 0.0, 'direction': {'a': 0, 'y': 0, 'z': 0, 'c': 0, 'x': 0, 'b': 0}, 'stat': 1, 'z': 0.0, 'c': 0, 'b': -4.4294966884, 'x': 0.0}
+
+2016-08-03 21:12:36.507624 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:12:36.508079 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:36.508489 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:36.513946 - smoothie_ser2net.on_state_change called
+2016-08-03 21:12:36.514846 - head.on_state_change called
+2016-08-03 21:12:36.515446 - the_queue.step called
+2016-08-03 21:12:36.515882 - smoothie_ser2net.move called
+2016-08-03 21:12:36.516267 - smoothie_ser2net:
+	n:     x
+2016-08-03 21:12:36.516626 - smoothie_ser2net:
+	value: 30
+
+2016-08-03 21:12:36.517031 - smoothie_ser2net:
+	value type: <class 'int'>
+
+2016-08-03 21:12:36.517413 - smoothie_ser2net:
+	cmd: G90
+G0X30
+
+2016-08-03 21:12:36.517765 - smoothie_ser2net:
+	n:     y
+2016-08-03 21:12:36.518193 - smoothie_ser2net:
+	value: 360
+
+2016-08-03 21:12:36.518525 - smoothie_ser2net:
+	value type: <class 'int'>
+
+2016-08-03 21:12:36.518867 - smoothie_ser2net:
+	cmd: G90
+G0X30Y360
+
+2016-08-03 21:12:36.519210 - smoothie_ser2net:
+	n:     z
+2016-08-03 21:12:36.519587 - smoothie_ser2net:
+	value: 0
+
+2016-08-03 21:12:36.520096 - smoothie_ser2net:
+	value type: <class 'int'>
+
+2016-08-03 21:12:36.520485 - smoothie_ser2net:
+	cmd: G90
+G0X30Y360Z0
+
+2016-08-03 21:12:36.520867 - smoothie_ser2net.try_add called
+2016-08-03 21:12:36.521291 - smoothie_ser2net.try_step called
+2016-08-03 21:12:36.521606 - self.already_trying: False
+2016-08-03 21:12:36.521940 - self.theState['stat']: 0
+2016-08-03 21:12:36.522250 - self.theState['delaying']: 0
+2016-08-03 21:12:36.522631 - smoothie_ser2net.send called
+2016-08-03 21:12:36.522966 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:36.528470 - 
+
+	Head state:
+
+{'delaying': 0, 'homing': {'a': True, 'y': True, 'z': True, 'c': False, 'x': True, 'b': True}, 'a': 0.0, 'y': 0.0, 'direction': {'a': 0, 'y': 0, 'z': 0, 'c': 0, 'x': 0, 'b': 0}, 'stat': 0, 'z': 0.0, 'c': 0, 'b': -4.4294966884, 'x': 0.0}
+
+2016-08-03 21:12:36.529636 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:12:36.530338 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:36.530804 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:36.536029 - ok... self.already_trying: False
+2016-08-03 21:12:36.537369 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 21:12:36.543302 - ok... self.already_trying: False
+2016-08-03 21:12:36.544626 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":1}
+
+
+2016-08-03 21:12:36.545244 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:36.545713 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:36.550227 - smoothie_ser2net.on_state_change called
+2016-08-03 21:12:36.550997 - head.on_state_change called
+2016-08-03 21:12:36.551461 - 
+
+	Head state:
+
+{'delaying': 0, 'homing': {'a': True, 'y': True, 'z': True, 'c': False, 'x': True, 'b': True}, 'a': 0.0, 'y': 0.0, 'direction': {'a': 0, 'y': 0, 'z': 0, 'c': 0, 'x': 0, 'b': 0}, 'stat': 1, 'z': 0.0, 'c': 0, 'b': -4.4294966884, 'x': 0.0}
+
+2016-08-03 21:12:36.551948 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:12:36.665052 - smoothie_ser2net:
+	CBFactory.data_received: {"x":0.12,"y":3.710,"stat":2}
+
+
+2016-08-03 21:12:36.665663 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:36.666060 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:36.668267 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:36.670995 - smoothie_ser2net.on_state_change called
+2016-08-03 21:12:36.671755 - head.on_state_change called
+2016-08-03 21:12:36.672305 - 
+
+	Head state:
+
+{'delaying': 0, 'homing': {'a': True, 'y': True, 'z': True, 'c': False, 'x': True, 'b': True}, 'a': 0.0, 'y': 3.71, 'direction': {'a': 0, 'y': 0, 'z': 0, 'c': 0, 'x': 0, 'b': 0}, 'stat': 2, 'z': 0.0, 'c': 0, 'b': -4.4294966884, 'x': 0.12}
+
+2016-08-03 21:12:36.672950 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:12:36.999194 - smoothie_ser2net:
+	CBFactory.data_received: {"x":1.641,"y":20.314}
+
+
+2016-08-03 21:12:37.000161 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:37.000623 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:37.006209 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:37.010022 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:37.333135 - smoothie_ser2net:
+	CBFactory.data_received: {"x":2.878,"y":36.905}
+
+
+2016-08-03 21:12:37.333956 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:37.334472 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:37.340166 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:37.345956 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:37.668328 - smoothie_ser2net:
+	CBFactory.data_received: {"x":4.103,"y":53.547,"stat":2}
+
+
+2016-08-03 21:12:37.669420 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:37.670482 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:37.679287 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:37.688909 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:38.002197 - smoothie_ser2net:
+	CBFactory.data_received: {"x":5.757,"y":70.163}
+
+
+2016-08-03 21:12:38.003080 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:38.003511 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:38.009165 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:38.014972 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:38.337326 - smoothie_ser2net:
+	CBFactory.data_received: {"x":6.982,"y":86.754}
+
+
+2016-08-03 21:12:38.338221 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:38.338656 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:38.344399 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:38.350007 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:38.672535 - smoothie_ser2net:
+	CBFactory.data_received: {"x":8.219,"y":103.383,"stat":2}
+
+
+2016-08-03 21:12:38.673336 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:38.673876 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:38.679545 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:38.689859 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:39.006940 - smoothie_ser2net:
+	CBFactory.data_received: {"x":9.861,"y":120.0}
+
+
+2016-08-03 21:12:39.008309 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:39.009019 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:39.018522 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:39.028413 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:39.341950 - smoothie_ser2net:
+	CBFactory.data_received: {"x":11.98,"y":136.603}
+
+
+2016-08-03 21:12:39.343174 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:39.344078 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:39.350667 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:39.355021 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:39.677164 - smoothie_ser2net:
+	CBFactory.data_received: {"x":12.739,"y":153.232,"stat":2}
+
+
+2016-08-03 21:12:39.678539 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:39.679254 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:39.689146 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:39.698930 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:40.010817 - smoothie_ser2net:
+	CBFactory.data_received: {"x":13.977,"y":169.849}
+
+
+2016-08-03 21:12:40.011794 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:40.012335 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:40.018022 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:40.024166 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:40.344647 - smoothie_ser2net:
+	CBFactory.data_received: {"x":15.202,"y":186.440}
+
+
+2016-08-03 21:12:40.345500 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:40.345970 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:40.350331 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:40.355710 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:40.681054 - smoothie_ser2net:
+	CBFactory.data_received: {"x":16.843,"y":203.69,"stat":2}
+
+
+2016-08-03 21:12:40.681831 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:40.682343 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:40.688103 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:40.694030 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:40.759890 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 21:12:40.760657 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:40.761122 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:40.766311 - ok... self.already_trying: False
+2016-08-03 21:12:41.015146 - smoothie_ser2net:
+	CBFactory.data_received: {"x":18.80,"y":219.685}
+
+
+2016-08-03 21:12:41.015952 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:41.016404 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:41.020281 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:41.023081 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:41.349007 - smoothie_ser2net:
+	CBFactory.data_received: {"x":19.318,"y":236.289}
+
+
+2016-08-03 21:12:41.349879 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:41.350511 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:41.356026 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:41.359988 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:41.684162 - smoothie_ser2net:
+	CBFactory.data_received: {"x":20.959,"y":252.905,"stat":2}
+
+
+2016-08-03 21:12:41.685121 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:41.695350 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:41.700290 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:41.705640 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:42.032651 - smoothie_ser2net:
+	CBFactory.data_received: {"x":22.196,"y":269.534}
+
+
+2016-08-03 21:12:42.034187 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:42.035143 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:42.043197 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:42.051374 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:42.353239 - smoothie_ser2net:
+	CBFactory.data_received: {"x":23.838,"y":286.125}
+
+
+2016-08-03 21:12:42.354102 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:42.354601 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:42.357122 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:42.360489 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:42.688403 - smoothie_ser2net:
+	CBFactory.data_received: {"x":25.63,"y":302.742,"stat":2}
+
+
+2016-08-03 21:12:42.689267 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:42.689936 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:42.692740 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:42.695759 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:43.022520 - smoothie_ser2net:
+	CBFactory.data_received: {"x":26.300,"y":319.383}
+
+
+2016-08-03 21:12:43.023326 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:43.024026 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:43.026593 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:43.034186 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:43.357498 - smoothie_ser2net:
+	CBFactory.data_received: {"x":27.941,"y":335.974}
+
+
+2016-08-03 21:12:43.358398 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:43.358881 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:43.361558 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:43.364694 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:43.693068 - smoothie_ser2net:
+	CBFactory.data_received: {"x":29.179,"y":352.591,"stat":2}
+
+
+2016-08-03 21:12:43.694615 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:43.695324 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:43.700571 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:43.704740 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:43.961935 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:12:43.963208 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:43.963988 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:43.970478 - smoothie_ser2net.on_state_change called
+2016-08-03 21:12:43.971651 - head.on_state_change called
+2016-08-03 21:12:43.972576 - the_queue.step called
+2016-08-03 21:12:43.973503 - smoothie_ser2net.move called
+2016-08-03 21:12:43.974277 - smoothie_ser2net:
+	n:     x
+2016-08-03 21:12:43.974877 - smoothie_ser2net:
+	value: 300
+
+2016-08-03 21:12:43.975422 - smoothie_ser2net:
+	value type: <class 'int'>
+
+2016-08-03 21:12:43.976051 - smoothie_ser2net:
+	cmd: G90
+G0X300
+
+2016-08-03 21:12:43.976613 - smoothie_ser2net:
+	n:     y
+2016-08-03 21:12:43.977136 - smoothie_ser2net:
+	value: 360
+
+2016-08-03 21:12:43.977641 - smoothie_ser2net:
+	value type: <class 'int'>
+
+2016-08-03 21:12:43.978212 - smoothie_ser2net:
+	cmd: G90
+G0X300Y360
+
+2016-08-03 21:12:43.978731 - smoothie_ser2net:
+	n:     z
+2016-08-03 21:12:43.979216 - smoothie_ser2net:
+	value: 0
+
+2016-08-03 21:12:43.979945 - smoothie_ser2net:
+	value type: <class 'int'>
+
+2016-08-03 21:12:43.980664 - smoothie_ser2net:
+	cmd: G90
+G0X300Y360Z0
+
+2016-08-03 21:12:43.981267 - smoothie_ser2net.try_add called
+2016-08-03 21:12:43.981827 - smoothie_ser2net.try_step called
+2016-08-03 21:12:43.982342 - self.already_trying: False
+2016-08-03 21:12:43.982849 - self.theState['stat']: 0
+2016-08-03 21:12:43.983346 - self.theState['delaying']: 0
+2016-08-03 21:12:43.983858 - smoothie_ser2net.send called
+2016-08-03 21:12:43.984363 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:43.987572 - 
+
+	Head state:
+
+{'delaying': 0, 'homing': {'a': True, 'y': True, 'z': True, 'c': False, 'x': True, 'b': True}, 'a': 0.0, 'y': 352.591, 'direction': {'a': 0, 'y': 0, 'z': 0, 'c': 0, 'x': 0, 'b': 0}, 'stat': 0, 'z': 0.0, 'c': 0, 'b': -4.4294966884, 'x': 29.179}
+
+2016-08-03 21:12:43.988877 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:12:43.990484 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 21:12:43.991567 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:43.992530 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:43.996108 - ok... self.already_trying: False
+2016-08-03 21:12:43.997817 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":1}
+
+
+2016-08-03 21:12:43.998874 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:43.999927 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:44.003811 - smoothie_ser2net.on_state_change called
+2016-08-03 21:12:44.004884 - head.on_state_change called
+2016-08-03 21:12:44.005717 - 
+
+	Head state:
+
+{'delaying': 0, 'homing': {'a': True, 'y': True, 'z': True, 'c': False, 'x': True, 'b': True}, 'a': 0.0, 'y': 352.591, 'direction': {'a': 0, 'y': 0, 'z': 0, 'c': 0, 'x': 0, 'b': 0}, 'stat': 1, 'z': 0.0, 'c': 0, 'b': -4.4294966884, 'x': 29.179}
+
+2016-08-03 21:12:44.006795 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:12:44.027083 - smoothie_ser2net:
+	CBFactory.data_received: {"x":30.0,"y":360.0}
+
+
+2016-08-03 21:12:44.028141 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:44.028782 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:44.032453 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:44.036492 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:44.358443 - smoothie_ser2net:
+	CBFactory.data_received: {"x":45.0}
+
+
+2016-08-03 21:12:44.359281 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:44.359930 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:44.362371 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:44.365403 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:44.692331 - smoothie_ser2net:
+	CBFactory.data_received: {"x":60.0,"stat":2}
+
+
+2016-08-03 21:12:44.693376 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:44.693821 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:44.696439 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:44.699529 - smoothie_ser2net.on_state_change called
+2016-08-03 21:12:44.700562 - head.on_state_change called
+2016-08-03 21:12:44.701159 - 
+
+	Head state:
+
+{'delaying': 0, 'homing': {'a': True, 'y': True, 'z': True, 'c': False, 'x': True, 'b': True}, 'a': 0.0, 'y': 360.0, 'direction': {'a': 0, 'y': 0, 'z': 0, 'c': 0, 'x': 0, 'b': 0}, 'stat': 2, 'z': 0.0, 'c': 0, 'b': -4.4294966884, 'x': 60.0}
+
+2016-08-03 21:12:44.702211 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:12:45.025002 - smoothie_ser2net:
+	CBFactory.data_received: {"x":75.0}
+
+
+2016-08-03 21:12:45.025773 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:45.026190 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:45.030229 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:45.035429 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:45.356386 - smoothie_ser2net:
+	CBFactory.data_received: {"x":95.0}
+
+
+2016-08-03 21:12:45.357153 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:45.357606 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:45.360158 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:45.363243 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:45.690335 - smoothie_ser2net:
+	CBFactory.data_received: {"x":110.0,"stat":2}
+
+
+2016-08-03 21:12:45.691134 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:45.691686 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:45.697182 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:45.703020 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:46.022997 - smoothie_ser2net:
+	CBFactory.data_received: {"x":125.0}
+
+
+2016-08-03 21:12:46.023822 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:46.024310 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:46.029647 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:46.035527 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:46.354615 - smoothie_ser2net:
+	CBFactory.data_received: {"x":140.0}
+ok
+
+
+2016-08-03 21:12:46.355566 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:46.356007 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:46.360293 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:46.362958 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:46.363625 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:46.364165 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:46.366429 - ok... self.already_trying: False
+2016-08-03 21:12:46.694486 - smoothie_ser2net:
+	CBFactory.data_received: {"x":160.0,"stat":2}
+
+
+2016-08-03 21:12:47.067321 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:47.068055 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:47.071208 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:47.073877 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:47.075359 - smoothie_ser2net:
+	CBFactory.data_received: {"x":175.0}
+
+
+2016-08-03 21:12:47.076108 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:47.076635 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:47.079001 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:47.081648 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:47.353761 - smoothie_ser2net:
+	CBFactory.data_received: {"x":190.0}
+
+
+2016-08-03 21:12:47.354583 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:47.355115 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:47.360287 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:47.365309 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:47.686380 - smoothie_ser2net:
+	CBFactory.data_received: {"x":210.0,"stat":2}
+
+
+2016-08-03 21:12:47.687276 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:47.687700 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:47.690255 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:47.693429 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:48.019076 - smoothie_ser2net:
+	CBFactory.data_received: {"x":225.0}
+
+
+2016-08-03 21:12:48.019999 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:48.020439 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:48.022799 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:48.025907 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:48.351867 - smoothie_ser2net:
+	CBFactory.data_received: {"x":240.0}
+
+
+2016-08-03 21:12:48.352669 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:48.353221 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:48.358617 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:48.364454 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:48.684823 - smoothie_ser2net:
+	CBFactory.data_received: {"x":260.0,"stat":2}
+
+
+2016-08-03 21:12:48.686185 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:48.686946 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:48.696341 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:48.705994 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:49.017537 - smoothie_ser2net:
+	CBFactory.data_received: {"x":275.0}
+
+
+2016-08-03 21:12:49.018830 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:49.019541 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:49.028945 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:49.038592 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:49.348509 - smoothie_ser2net:
+	CBFactory.data_received: {"x":290.0}
+
+
+2016-08-03 21:12:49.349571 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:49.350212 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:49.355764 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:49.361784 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:49.562337 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:12:49.563010 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:49.563515 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:49.568958 - smoothie_ser2net.on_state_change called
+2016-08-03 21:12:49.569905 - head.on_state_change called
+2016-08-03 21:12:49.570533 - the_queue.step called
+2016-08-03 21:12:49.570992 - smoothie_ser2net.move called
+2016-08-03 21:12:49.571421 - smoothie_ser2net:
+	n:     x
+2016-08-03 21:12:49.571922 - smoothie_ser2net:
+	value: 220
+
+2016-08-03 21:12:49.572300 - smoothie_ser2net:
+	value type: <class 'int'>
+
+2016-08-03 21:12:49.572724 - smoothie_ser2net:
+	cmd: G90
+G0X219.5
+
+2016-08-03 21:12:49.573142 - smoothie_ser2net:
+	n:     y
+2016-08-03 21:12:49.573535 - smoothie_ser2net:
+	value: 50
+
+2016-08-03 21:12:49.573843 - smoothie_ser2net:
+	value type: <class 'int'>
+
+2016-08-03 21:12:49.574236 - smoothie_ser2net:
+	cmd: G90
+G0X219.5Y49.5
+
+2016-08-03 21:12:49.574648 - smoothie_ser2net.try_add called
+2016-08-03 21:12:49.575027 - smoothie_ser2net.try_step called
+2016-08-03 21:12:49.575380 - self.already_trying: False
+2016-08-03 21:12:49.575713 - self.theState['stat']: 0
+2016-08-03 21:12:49.576049 - self.theState['delaying']: 0
+2016-08-03 21:12:49.576422 - smoothie_ser2net.send called
+2016-08-03 21:12:49.576749 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:49.582328 - 
+
+	Head state:
+
+{'delaying': 0, 'homing': {'a': True, 'y': True, 'z': True, 'c': False, 'x': True, 'b': True}, 'a': 0.0, 'y': 360.0, 'direction': {'a': 0, 'y': 0.5, 'z': 0, 'c': 0, 'x': 0.5, 'b': 0}, 'stat': 0, 'z': 0.0, 'c': 0, 'b': -4.4294966884, 'x': 290.0}
+
+2016-08-03 21:12:49.583857 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:12:49.585306 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 21:12:49.585912 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:49.586386 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:49.589988 - ok... self.already_trying: False
+2016-08-03 21:12:49.592748 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":1}
+
+
+2016-08-03 21:12:49.593513 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:49.594044 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:49.596278 - smoothie_ser2net.on_state_change called
+2016-08-03 21:12:49.596917 - head.on_state_change called
+2016-08-03 21:12:49.597460 - 
+
+	Head state:
+
+{'delaying': 0, 'homing': {'a': True, 'y': True, 'z': True, 'c': False, 'x': True, 'b': True}, 'a': 0.0, 'y': 360.0, 'direction': {'a': 0, 'y': 0.5, 'z': 0, 'c': 0, 'x': 0.5, 'b': 0}, 'stat': 1, 'z': 0.0, 'c': 0, 'b': -4.4294966884, 'x': 290.0}
+
+2016-08-03 21:12:49.598125 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:12:49.683882 - smoothie_ser2net:
+	CBFactory.data_received: {"x":300.0,"y":358.50,"stat":2}
+
+
+2016-08-03 21:12:49.684602 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:49.685017 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:49.687252 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:49.689865 - smoothie_ser2net.on_state_change called
+2016-08-03 21:12:49.690610 - head.on_state_change called
+2016-08-03 21:12:49.691151 - 
+
+	Head state:
+
+{'delaying': 0, 'homing': {'a': True, 'y': True, 'z': True, 'c': False, 'x': True, 'b': True}, 'a': 0.0, 'y': 359.0, 'direction': {'a': 0, 'y': 0.5, 'z': 0, 'c': 0, 'x': 0.5, 'b': 0}, 'stat': 2, 'z': 0.0, 'c': 0, 'b': -4.4294966884, 'x': 300.5}
+
+2016-08-03 21:12:49.691831 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:12:50.016677 - smoothie_ser2net:
+	CBFactory.data_received: {"x":296.287,"y":341.987}
+
+
+2016-08-03 21:12:50.017546 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:50.017965 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:50.023646 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:50.029375 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:50.350703 - smoothie_ser2net:
+	CBFactory.data_received: {"x":291.325,"y":325.924}
+
+
+2016-08-03 21:12:50.351568 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:50.352021 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:50.357681 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:50.363444 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:50.684533 - smoothie_ser2net:
+	CBFactory.data_received: {"x":287.613,"y":309.811,"stat":2}
+
+
+2016-08-03 21:12:50.685416 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:50.685869 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:50.691832 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:50.697619 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:51.018526 - smoothie_ser2net:
+	CBFactory.data_received: {"x":283.901,"y":293.698}
+
+
+2016-08-03 21:12:51.019265 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:51.019948 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:51.025566 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:51.031450 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:51.351390 - smoothie_ser2net:
+	CBFactory.data_received: {"x":278.952,"y":277.635}
+
+
+2016-08-03 21:12:51.353654 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:51.354560 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:51.358987 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:51.362481 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:51.686253 - smoothie_ser2net:
+	CBFactory.data_received: {"x":274.469,"y":261.534,"stat":2}
+
+
+2016-08-03 21:12:51.687170 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:51.687643 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:51.693430 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:51.699310 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:52.156610 - smoothie_ser2net:
+	CBFactory.data_received: {"x":271.515,"y":245.421}
+
+
+2016-08-03 21:12:52.157427 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:52.157831 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:52.163619 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:52.169393 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:52.352871 - smoothie_ser2net:
+	CBFactory.data_received: {"x":266.565,"y":229.333}
+
+
+2016-08-03 21:12:52.353615 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:52.354027 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:52.359593 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:52.365469 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:52.688018 - smoothie_ser2net:
+	CBFactory.data_received: {"x":262.840,"y":213.220,"stat":2}
+
+
+2016-08-03 21:12:52.688912 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:52.689328 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:52.695087 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:52.700004 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:53.009493 - smoothie_ser2net:
+	CBFactory.data_received: ok
+
+
+2016-08-03 21:12:53.010360 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:53.010803 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:53.015968 - ok... self.already_trying: False
+2016-08-03 21:12:53.020805 - smoothie_ser2net:
+	CBFactory.data_received: {"x":257.891,"y":197.132}
+
+
+2016-08-03 21:12:53.021509 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:53.021921 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:53.027383 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:53.033190 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:53.353444 - smoothie_ser2net:
+	CBFactory.data_received: {"x":254.179,"y":181.44}
+
+
+2016-08-03 21:12:53.354335 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:53.354750 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:53.360270 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:53.362717 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:53.689108 - smoothie_ser2net:
+	CBFactory.data_received: {"x":250.467,"y":164.943,"stat":2}
+
+
+2016-08-03 21:12:53.691076 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:53.691854 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:53.701733 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:53.711700 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:54.021678 - smoothie_ser2net:
+	CBFactory.data_received: {"x":245.505,"y":148.842}
+
+
+2016-08-03 21:12:54.022907 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:54.023880 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:54.033107 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:54.043244 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:54.355671 - smoothie_ser2net:
+	CBFactory.data_received: {"x":241.792,"y":132.767}
+
+
+2016-08-03 21:12:54.357057 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:54.357908 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:54.367321 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:54.377156 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:54.690426 - smoothie_ser2net:
+	CBFactory.data_received: {"x":238.80,"y":116.654,"stat":2}
+
+
+2016-08-03 21:12:54.691264 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:54.691694 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:54.697315 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:54.703282 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:55.023142 - smoothie_ser2net:
+	CBFactory.data_received: {"x":233.118,"y":100.566}
+
+
+2016-08-03 21:12:55.023928 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:55.024373 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:55.029908 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:55.035756 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:55.355806 - smoothie_ser2net:
+	CBFactory.data_received: {"x":229.406,"y":84.490}
+
+
+2016-08-03 21:12:55.356672 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:55.357158 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:55.362850 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:55.368547 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:55.704345 - smoothie_ser2net:
+	CBFactory.data_received: {"x":224.457,"y":68.389,"stat":2}
+
+
+2016-08-03 21:12:55.706066 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:55.707327 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:55.718003 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:55.724789 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:56.023637 - smoothie_ser2net:
+	CBFactory.data_received: {"x":220.732,"y":52.276}
+
+
+2016-08-03 21:12:56.024551 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:56.025024 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:56.030285 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:56.032823 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:56.215004 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:12:56.215900 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:56.216422 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:56.218806 - smoothie_ser2net.on_state_change called
+2016-08-03 21:12:56.219470 - head.on_state_change called
+2016-08-03 21:12:56.220095 - the_queue.step called
+2016-08-03 21:12:56.220828 - publisher.on_finish called
+2016-08-03 21:12:56.223571 - instruction_queue.ins_step called,
+len(self.instructionArray): 0
+
+2016-08-03 21:12:56.224432 - 
+
+	Head state:
+
+{'delaying': 0, 'homing': {'a': True, 'y': True, 'z': True, 'c': False, 'x': True, 'b': True}, 'a': 0.0, 'y': 52.776, 'direction': {'a': 0, 'y': 0.5, 'z': 0, 'c': 0, 'x': 0.5, 'b': 0}, 'stat': 0, 'z': 0.0, 'c': 0, 'b': -4.4294966884, 'x': 221.232}
+
+2016-08-03 21:12:56.225353 - smoothie_ser2net:
+	didStateChange?: True
+
+2016-08-03 21:12:56.357630 - smoothie_ser2net:
+	CBFactory.data_received: {"x":219.494,"y":49.496}
+
+
+2016-08-03 21:12:56.358320 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:56.358834 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:56.361367 - smoothie_ser2net.on_position_data called
+2016-08-03 21:12:56.364365 - smoothie_ser2net:
+	didStateChange?: False
+
+2016-08-03 21:12:56.691628 - smoothie_ser2net:
+	CBFactory.data_received: {"stat":0}
+
+
+2016-08-03 21:12:56.692448 - smoothie_ser2net.smoothie_handler called
+2016-08-03 21:12:56.692974 - smoothie_ser2net.on_raw_data called
+2016-08-03 21:12:56.698366 - smoothie_ser2net:
+	didStateChange?: False
+
