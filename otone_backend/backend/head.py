@@ -54,7 +54,7 @@ class Head:
 
         #connect with cycler
         self.cycler = Cycler()
-        self.cycler.toggle_lid()
+        #self.cycler.toggle_lid()
 
     def __str__(self):
         return "Head"
@@ -367,7 +367,8 @@ class Head:
                     if debug == True: FileIO.log('head.move location: {0}'.format(locations[i]))
                     #convert relative to absolute location if necessary
                     if locations[i].get('relative'):
-                        locations[i] = self.rel_to_abs(locations[i]) 
+                        if debug == True: FileIO.log('relative move')
+                        locations[i] = self.rel_to_abs(loc_prev,locations[i]) 
                     #check target quadrant 
                     q_now = self.quadrant(locations[i].get('x',loc_prev['x']),\
                                         locations[i].get('y',loc_prev['y']),xLim,yLim)
@@ -406,11 +407,13 @@ class Head:
                 if debug == True: FileIO.log('Error in move\n{0} {1!r}'.format(type(ex).__name__,ex.args))
                 raise
 
-    def rel_to_abs(loc_prev,loc_now):
+    def rel_to_abs(self,loc_prev,loc_now):
+        if debug == True: FileIO.log('def rel_to_abs')
         loc_now['relative'] = False
         keys = ['x','y','z','a','b']
         for key in keys:
             loc_now[key] = loc_prev.get(key,0) + loc_now.get(key,0)
+        if debug == True: FileIO.log('loc_now: {0}\n'.format(loc_now))
         return loc_now
     
     #from planner.js
