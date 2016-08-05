@@ -70,7 +70,7 @@ class Cycler:
         'check_lid':[[1,4],[2,4],[3,4]]
     }
 
-    quad_nodes = {
+    cell_nodes = {
         'open':{
             1:{'x':30,'y':135,'z':0},
             2:{'x':30,'y':330,'z':0},
@@ -85,7 +85,7 @@ class Cycler:
         }
     }
 
-    quad_bounds = {
+    cell_bounds = {
         'open':{
             1:{'x':[0,60],'y':[0,270]},
             2:{'x':[0,60],'y':[270,390]},

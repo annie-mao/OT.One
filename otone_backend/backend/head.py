@@ -362,15 +362,15 @@ class Head:
                     'b' : state['b']
                 }
                 if debug == True: FileIO.log('state\n{0}'.format(loc_prev))
-                q_prev = self.quadrant(loc_prev['x'],loc_prev['y'],lid)
+                q_prev = self.cell(loc_prev['x'],loc_prev['y'],lid)
                 for i in range(0,len(locations)):
                     if debug == True: FileIO.log('head.move location: {0}'.format(locations[i]))
                     #convert relative to absolute location if necessary
                     if locations[i].get('relative'):
                         if debug == True: FileIO.log('relative move')
                         locations[i] = self.rel_to_abs(loc_prev,locations[i]) 
-                    #check target quadrant 
-                    q_now = self.quadrant(locations[i].get('x',loc_prev['x']),\
+                    #check target cell 
+                    q_now = self.cell(locations[i].get('x',loc_prev['x']),\
                                         locations[i].get('y',loc_prev['y']),lid)
                     if debug == True: FileIO.log('q_prev {0}  q_now {1}'.format(q_prev,q_now))
                     if [q_prev,q_now] in self.cycler.move_between['safe']:
@@ -379,10 +379,10 @@ class Head:
                     elif [q_prev,q_now] in self.cycler.move_between['collision']:
                         #add intermediate location to prevent collision
                         for k in range(0,abs(q_now-q_prev)-1):
-                            #for every skipped quadrant, add int. step
-                            #quadrant next to q_prev
+                            #for every skipped cell, add int. step
+                            #cell next to q_prev
                             q_int = int(q_prev + math.copysign(1,q_now-q_prev)*(k+1))
-                            intLoc = OrderedDict(sorted(self.cycler.quad_nodes[lid][q_int].items()))
+                            intLoc = OrderedDict(sorted(self.cycler.cell_nodes[lid][q_int].items()))
                             #insert int location in locations
                             locations.insert(i+k,intLoc)
                     else:
@@ -390,12 +390,12 @@ class Head:
                         # TODO: add error handling for this case
                         if debug == True: FileIO.log('Invalid move')
                         break
-                    #if moving to cycler quadrant, check lid
+                    #if moving to cycler cell, check lid
                     if (lid != 'open') and ([q_prev,q_now] in self.cycler.move_between['check_lid']):
                         #if lid is unopen, open lid
                         self.cycler.toggle_lid()
                         lid = 'open'
-                    #set current quadrant as q_prev for next iteration
+                    #set current cell as q_prev for next iteration
                     q_prev = q_now
                     #set current location as loc_prev for next iteration
                     for n in ['x','y','z']:
@@ -743,8 +743,8 @@ class Head:
         self.pubber.send_message('pipetteValues',self.get_pipettes())
       
 
-    def quadrant(self,x,y,lid):
-        """ Returns quadrant of x,y location relative to cycler
+    def cell(self,x,y,lid):
+        """ Returns cell of x,y location relative to cycler
         lid closed          lid open
         0-------------x     0-------------x
         |1     |4     |     |1  |///|cycl.|
@@ -754,12 +754,12 @@ class Head:
         |      |      |     |   |   |     |
         y-------------.     y-------------.
         """
-        bounds = self.cycler.quad_bounds[lid]
+        bounds = self.cycler.cell_bounds[lid]
 
-        for quad,coords in bounds.items():
+        for cell,coords in bounds.items():
             if(x >= coords['x'][0] and x < coords['x'][1] and \
                 y >= coords['y'][0] and y < coords['y'][1]):
-                return quad
+                return cell
         #if no matches
         return None
 
