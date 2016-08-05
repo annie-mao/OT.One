@@ -2,7 +2,7 @@ from file_io import FileIO
 import json, collections, asyncio
 
 debug = True
-verbose = False
+verbose = True
 
 class InstructionQueue:
     """Holds protocol instructions and starts a job.
@@ -116,6 +116,10 @@ class InstructionQueue:
             this_instruction = self.instructionArray.pop(0)
             if this_instruction and this_instruction['tool'] == 'pipette':
                 self.send_instruction(this_instruction)
+            elif this_instruction and this_instruction['tool'] == 'cycler':
+                if debug == True: 
+                    FileIO.log('CYCLER INSTRUCTION:\n{0}'.format(this_instruction))
+                # HHHHHHHHHHHHHHHHHHHHHHHHHH
         elif self.isRunning == True:
             if self.infinity_data is not None:
                 if debug == True: 

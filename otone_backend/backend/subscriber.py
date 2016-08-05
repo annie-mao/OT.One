@@ -104,19 +104,18 @@ class Subscriber():
         if debug == True: FileIO.log('subscriber.set_runner called')
         self.runner = runner
 
-
     def dispatch_message(self, message):
         """The first point of contact for incoming messages.
         """
         if debug == True:
             FileIO.log('subscriber.dispatch_message called')
-            if verbose == True: FileIO.log('\nmessage: ',message,'\n')
+            FileIO.log('\nmessage: ',message,'\n')
         #print('message type: ',type(message))
         try:
             dictum = collections.OrderedDict(json.loads(message.strip(), object_pairs_hook=collections.OrderedDict))
-            if debug == True and verbose == True: FileIO.log('\tdictum[type]: ',dictum['type'])
+            if debug == True: FileIO.log('\tdictum[type]: ',dictum['type'])
             if 'data' in dictum:
-                if debug == True and verbose == True: FileIO.log('\tdictum[data]:\n\n',json.dumps(dictum['data'],sort_keys=True,indent=4,separators=(',',': ')),'\n')
+                if debug == True: FileIO.log('\tdictum[data]:\n\n',json.dumps(dictum['data'],sort_keys=True,indent=4,separators=(',',': ')),'\n')
                 self.dispatch(dictum['type'],dictum['data'])
             else:
                 self.dispatch(dictum['type'],None)
@@ -392,5 +391,6 @@ class Subscriber():
               'shareinet': lambda self: self.loop.create_task(self.share_inet()),
               'restart' : lambda self: self.restart(),
               'containerDepthOverride': lambda self, data: self.container_depth_override(data)
+              #'cycler' : lambda self, data: self.cycler.task(data)
               }
     

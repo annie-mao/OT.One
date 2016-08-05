@@ -40,7 +40,6 @@ from protocol_runner import ProtocolRunner
 import script_keeper as sk
 from script_keeper import ScriptKeeper
 
-
 debug = True
 verbose = False
 
@@ -221,7 +220,6 @@ def instantiate_objects():
     subscriber.set_deck(deck)
     subscriber.set_head(head)
     subscriber.set_runner(runner)
-
 
     @asyncio.coroutine
     def periodically_send_ip_addresses():

@@ -125,8 +125,7 @@ class Cycler:
         stopbits=serial.STOPBITS_ONE)
         self.ser.timeout=1
 
-        self.lidOpen = self.is_lid_open()
-        if self.lidOpen is not None:
+        if self.is_lid_open() is not None:
             self.portOpen = True
 
 
@@ -210,8 +209,10 @@ class Cycler:
         """
         lidStatus=self.send(self._lid['status'])
         if lidStatus == self._lid['isOpen']:
+            self.lidOpen = True
             return True
         elif lidStatus == self._lid['isClosed']:
+            self.lidOpen = False
             return False
         else:
             return None
@@ -268,3 +269,9 @@ class Cycler:
             else:
                 self.send(self._runCmd['cancel'])
                 time.sleep(1)
+
+    def task(self,data):
+        """handle incoming task from subscriber.py
+        data = 
+        """
+
