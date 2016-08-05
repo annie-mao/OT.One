@@ -1,5 +1,5 @@
 from file_io import FileIO
-import json, collections, asyncio
+import json, collections, asyncio, time
 
 debug = True
 verbose = True
@@ -28,7 +28,7 @@ class InstructionQueue:
         
     """
 #Special Methods
-    def __init__(self, head, publisher):
+    def __init__(self, head, publisher,cycler):
         """Initialize Instruction Queue object
         
         """
@@ -37,6 +37,8 @@ class InstructionQueue:
         self.isRunning = False
         self.infinity_data = None
         self.pubber = publisher
+
+        self.cycler = cycler
         
     def __str__(self):
         return "InstructionQueue"
@@ -119,7 +121,19 @@ class InstructionQueue:
             elif this_instruction and this_instruction['tool'] == 'cycler':
                 if debug == True: 
                     FileIO.log('CYCLER INSTRUCTION:\n{0}'.format(this_instruction))
-                # HHHHHHHHHHHHHHHHHHHHHHHHHH
+                for program in this_instruction['groups']:
+                    # send instruction to cycler object
+                    self.cycler.task(program) 
+                    if(program['wait']):
+                        # wait for cycler to finish running job
+                        waitForCycler = True
+                        self.head.theQueue.pause_job()
+                        while waitForCycler:
+                            if debug == True: FileIO.log('Waiting for cycler')
+                            waitForCycler = self.cycler.busy()
+                            time.sleep(60)
+                        if debug == True: FileIO.log('Cycler has finished')
+                        self.head.theQueue.resume_job()
         elif self.isRunning == True:
             if self.infinity_data is not None:
                 if debug == True: 

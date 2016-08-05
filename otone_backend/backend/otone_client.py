@@ -40,6 +40,8 @@ from protocol_runner import ProtocolRunner
 import script_keeper as sk
 from script_keeper import ScriptKeeper
 
+from cycler.cycler import Cycler
+
 debug = True
 verbose = False
 
@@ -48,6 +50,7 @@ verbose = False
 #declare globol objects here
 head = None
 deck = None
+cycler = None
 runner = None
 subscriber = None
 publisher = None
@@ -191,8 +194,10 @@ def instantiate_objects():
         FileIO.log('deck string: ', str(deck))
         FileIO.log('deck representation: ', repr(deck))
 
+    #instantiate the cycler
+    cycler = Cycler()
 
-    runner = ProtocolRunner(head, publisher)
+    runner = ProtocolRunner(head, publisher, cycler)
 
     
     #use the deck data to configure the deck

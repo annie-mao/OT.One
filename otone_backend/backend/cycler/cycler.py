@@ -1,4 +1,8 @@
-import serial, time
+import serial, time, sys
+sys.path.append("..")
+from file_io import FileIO
+
+debug = True
 
 class Cycler:
     
@@ -110,6 +114,7 @@ class Cycler:
 
     def __init__(self):
         self.portOpen = self.connect()
+        if debug == True: FileIO.log("Cycler init")
     
     def connect(self,port='/dev/ttyUSB0'):
         """open serial connection
@@ -192,6 +197,13 @@ class Cycler:
         self.send(self.formatInput([self._sys['vesselType'],vesselType],' '))
         self.send(self.formatInput([self._sys['vesselVol'],str(vesselVol)],' '))
 
+    def busy():
+        """ returns True if a program is currently running, False if otherwise
+        """
+        if self.get_run()[0] == '""':
+            return False
+        else:
+            return True
 
 #----------------------------- COMMANDS --------------------------------
     def toggle_lid(self):
@@ -274,4 +286,6 @@ class Cycler:
         """handle incoming task from subscriber.py
         data = 
         """
+        if debug == True: FileIO.log('CYCLER RECEIVED TASK:\n{0}'.format(data))
+        
 
