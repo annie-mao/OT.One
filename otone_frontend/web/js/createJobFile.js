@@ -369,6 +369,18 @@ function createRobotProtocol (protocol) { // 'protocol' is the human-readable js
 
   /*
 
+    3.5) Look for cycler section in protocol
+
+  */
+  
+  var _cycler = {};
+  if(protocol.cycler){
+    _cycler = protocol.cycler;
+  }
+
+
+  /*
+
     4) Make array of instructions, to hold commands and their individual move locations
 
   */
@@ -409,12 +421,13 @@ function createRobotProtocol (protocol) { // 'protocol' is the human-readable js
   // parsing each command, and mapping to locations on the deck
 
   for (var i=0;i<_instructions.length;i++) {
+    var newInstruction = {};
+    if(_instructions[i].tool == 'cycler'){
+      newInstruction.tool = 'cycler';
+      newInstruction.groups = _instructions[i].groups;
 
-    var currentPipette = _pipettes[_instructions[i].tool];
-
-    if(currentPipette) {
-
-      var newInstruction = {};
+    } else if(_instructions[i].tool in _pipettes){
+      var currentPipette = _pipettes[_instructions[i].tool];
       newInstruction.tool = currentPipette.tool;
       newInstruction.groups = [];
 
@@ -735,7 +748,7 @@ function makePipettingMotion (theDeck, theTool, thisParams, shouldDropPlunger) {
       'container' : containerName
     });
 
-    // ** ANNIE'S EDITS ** go two mm above the position (changed from 1 mm)
+    // ** ANNIE'S EDITS ** go five mm above the position (changed from 1 mm)
     moveArray.push({
       'z' : 5,
       'container' : containerName
