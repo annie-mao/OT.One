@@ -387,6 +387,7 @@ class Head:
                             locations.insert(i+k,intLoc)
                     else:
                         #invalid move
+                        locations.remove(locations[i])
                         # TODO: add error handling for this case
                         if debug == True: FileIO.log('Invalid move')
                         break
@@ -747,11 +748,11 @@ class Head:
         """ Returns cell of x,y location relative to cycler
         lid closed          lid open
         0-------------x     0-------------x
-        |1     |4     |     |1  |///|cycl.|
-        |      |cycler|     |   |lid|     |
+        |1     |6|5   |     |1  |6//|5    |
+        |      |/|cyc |     |lid|///|cycl.|
         |-------------|     |-------------|
-        |2     |3     |     |2  |   |     |
-        |      |      |     |   |   |     |
+        |2     |3|4   |     |2  |3  |4    |
+        |      | |    |     |   |   |     |
         y-------------.     y-------------.
         """
         bounds = self.cycler.cell_bounds[lid]
