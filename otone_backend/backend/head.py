@@ -720,7 +720,6 @@ class Head:
                 moveCommand = self.PIPETTES[axis].pmap(locations[i])
                 self.move(moveCommand)
 
-
     def erase_job(self):
         """Tell theQueue to clear
         """

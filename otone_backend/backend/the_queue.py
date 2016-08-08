@@ -140,6 +140,10 @@ class TheQueue:
                 elif 'speed' in self.current_command:
                     self.head.smoothieAPI.set_speed(self.current_command['axis'],self.current_command['speed'])
                     
+                elif 'cycler' in self.current_command:
+                    self.head.cycler.task(self.current_command)
+                    while self.is_busy:
+                        self.is_busy= self.head.cycler.is_busy
                 else:
                     self.head.smoothieAPI.move(self.current_command)	#, self.sent_successfully );      # MOVE
 

@@ -370,6 +370,31 @@ function createRobotProtocol (protocol) { // 'protocol' is the human-readable js
   /*
 
     3.5) Look for cycler section in protocol
+    example:
+
+    "cycler":{
+        "Program1":{
+            "runtime":7,
+            "control":"CALC",
+            "lid":true,
+            "vessel":"Tubes",
+            "volume":100
+        },
+        "Program2":{
+            "runtime":7,
+            "control":"CALC",
+            "lid":true,
+            "vessel":"Tubes",
+            "volume":100
+        },
+        "Program3":{
+            "runtime":7,
+            "control":"CALC",
+            "lid":true,
+            "vessel":"Tubes",
+            "volume":100
+        }
+    }
 
   */
   
@@ -382,6 +407,32 @@ function createRobotProtocol (protocol) { // 'protocol' is the human-readable js
   /*
 
     4) Make array of instructions, to hold commands and their individual move locations
+
+  JSON example:
+
+  "instructions": [
+  {
+    "tool": "cycler",
+    "groups": [
+      "run": {
+        "name": "Program1"
+      }
+    ]
+  },
+  {
+    "tool": "p10",
+    "groups": [
+      {
+        "transfer":[
+          {
+            "from":{...}
+            "to":{...}
+          }
+        ]
+      }
+    ]
+  }
+  ]
 
   */
   
@@ -490,15 +541,12 @@ var createCyclerGroup = {
   'run' : function (theCycler, theGroup) {
     console.log('cycler run called');
     var createdGroup = {
-      'command': 'run',
+      'command': 'cycler',
       'name': theGroup.name
     };
     console.log(theGroup.name);
     if(createdGroup.name in theCycler) {
-        console.log('found name in cycler')
         for (var key in theCycler[createdGroup.name]) {
-          console.log(key);
-          console.log('in loop')
           createdGroup[key] = theCycler[createdGroup.name][key];
       }
     }

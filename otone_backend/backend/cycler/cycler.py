@@ -118,6 +118,7 @@ class Cycler:
     # state variables
     lidOpen = None
     portOpen = None
+    is_busy = False
 
     def __init__(self):
         self.portOpen = self.connect()
@@ -204,13 +205,14 @@ class Cycler:
         self.send(self.formatInput([self._sys['vesselType'],vesselType],' '))
         self.send(self.formatInput([self._sys['vesselVol'],str(vesselVol)],' '))
 
-    def busy():
+    def check_busy(self):
         """ returns True if a program is currently running, False if otherwise
         """
         if self.get_run()[0] == '""':
-            return False
+            self.is_busy = False
         else:
-            return True
+            self.is_busy = True
+        return self.is_busy
 
 #------------------------------ HELPERS---------------------------------
 
@@ -321,5 +323,9 @@ class Cycler:
         data = 
         """
         if debug == True: FileIO.log('CYCLER RECEIVED TASK:\n{0}'.format(data))
-        
+        self.is_busy = True
+        time.sleep(10000)
+        if debug == True: FileIO.log('CYCLER DONE WAITING')
+        self.is_busy = False
+
 

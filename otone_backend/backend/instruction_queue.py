@@ -114,24 +114,8 @@ class InstructionQueue:
             #pop the first item in the instructionArray list
             #this_instruction = self.instructionArray.splice(0,1)[0]
             this_instruction = self.instructionArray.pop(0)
-            if this_instruction and this_instruction['tool'] == 'pipette':
+            if this_instruction and this_instruction['tool']:
                 self.send_instruction(this_instruction)
-            elif this_instruction and this_instruction['tool'] == 'cycler':
-                if debug == True: 
-                    FileIO.log('CYCLER INSTRUCTION:\n{0}'.format(this_instruction))
-                for program in this_instruction['groups']:
-                    # send instruction to cycler object
-                    self.head.cycler.task(program) 
-                    if(program['wait']):
-                        # wait for cycler to finish running job
-                        waitForCycler = True
-                        self.head.theQueue.pause_job()
-                        while waitForCycler:
-                            if debug == True: FileIO.log('Waiting for cycler')
-                            waitForCycler = self.head.cycler.busy()
-                            time.sleep(60)
-                        if debug == True: FileIO.log('Cycler has finished')
-                        self.head.theQueue.resume_job()
         elif self.isRunning == True:
             if self.infinity_data is not None:
                 if debug == True: 
@@ -155,4 +139,6 @@ class InstructionQueue:
                 this_group = m
                 if this_group['command'] == 'pipette':
                     self.head.pipette(this_group)
+                elif this_group['command'] == 'cycler':
+                    self.head.theQueue.add(this_group)
                     
