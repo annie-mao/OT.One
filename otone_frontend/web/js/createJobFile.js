@@ -388,7 +388,7 @@ function createRobotProtocol (protocol) { // 'protocol' is the human-readable js
   var createdInstructions = []; // an instruction is for one specific tool
 
   var _instructions = protocol.instructions;
-
+  /*
   // first make the plunger go up and down for each pipette being used
   for(var toolname in _pipettes) {
     createdInstructions.push({
@@ -415,7 +415,7 @@ function createRobotProtocol (protocol) { // 'protocol' is the human-readable js
       ]
     });
   }
-
+  */
 
   // then add all the instructions from the loaded protocol file
   // parsing each command, and mapping to locations on the deck
@@ -424,8 +424,17 @@ function createRobotProtocol (protocol) { // 'protocol' is the human-readable js
     var newInstruction = {};
     if(_instructions[i].tool == 'cycler'){
       newInstruction.tool = 'cycler';
-      newInstruction.groups = _instructions[i].groups;
-
+      newInstruction.groups = [];
+      
+      _instructions[i].groups.forEach( function(_group,index) { // loop through each group
+        if(_group.run) {
+            console.log('running a cycler program');
+            var newGroup = createCyclerGroup.run (_cycler,_group.run);    
+        }
+        if(newGroup) {
+          newInstruction.groups.push(newGroup);
+        }
+      }); 
     } else if(_instructions[i].tool in _pipettes){
       var currentPipette = _pipettes[_instructions[i].tool];
       newInstruction.tool = currentPipette.tool;
@@ -464,6 +473,39 @@ function createRobotProtocol (protocol) { // 'protocol' is the human-readable js
   return createdInstructions;
 
 }
+
+/////////////////////////////////
+/////////////////////////////////
+//////////////////////////////////
+// function to process cycler commands
+// can add future functionalities like program creation,
+// incbuate/hold, etc.
+
+
+var createCyclerGroup = {
+  /////////
+  /////////
+  /////////
+
+  'run' : function (theCycler, theGroup) {
+    console.log('cycler run called');
+    var createdGroup = {
+      'command': 'run',
+      'name': theGroup.name
+    };
+    console.log(theGroup.name);
+    if(createdGroup.name in theCycler) {
+        console.log('found name in cycler')
+        for (var key in theCycler[createdGroup.name]) {
+          console.log(key);
+          console.log('in loop')
+          createdGroup[key] = theCycler[createdGroup.name][key];
+      }
+    }
+    return createdGroup;
+  }
+};
+
 
 /////////////////////////////////
 /////////////////////////////////
