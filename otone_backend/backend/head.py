@@ -32,7 +32,11 @@ class Head:
         
         """
         if debug == True: FileIO.log('head.__init__ called')
-        self.smoothieAPI = openSmoothie.Smoothie(self)
+
+        #initiate cycler
+        self.cycler = Cycler()
+
+        self.smoothieAPI = openSmoothie.Smoothie(self,self.cycler)
         self.PIPETTES = {'a':Pipette('a'),'b':Pipette('b')}    #need to create this dict in head setup
         self.tools = tools
         self.pubber = publisher
@@ -42,7 +46,7 @@ class Head:
         self.smoothieAPI.set_move_callback(self.pubber.on_start)
         self.smoothieAPI.set_delay_callback(self.pubber.show_delay)
         self.theQueue = TheQueue(self, publisher)
-        
+       
         #connect with the smoothie board
         self.smoothieAPI.connect()
         self.path = os.path.abspath(__file__)
@@ -51,10 +55,6 @@ class Head:
         self.dir_par_par_path = os.path.dirname(self.dir_par_path)      
 
         self.load_pipette_values()
-
-        #connect with cycler
-        self.cycler = Cycler()
-        #self.cycler.toggle_lid()
 
     def __str__(self):
         return "Head"
@@ -340,14 +340,6 @@ class Head:
         # make sure locations is a list
         if not isinstance(locations,list):
             locations = [locations]
-        lid = None
-        if(self.cycler.lidOpen):
-            lid = 'open'
-        else:
-            lid = 'closed'
-        xLim = self.cycler.bounds['x'][lid]
-        yLim = self.cycler.bounds['y'][lid]
-        
         
         if locations:
             try:
@@ -362,7 +354,7 @@ class Head:
                     'b' : state['b']
                 }
                 if debug == True: FileIO.log('state\n{0}'.format(loc_prev))
-                q_prev = self.cell(loc_prev['x'],loc_prev['y'],lid)
+                q_prev = self.cycler.cell(loc_prev['x'],loc_prev['y'])
                 for i in range(0,len(locations)):
                     if debug == True: FileIO.log('head.move location: {0}'.format(locations[i]))
                     #convert relative to absolute location if necessary
@@ -370,8 +362,8 @@ class Head:
                         if debug == True: FileIO.log('relative move')
                         locations[i] = self.rel_to_abs(loc_prev,locations[i]) 
                     #check target cell 
-                    q_now = self.cell(locations[i].get('x',loc_prev['x']),\
-                                        locations[i].get('y',loc_prev['y']),lid)
+                    q_now = self.cycler.cell(locations[i].get('x',loc_prev['x']),\
+                                        locations[i].get('y',loc_prev['y']))
                     if debug == True: FileIO.log('q_prev {0}  q_now {1}'.format(q_prev,q_now))
                     if [q_prev,q_now] in self.cycler.move_between['safe']:
                         #collision-free
@@ -743,26 +735,5 @@ class Head:
         self.pubber.send_message('containerLocations',self.get_deck())
         self.pubber.send_message('pipetteValues',self.get_pipettes())
       
-
-    def cell(self,x,y,lid):
-        """ Returns cell of x,y location relative to cycler
-        lid closed          lid open
-        0-------------x     0-------------x
-        |1     |6|5   |     |1  |6//|5    |
-        |      |/|cyc |     |lid|///|cycl.|
-        |-------------|     |-------------|
-        |2     |3|4   |     |2  |3  |4    |
-        |      | |    |     |   |   |     |
-        y-------------.     y-------------.
-        """
-        bounds = self.cycler.cell_bounds[lid]
-
-        for cell,coords in bounds.items():
-            if(x >= coords['x'][0] and x < coords['x'][1] and \
-                y >= coords['y'][0] and y < coords['y'][1]):
-                return cell
-        #if no matches
-        return None
-
 #if __name__ == "__main__":
 #    print('hello')

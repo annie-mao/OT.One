@@ -11,12 +11,12 @@ class ProtocolRunner:
     it will do more in the future
     """
 
-    def __init__(self, head, publisher, cycler):
+    def __init__(self, head, publisher):
         """Initialize ProtocolRunner object
         """
         if debug == True: FileIO.log('protocol_runner.__init__ called')
         #intantiate the two queue objects
-        self.insQueue = InstructionQueue(head, publisher, cycler)
+        self.insQueue = InstructionQueue(head, publisher)
 
 
     def __str__(self):

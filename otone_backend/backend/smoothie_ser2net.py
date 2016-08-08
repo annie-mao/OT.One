@@ -107,7 +107,7 @@ class Smoothie(object):
 
     old_msg = ""
     
-    def __init__(self, outer):
+    def __init__(self, outer, cycler):
         self.my_transport = None
         self.outer = outer
         self.raw_callback = None
@@ -123,6 +123,7 @@ class Smoothie(object):
         self.delay_handler = None
         self.delay_start = 0
         self.delay_end = 0
+        self.cycler = cycler
 
     class CB_Factory(asyncio.Protocol):
         proc_data = ""
@@ -534,23 +535,19 @@ class Smoothie(object):
             homeCommand = ''
 
         # ANNIE'S EDITS
-        targetQuadrant=None
+        targetCell=None
         if 'x' in axis_dict or 'X' in axis_dict:
             # check if in collision zone
             # if other axis homed previously, self.quadrant updates too fast/before
             # other axis finishes homing --> keep track of target quadrant
-            q = targetQuadrant or self.quadrant()
-            if (q == 1) or (q == 2):
-                targetQuadrant = q
-            elif q == 3:
-                targetQuadrant = 2
-            elif q == 4:
-                # first move in pos y direction out of q4 before homing x
-                # move to y boundary
-                self.move({'y':self.cyclerZone['home']['y']})
-                targetQuadrant = 2
-            elif q is None:
-                # don't home
+            cell = targetCell or self.cycler.cell(self.theState['x'],self.theState['y'])
+            if cell:
+                while cell not in self.cycler.home['x']['safe']:
+                    cell = cell - 1
+                    self.move(self.cycler.cell_nodes['open'][cell])
+                targetCell = self.cycler.home['x']['target'][cell]
+            else:
+                # cell is None - don't home
                 return False
             # home x
             homeCommand = self._dict['home']+'X\r\n'
@@ -561,39 +558,19 @@ class Smoothie(object):
             # check if in collision zone
             # if other axis homed previously, self.quadrant updates too fast/before
             # other axis finishes homing --> keep track of target quadrant
-            q = targetQuadrant or self.quadrant()
-            if (q == 1) or (q == 2):
-                targetQuadrant = 1
-            elif q == 4:
-                targetQuadrant = 4
-            elif q == 3:
-                # first move in neg x direction out of q3 before homing y
-                # move to x boundary
-                targetQuadrant = 1
-                self.move({'x':self.cyclerZone['home']['x']})
-            elif q is None:
-                # don't home
+            cell = targetCell or self.cycler.cell(self.theState['x'],self.theState['y'])
+            if cell:
+                while cell not in self.cycler.home['y']['safe']:
+                    cell = cell-1
+                    self.move(self.cycler.cell_nodes['open'][cell])
+                targetcell = self.cycler.home['y']['target'][cell]
+            else:
+                # cell is None - don't home
                 return False
             # home y
             homeCommand = self._dict['home']+'Y\r\n'
             self.theState['homing']['y'] = True
             self.try_add(homeCommand) 
-
-#        if 'x' in axis_dict or 'X' in axis_dict:
-#            homeCommand += self._dict['home']
-#            homeCommand += 'X'
-#            self.theState['homing']['x'] = True
-#            homingX = True
-#
-#        if 'y' in axis_dict or 'Y' in axis_dict:
-#            if homingX == False:
-#                homeCommand += self._dict['home']
-#            homeCommand += 'Y'
-#            self.theState['homing']['y'] = True
-#
-#        if len(homeCommand)>=3:
-#            homeCommand += '\r\n'
-#            self.try_add(homeCommand)
 
 
     def halt(self):
@@ -647,29 +624,6 @@ class Smoothie(object):
         if self.my_transport is not None:
             #self.try_add(string)
             self.send(string)
-
-    # ANNIE'S EDITS
-    # Returns which quadrant the robot state is in
-    # 0------------x
-    # |1    |4     |
-    # |     |cycler|
-    # |-----|------|
-    # |2    |3     |
-    # |     |      |
-    # y------------.
-    def quadrant(self):
-        x = self.cyclerZone['home']['x']
-        y = self.cyclerZone['home']['y']
-        if (self.theState['x'] < x) and (self.theState['y'] <= y):
-            return 1
-        elif (self.theState['x'] < x) and (self.theState['y'] > y):
-            return 2
-        elif (self.theState['x'] >= x) and (self.theState['y'] > y):
-            return 3
-        elif (self.theState['x'] >= x) and (self.theState['y'] <= y):
-            return 4
-        else:
-            return None # indicates error
 
     #############################################
     #

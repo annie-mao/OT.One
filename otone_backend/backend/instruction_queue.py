@@ -28,7 +28,7 @@ class InstructionQueue:
         
     """
 #Special Methods
-    def __init__(self, head, publisher,cycler):
+    def __init__(self, head, publisher):
         """Initialize Instruction Queue object
         
         """
@@ -37,8 +37,6 @@ class InstructionQueue:
         self.isRunning = False
         self.infinity_data = None
         self.pubber = publisher
-
-        self.cycler = cycler
         
     def __str__(self):
         return "InstructionQueue"
@@ -123,14 +121,14 @@ class InstructionQueue:
                     FileIO.log('CYCLER INSTRUCTION:\n{0}'.format(this_instruction))
                 for program in this_instruction['groups']:
                     # send instruction to cycler object
-                    self.cycler.task(program) 
+                    self.head.cycler.task(program) 
                     if(program['wait']):
                         # wait for cycler to finish running job
                         waitForCycler = True
                         self.head.theQueue.pause_job()
                         while waitForCycler:
                             if debug == True: FileIO.log('Waiting for cycler')
-                            waitForCycler = self.cycler.busy()
+                            waitForCycler = self.head.cycler.busy()
                             time.sleep(60)
                         if debug == True: FileIO.log('Cycler has finished')
                         self.head.theQueue.resume_job()

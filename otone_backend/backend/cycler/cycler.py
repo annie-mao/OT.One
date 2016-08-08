@@ -63,15 +63,22 @@ class Cycler:
 
     # location on deck
     # restrict movement of pipette head to never cross these boundaries
-    bounds = {
-        'x':{'open':60,'closed':60},
-        'y':{'open':270,'closed':270}
-    }
 
     move_between = {
         'safe':[[1,1],[1,2],[2,1],[2,2],[2,3],[3,2],[3,3],[3,4],[4,3],[4,4],[4,5],[5,4],[5,5],[2,4],[4,2]],
         'collision':[[1,3],[3,1],[3,5],[5,3],[4,1],[1,4],[2,5],[5,2],[1,5],[5,1]],
         'check_lid':[[1,5],[2,5],[3,5],[4,5]]
+    }
+
+    home = {
+        'x': {
+            'safe':{1,2,3,4],
+            'target':{1:1,2:2,3:2,4:2}
+        },
+        'y': {
+            'safe':[1,2,5],
+            'target':[1:1,2:1,5:5]
+        }
     }
 
     cell_nodes = {
@@ -204,6 +211,33 @@ class Cycler:
             return False
         else:
             return True
+
+#------------------------------ HELPERS---------------------------------
+
+    def cell(self,x,y):
+        """ Returns cell of x,y location relative to cycler
+        lid closed          lid open
+        0-------------x     0-------------x
+        |1     |6|5   |     |1  |6//|5    |
+        |      |/|cyc |     |lid|///|cycl.|
+        |-------------|     |-------------|
+        |2     |3|4   |     |2  |3  |4    |
+        |      | |    |     |   |   |     |
+        y-------------.     y-------------.
+        """
+        
+        if self.lidOpen:
+            lid = 'open'
+        else:
+            lid = 'closed'
+        bounds = self.cell_bounds[lid]
+
+        for cell,coords in bounds.items():
+            if(x >= coords['x'][0] and x < coords['x'][1] and \
+                y >= coords['y'][0] and y < coords['y'][1]):
+                return cell
+        #if no matches
+        return None
 
 #----------------------------- COMMANDS --------------------------------
     def toggle_lid(self):
