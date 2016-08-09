@@ -155,13 +155,13 @@ class Cycler:
         except serial.SerialException:
             print("Serial error")
 
-    def formatInput(self,strList,delim):
+    def format_input(self,strList,delim):
         """format a list of strings into a single string
         to send to cycler. Delimiter specified by argument.
         """
         return (delim.join(strList)+'\r\n')
 
-    def formatOutput(self,rawStr):
+    def format_output(self,rawStr):
         """format cycler output as a list of strings
         """
         return rawStr[:-2].split(',')
@@ -179,7 +179,7 @@ class Cycler:
                 return
         else:
         #returns program name in "", cur control method, cur lid state
-            resp = self.formatOutput(self.send(self._runQ['params']))
+            resp = self.format_output(self.send(self._runQ['params']))
         return resp
         
 
@@ -188,7 +188,7 @@ class Cycler:
         Name must be in quotes
         Returns True if yes, False if not
         """
-        sendStr = self.formatInput([self._sys['progInfo'],progName],' ')
+        sendStr = self.format_input([self._sys['progInfo'],progName],' ')
         if(self.send(sendStr)):
             return True
         else:
@@ -202,8 +202,8 @@ class Cycler:
         """
         vesselType = vesselType or self.vesselType
         vesselVol = vesselVol or self.vesselVol
-        self.send(self.formatInput([self._sys['vesselType'],vesselType],' '))
-        self.send(self.formatInput([self._sys['vesselVol'],str(vesselVol)],' '))
+        self.send(self.format_input([self._sys['vesselType'],vesselType],' '))
+        self.send(self.format_input([self._sys['vesselVol'],str(vesselVol)],' '))
 
     def check_busy(self):
         """ returns True if a program is currently running, False if otherwise
@@ -286,7 +286,7 @@ class Cycler:
         # set temp calc algorithm parameters
         self.set_calc(vesselType,vesselVol)
         # send run command to cycler
-        sendStr = self.formatInput(['RUN '+progName,ctrl,lid],',')
+        sendStr = self.format_input(['RUN '+progName,ctrl,lid],',')
         self.send(sendStr)
         return True
 
@@ -298,12 +298,12 @@ class Cycler:
         is successful fn will return True
         """
         # if running another program, cancel
-        if self.get_run()[0]:
+        if self.get_run()[0]!='""':
             if override:
                 self.cancel()
             else:
                 return False
-        sendStr = self.formatInput([self._runCmd['incubate'],str(temp)],' ')
+        sendStr = self.format_input([self._runCmd['incubate'],str(temp)],' ')
         self.send(sendStr)
         return True
 
@@ -319,12 +319,46 @@ class Cycler:
                 time.sleep(1)
 
     def task(self,data):
-        """handle incoming task from subscriber.py
-        data = 
+        """handle incoming task from the_queue.py
+        data = {
+            'command': 'cycler',
+            'name': 'PFunkel_1'
+            'runtime': 7,
+            'control': 'CALC',
+            'lid': True,
+            'vessel': 'Tubes',
+            'volume': 100
+        }
+
         """
         if debug == True: FileIO.log('CYCLER RECEIVED TASK:\n{0}'.format(data))
         self.is_busy = True
-        if debug == True: FileIO.log('CYCLER DONE WAITING')
-        self.is_busy = False
+        # parse input
+        name = data.get('name')
+        if(name):
+            name = '"' + data.get('name') + '"'
+            ctrl = data.get('control')
+            lid = data.get('lid')
+            if lid:
+                lid = 'ON'
+            else:
+                lid = 'OFF'
+            vesselType = data.get('vessel')
+            if vesselType:
+                vesselType = '"'+data.get('vessel')+'"'
+            vesselVol = data.get('volume')
+            runSuccess = self.run_program(name,ctrl,lid,vesselType,vesselVol)
+            if not runSuccess and debug == True: FileIO.log('CYCLER RUN ERROR')
+            elif debug == True: FileIO.log('CYCLER RUN SUCCESS')
+            # wait for task to finish
+            while self.check_busy():
+                FileIO.log('cycler.py Still busy')
+                time.sleep(30)
+            # if program has a hold step, incubate at the hold temperature
+            holdTemp = data.get('hold')
+            if holdTemp:
+                incSuccess = self.incubate(holdTemp)
+                if not incSuccess and debug == True: FileIO.log('CYCLER INCUBATE ERROR')
+                elif debug == True: FileIO.log('CYCLER HOLD AT {0} C'.format(holdTemp))
 
 
