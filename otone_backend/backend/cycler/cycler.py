@@ -120,8 +120,9 @@ class Cycler:
     portOpen = None
     is_busy = False
 
-    def __init__(self):
+    def __init__(self,head):
         self.portOpen = self.connect()
+        self.head = head
         if debug == True: FileIO.log("Cycler init")
     
     def connect(self,port='/dev/ttyUSB0'):
@@ -366,7 +367,7 @@ class Cycler:
             # wait for task to finish
             while self.check_busy():
                 FileIO.log('cycler.py Still busy')
-                time.sleep(10)
+                self.head.smoothieAPI.delay(10)
             # if program has a hold step, incubate at the hold temperature
             if debug == True: FileIO.log('cycler.py exit while')
             holdTemp = data.get('hold')

@@ -34,7 +34,7 @@ class Head:
         if debug == True: FileIO.log('head.__init__ called')
 
         #initiate cycler
-        self.cycler = Cycler()
+        self.cycler = Cycler(self)
 
         self.smoothieAPI = openSmoothie.Smoothie(self,self.cycler)
         self.PIPETTES = {'a':Pipette('a'),'b':Pipette('b')}    #need to create this dict in head setup
