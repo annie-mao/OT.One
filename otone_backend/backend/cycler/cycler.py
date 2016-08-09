@@ -57,7 +57,7 @@ class Cycler:
     # system default settings
     progName = None
     ctrl = 'CALC'
-    lid = 'ON'
+    lid = 'OFF'
     vesselType = '"Tubes"'
     vesselVol = 100
 
@@ -173,7 +173,7 @@ class Cycler:
         """       
         if query:
             try:
-                resp = self.send(self._runQ[query])
+                resp = self.format_output(self.send(self._runQ[query]))
             except KeyError:
                 print('Invalid run query. Please try again.')
                 return
@@ -208,11 +208,20 @@ class Cycler:
     def check_busy(self):
         """ returns True if a program is currently running, False if otherwise
         """
-        if self.get_run()[0] == '""':
+        try:
+            sn = self.get_run('stepNum')
+            FileIO.log('step num resp: {0}'.format(sn))
+            sn = sn[0]
+            if sn == '0':
+                FileIO.log('checked {0}'.format(sn))
+                self.is_busy = False
+            else:
+                self.is_busy = True
+            return self.is_busy
+        except TypeError as ex:
+            FileIO.log('Cycler.check_busy error {0} args {1!r}\n'.format(type(ex).__name__,ex.args))
             self.is_busy = False
-        else:
-            self.is_busy = True
-        return self.is_busy
+            return self.is_busy
 
 #------------------------------ HELPERS---------------------------------
 
@@ -277,6 +286,9 @@ class Cycler:
         if not self.find_program(progName):
             print("Program does not exist")
             return False
+        # cancel other programs
+        if self.check_busy():
+            self.cancel()
         # make sure lid is closed
         if self.lidOpen:
             self.toggle_lid()
@@ -287,6 +299,7 @@ class Cycler:
         self.set_calc(vesselType,vesselVol)
         # send run command to cycler
         sendStr = self.format_input(['RUN '+progName,ctrl,lid],',')
+        if debug == True: FileIO.log('cycler.py sending {0}'.format(sendStr))
         self.send(sendStr)
         return True
 
@@ -353,11 +366,12 @@ class Cycler:
             # wait for task to finish
             while self.check_busy():
                 FileIO.log('cycler.py Still busy')
-                time.sleep(30)
+                time.sleep(10)
             # if program has a hold step, incubate at the hold temperature
+            if debug == True: FileIO.log('cycler.py exit while')
             holdTemp = data.get('hold')
             if holdTemp:
-                incSuccess = self.incubate(holdTemp)
+                incSuccess = self.incubate(holdTemp,True)
                 if not incSuccess and debug == True: FileIO.log('CYCLER INCUBATE ERROR')
                 elif debug == True: FileIO.log('CYCLER HOLD AT {0} C'.format(holdTemp))
 

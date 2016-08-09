@@ -693,7 +693,6 @@ class Smoothie(object):
                 self.outer.on_state_change(state)
             except Exception as ex:
                 FileIO.log('smoothie_ser2net.on_state_change: problem calling self.outer.on_state_change')
-                FileIO.log('hello')
                 FileIO.log('*** {0} with args {1!r}\n***'.format(type(ex).__name__,ex.args))
                 raise
 
