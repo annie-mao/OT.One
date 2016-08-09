@@ -354,8 +354,11 @@ class Head:
                     'b' : state['b']
                 }
                 if debug == True: FileIO.log('state\n{0}'.format(loc_prev))
+                lid = None
                 q_prev = self.cycler.cell(loc_prev['x'],loc_prev['y'])
                 for i in range(0,len(locations)):
+                    if(self.cycler.lidOpen): lid = 'open'
+                    else: lid = 'closed'
                     if debug == True: FileIO.log('head.move location: {0}'.format(locations[i]))
                     #convert relative to absolute location if necessary
                     if locations[i].get('relative'):

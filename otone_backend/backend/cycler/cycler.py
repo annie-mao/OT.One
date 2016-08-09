@@ -72,12 +72,12 @@ class Cycler:
 
     home = {
         'x': {
-            'safe':{1,2,3,4],
+            'safe':[1,2,3,4],
             'target':{1:1,2:2,3:2,4:2}
         },
         'y': {
             'safe':[1,2,5],
-            'target':[1:1,2:1,5:5]
+            'target':{1:1,2:1,5:5}
         }
     }
 
@@ -324,7 +324,6 @@ class Cycler:
         """
         if debug == True: FileIO.log('CYCLER RECEIVED TASK:\n{0}'.format(data))
         self.is_busy = True
-        time.sleep(10000)
         if debug == True: FileIO.log('CYCLER DONE WAITING')
         self.is_busy = False
 

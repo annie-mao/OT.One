@@ -691,8 +691,10 @@ class Smoothie(object):
         if hasattr(self.outer,'on_state_change'):
             try:
                 self.outer.on_state_change(state)
-            except:
+            except Exception as ex:
                 FileIO.log('smoothie_ser2net.on_state_change: problem calling self.outer.on_state_change')
+                FileIO.log('hello')
+                FileIO.log('*** {0} with args {1!r}\n***'.format(type(ex).__name__,ex.args))
                 raise
 
     def on_limit_hit(self, axis):
@@ -704,7 +706,7 @@ class Smoothie(object):
         if self.limit_hit_callback != None:
             self.limit_hit_callback(axis)
 
-
+"""
 if __name__ == '__main__':
     smooth = Smoothie()
     smooth.connect()
@@ -713,3 +715,4 @@ if __name__ == '__main__':
         loop.run_forever()
     finally:
         loop.close()
+"""
