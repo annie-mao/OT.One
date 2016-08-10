@@ -1,4 +1,4 @@
-from baseProtocol import BaseProtocol
+from baseProtocol import BaseProtocol, InvalidEntry
 import pprint
 
 pp = pprint.PrettyPrinter(indent=2)
@@ -18,7 +18,7 @@ pp.pprint(transferGroup)
 
 ingr = "OrangeG"
 
-print(b.add_ingredient(ingr,None,100))
+print(b.add_ingredient(ingr,None,1000))
 pp.pprint(b.locations)
 print("-----------------------------")
 pp.pprint(b.ingredients)
@@ -46,7 +46,10 @@ pp.pprint(b.ingredients)
 print("-----------------------------")
 pp.pprint(b.instructions)
 print("*****************************")
-print(b.add_transfer_group([ingr+"_initial"],["NewLoc"],[100]))
+try:
+    print(b.add_transfer_group([ingr+"_initial",ingr+"_initial",ingr+"_initial"],["NewLoc","NewLoc","NewLoc"],[20,30,40]))
+except InvalidEntry as e:
+    print('Error: {0}'.format(e.value))
 pp.pprint(b.locations)
 print("-----------------------------")
 pp.pprint(b.ingredients)
@@ -62,3 +65,5 @@ b.add_cycler_prog('PFUNKEL1',63.6)
 b.add_cycler_group(['PFUNKEL1'])
 pp.pprint(b.instructions)
 print("*****************************")
+b.assign_container("NewLoc","container1","A1")
+print(b.ingredients_export)

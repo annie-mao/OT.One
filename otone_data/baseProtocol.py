@@ -9,6 +9,9 @@ class BaseProtocol:
     """
 
     def __init__(self,name,description,notes):
+        # load containers
+        self.containers = Containers("avail_containers.json")
+        
         self.info = {
             "name": name,
             "description": description,
@@ -22,6 +25,7 @@ class BaseProtocol:
                 "tip-racks": [{"container": "p200-rack"}],
                 "axis": "a",
                 "volume": 200,
+                "tip-plunge": 4,
                 "points": [
                     {"f1": 20, "f2": 17.7},
                     {"f1": 100, "f2": 98.5},
@@ -33,6 +37,7 @@ class BaseProtocol:
                 "tip-racks": [{"container": "p10-rack"}],
                 "axis": "b",
                 "volume": 10,
+                "tip-plunge": 7.5,
                 "points": [
                     {"f1": 0.5, "f2": 0.41},
                     {"f1": 5, "f2": 4.7},
@@ -40,8 +45,11 @@ class BaseProtocol:
                 ]
             }    
         }
+        self.deck={}
         self.locations={}
+        self.groupedLocs={}
         self.ingredients={} #initial deck layout/setup
+        self.ingredients_export={}
         self.cycler={} #cycler programs
         self.instructions=[]
         self.head_defaults={
@@ -142,6 +150,19 @@ class BaseProtocol:
                 self.update_ingr_vol(ingrName,locName,volume)
         return "Added "+str(volume)+"uL of "+ingrName+" to "+locName
 
+#    def fill_container(ingrName,source,containerName,volume,n,locations,groupName):
+#        """fill n locations in a container, going by default in alpha-num order
+#        e.g. A1,B1,C1....A2,B2,C2....A12,B12,C12
+#
+#        optionally specify list of locations in container
+#
+#        specify source as locName in self.locations, or None to pull from ingr pool 
+#        """
+#        # if unspecified source and new ingredient no
+#        for i in range(0,n):
+#            locName =        
+
+
     def add_transfer_group(self,fromLocs,toLocs,volumes,changeSettings=None):
         # add transfer group to instructions list
         transferGroup = []
@@ -160,6 +181,11 @@ class BaseProtocol:
                         transferDict[key]=value
             # fill in missing fields with defaults
             transferDict=self.fill_instruction_defaults(transferDict,self.transfer_defaults)
+            # if container and location are already specified, add
+            transferDict["from"]["container"]=fromLocs[i].get("container")
+            transferDict["from"]["location"]=fromLocs[i].get("location")
+            transferDict["to"]["container"]=toLocs[i].get("container")
+            transferDict["to"]["location"]=toLocs[i].get("location")
             # add to list of transfers in this group (same tip)
             transferGroup.append(transferDict)
             # update locations dict
@@ -183,6 +209,9 @@ class BaseProtocol:
                     mixDict[key]=value
             #fill in missing fields with defaults
             mixDict=self.fill_instruction_defaults(mixDict,self.mix_defaults)
+            #if container and location are already specified, add
+            mixDict["container"]=mixLocs[i].get("container")
+            mixDict["location"]=mixLocs[i].get("location")
             #add to list of mixes in this group (same tip)
             mixGroup.append(mixDict)
         # assign pipette and format group
@@ -198,11 +227,12 @@ class BaseProtocol:
         else:
             #sanity check to make sure volume does not go negative
             if self.locations[locName]["volume"]+addVol<0:
-                print("Error: attempt to create negative volume at {0}".format(locName))
+                raise InvalidEntry("Error: attempt to create negative volume at {0}".format(locName))
                 return
             self.locations[locName]["volume"]+=addVol
             if self.locations[locName]["volume"]>self.locations[locName]["maxVol"]:
                 self.locations[locName]["maxVol"]=self.locations[locName]["volume"]
+
 
     def update_ingr_vol(self,ingrName,locName,addVol):
         self.ingredients[ingrName][locName]=self.ingredients[ingrName].setdefault(locName,0)+addVol
@@ -242,8 +272,7 @@ class BaseProtocol:
                     group.insert(i,copyDict)
                 pipette = 'p200'
             if prevPipette and (pipette != prevPipette):
-                print('Volumes in group do not match up')
-                break
+                raise InvalidEntry('Volume {0} does not match rest of group'.format(volume))
             prevPipette = pipette
         formattedGroup = {
             "tool": pipette,
@@ -253,6 +282,43 @@ class BaseProtocol:
         }
         return formattedGroup
             
+    def assign_container(self,locName,containerName,containerLoc):
+        """assign a container and container location to a named location
+        e.g. OrangeG_initial --> tubes-2mL, A1
+        """
+        # add container and location to locations dict for future edit
+        if locName not in self.locations:
+            raise InvalidEntry("Attempted to assign container to nonexistent location")
+        self.locations[locName].setdefault("container",containerName)
+        self.locations[locName].setdefault("location",containerLoc)
+        # find all occurences of locName in instructions
+        for i in range(0,len(self.instructions)):
+            if self.instructions[i].get("tool") in self.head:
+                for j in range(0,len(self.instructions[i]["groups"])):
+                    for k,v, in self.instructions[i]["groups"][j].items():
+                        for k in range(0,len(v)):
+                            if "from" in v:
+                                if v[k]["from"].get("locName")==locName:
+                                    v[k]["from"]["container"]=containerName
+                                    v[k]["from"]["location"]=containerLoc
+                                if v[k]["to"].get("locName")==locName:
+                                    v[k]["to"]["container"]=containerName
+                                    v[k]["to"]["location"]=locationName
+                            else:
+                                if v[k].get("locName")==locName:
+                                    v[k]["container"]=containerName
+                                    v[k]["location"]=containerLoc
+        # find locName in ingredients
+        for ing,locs in self.ingredients.items():
+            for loc,vol in locs.items():
+                if loc == locName:
+                    # add to ingredients_export dict
+                    self.ingredients_export.setdefault(ing,[]).append({
+                            "container" : containerName,
+                            "location" : containerLoc,
+                            "volume" : vol
+                        })
+
 
 
     def fill_instruction_defaults(self,instDict,instDefaults):
@@ -293,10 +359,49 @@ class BaseProtocol:
         }
         for i in range(0,len(progName)):
             if (progName[i]) and (progName[i] not in self.cycler):
-                print("Error: program not found")
+                raise InvalidEntry("Error: program not found")
                 return
             newGroup["groups"].append({"run":{"name":progName[i]}})
             if changeSettings:
                 for key,value in changeSettings[i].items():
                     newGroup["groups"][i]["run"].setdefault(key,value)
         self.instructions.append(newGroup)
+
+#    def suggest_containers(self):
+#        """ suggest optimum container for unspecified locations 
+#        based on volume
+#        """
+#        for locName in self.locations:
+#            if not locName["container"]:
+
+
+
+    def export_to_JSON(self,fname):
+        """ aggregate all sections into one dict and export to JSON
+        """
+        final_dict = {
+            "info": self.info,
+            "deck": self.deck,
+            "head": self.head,
+            "cycler": self.cycler,
+            "ingredients": self.ingredients_export,
+            "instructions": self.instructions
+        }
+        try:
+            out_file=open(fname,"w")
+            json.dump(final_dict,out_file,indent=4);
+            print("Exported protocol to JSON")
+        except EnvironmentError as err:
+            print("Error exporting protocol to JSON")
+            raise
+        finally:
+            if out_file is not None:
+                out_file.close()
+            
+        
+
+class InvalidEntry(Exception):
+    def __init__(self,value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)

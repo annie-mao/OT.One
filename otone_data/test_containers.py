@@ -1,12 +1,12 @@
 # Testing function for Containers class
 from containers import Containers
 
-c = Containers()
+c = Containers("avail_containers.json")
 
 # load_JSON
-print("---------------------------------------------")
-c.load_JSON("nonexistent.json")
-c.load_JSON("containers.json")
+#print("---------------------------------------------")
+#c.load_JSON("nonexistent.json")
+#c.load_JSON("containers.json")
 
 # print_container_info
 print("---------------------------------------------")
