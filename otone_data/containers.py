@@ -39,7 +39,7 @@ class Containers:
 
     def add_container(self,containerName,numRows,numColumns,xInc,yInc,zInc_x,zInc_y,depth,diameter,TLV):
         if self.is_in_dict(containerName):
-            overwrite = raw_input("{0} already in dictionary. Overwrite? (Y/N):  ".format(containerName))
+            overwrite = input("{0} already in dictionary. Overwrite? (Y/N):  ".format(containerName))
             if overwrite == 'N':
                 return
         self.containersDict["containers"][containerName]={"locations":{}}
