@@ -65,9 +65,6 @@ pp.pprint(b.locations) # updated l1 and i1 initial
 pp.pprint(b.ingredients) # updated l1 and i1 initial
 pp.pprint(b.instructions) #check for container in all l1
 pp.pprint(b.ingredients_export)
-# list unassigned locations
-print("-----------------------------")
-print(b.list_unassigned_locations())
 # try to specify container for a location which is already assigned
 print("-----------------------------")
 # should raise Override
@@ -111,27 +108,16 @@ print(b.add_transfer_group([l1,l2],[l2,l1],[10,10],[{'from':{'touch-tip':True},'
 pp.pprint(b.locations)
 pp.pprint(b.ingredients)
 pp.pprint(b.instructions)
-
-
-
-#try:
-#    print(b.add_transfer_group([ingr+"_initial",ingr+"_initial",ingr+"_initial"],["NewLoc","NewLoc","NewLoc"],[20,30,40]))
-#except InvalidEntry as e:
-#    print('Error: {0}'.format(e.value))
-#pp.pprint(b.locations)
-#print("-----------------------------")
-#pp.pprint(b.ingredients)
-#print("-----------------------------")
-#pp.pprint(b.instructions)
-#print("*****************************")
-#print(b.add_mix_group(["NewLoc"],[100],[{"repetitions":6}]))
-#pp.pprint(b.locations)
-#print("-----------------------------")
-#pp.pprint(b.ingredients)
-#print("-----------------------------")
-#b.add_cycler_prog('PFUNKEL1',63.6)
-#b.add_cycler_group(['PFUNKEL1'])
-#pp.pprint(b.instructions)
-#print("*****************************")
-#b.assign_container("NewLoc","container1","A1")
-#print(b.ingredients_export)
+print("*****************************")
+print(b.add_mix_group([l1],[100],[{"repetitions":10}]))
+pp.pprint(b.locations)
+pp.pprint(b.instructions)
+pp.pprint(b.ingredients_export)
+print("-----------------------------")
+b.add_cycler_prog('PFUNKEL1',63.6)
+b.add_cycler_group(['PFUNKEL1'])
+pp.pprint(b.instructions)
+pp.pprint(b.cycler)
+# list unassigned locations
+print("-----------------------------")
+print(b.list_unassigned_locations())

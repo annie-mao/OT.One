@@ -37,20 +37,20 @@ baseProtocol.py functions:
         [ ] Error handling
             [ ] invalid containers or locations
 [ ] add_mix_group(self,mixLocs,volumes,changeSettings=None)
-        [ ] Correctly adds container name/loc if already associated
-        [ ] Doesn't change volume in self.locations
-        [ ] Correctly assigns pipette
-        [ ] Correctly change settings if specified
+        [x] Correctly adds container name/loc if already associated
+        [x] Doesn't change volume in self.locations
+        [x] Correctly assigns pipette
+        [x] Correctly change settings if specified
         [ ] Consistent formatting with OT.One JSON
-[ ] update_loc_vol(self,locName,addVol)
-[ ] update_ingr_vol(self,ingrName,locName,addVol)
+[x] update_loc_vol(self,locName,addVol)
+[x] update_ingr_vol(self,ingrName,locName,addVol)
 [x] assign_pipette(self,command,group)
         TO FIX:
         [ ] Currently hardcoded for p10 and p200
 [ ] assign_container(self,locName,containerName,containerLoc):
         [x] update self.locations
         [x] update self.instructions
-        [ ] update self.ingredients and self.ingredients_export
+        [x] update self.ingredients and self.ingredients_export
         [ ] Error handling
             [ ] assign to nonexistent location
             [ ] ask for confirmation before overriding existing info

@@ -11,7 +11,7 @@ class BaseProtocol:
     def __init__(self,name,description,notes):
         # load containers
         self.containers = Containers("avail_containers.json")
-        
+        self.labware = self.containers.containersDict["containers"]
         self.info = {
             "name": name,
             "description": description,
@@ -130,15 +130,17 @@ class BaseProtocol:
             if not locName:
                 locName = ingrName+"_initial"
             #new ingredient -- add ingredient to dict
-            self.ingredients[ingrName]={locName:volume}
+            #self.ingredients[ingrName]={locName:volume}
             if locName not in self.locations:
                 #if ingredient and location are new
                 #add loc to dict
                 self.update_loc_vol(locName,volume)
+                self.update_ingr_vol(ingrName,locName,volume)
             elif locName in self.locations:
                 #if new ingredient but existing location
                 #add new initial location for the ingredient
                 self.update_loc_vol(ingrName+"_initial",volume)
+                self.update_ingr_vol(ingrName,ingrName+"_initial",volume)
                 #add instruction to transfer ingr from initial location to current location
                 self.add_transfer_group([ingrName+"_initial"],[locName],[volume])
 
@@ -232,8 +234,8 @@ class BaseProtocol:
             #fill in missing fields with defaults
             mixDict=self.fill_instruction_defaults(mixDict,self.mix_defaults)
             #if container and location are already specified, add
-            mixDict["container"]=mixLocs[i].get("container")
-            mixDict["location"]=mixLocs[i].get("location")
+            mixDict["container"]=self.locations[mixLocs[i]].get("container")
+            mixDict["location"]=self.locations[mixLocs[i]].get("location")
             #add to list of mixes in this group (same tip)
             mixGroup.append(mixDict)
         # assign pipette and format group
@@ -257,7 +259,8 @@ class BaseProtocol:
 
 
     def update_ingr_vol(self,ingrName,locName,addVol):
-        self.ingredients[ingrName][locName]=self.ingredients[ingrName].setdefault(locName,0)+addVol
+        self.ingredients.setdefault(ingrName,{})[locName]=\
+        self.ingredients.setdefault(ingrName,{}).get(locName,0)+addVol
 
 
     def assign_pipette(self,command,group):
@@ -431,7 +434,36 @@ class BaseProtocol:
         finally:
             if out_file is not None:
                 out_file.close()
-            
+           
+
+    def add_container_to_deck(self,containerName,labware):
+        """ add a named container to the protocol deck
+        populate with info from the container library
+        e.g.
+        self.deck = {
+            "container1":{
+                "labware": "96-PCR-flat",
+                "empty": ['A1','A2','A3'.......],
+                "full": ['B1','B2','B3'.......]
+            },
+            "container3":{....}
+        }
+        """
+        # find labware in containerLib
+        if labware not in self.labware:
+            raise InvalidEntry("{0} not in container library".format(labware))
+        # add to deck
+        self.deck[containerName]={"labware": labware, "empty": [], "full": []}
+        # make list of locations from containerLib
+        for loc,v in self.labware[labware]["locations"].items():
+            self.deck[containerName]["empty"].append({
+                loc:{
+                    "maxVol": v["total-liquid-volume"],
+                    "vol": 0
+                }
+            })
+
+
         
 #*****************************************************************************
 #                             EXCEPTION CLASSES
