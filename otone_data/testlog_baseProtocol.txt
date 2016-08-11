@@ -1,0 +1,67 @@
+baseProtocol.py functions:
+
+[x] print_info(self,key)
+[x] configure_transfer_tofrom(self,to_from,key,value):
+[x] configure_transfer(self,key,value)
+[x] configure_mix(self,key,value)
+[x] configure_cycler(self,key,value)
+[x] configure_head(self,key_value)
+[ ] set_head(self)
+        TO FIX: 
+        [ ] editable head info
+[ ] add_ingredient(self,ingrName,locName,volume,containerName=None,containerLoc=None)
+        CASES:
+        [x] container and location are specified --> assign container/loc
+        [x] new ingr to unspecified location --> 
+                add to self.ingredients, set loc to 'ingr_initial'
+        [x] new ingr to new location --> add ingr and loc to self dicts
+        [ ] new ingr to existing location --> 
+                add a new _initial pool for the ingr and add transfer group
+                TO FIX:
+                [ ] Add error checkin for adding to different ingr's
+                    initial pool
+        [x] existing ingr to unspecified location --> add to initial pool
+        [x] existing ingr to new location --> update loc/ingr vol
+        [x] existing ingr to initial pool --> update loc/ingr vol
+        [x] existing ingr to existing loc --> transfer group from initial
+                pool to existing loc, update loc vol and ingr vols
+[ ] add_transfer_group(self,fromLocs,toLocs,volumes,changeSettings=None)
+        [x] Correctly add container name/loc if already associated
+        [x] Correctly updates volumes in self.locations
+        [x] Correctly assigns pipette
+        [x] Breaks up group into multiple transfers if necessary
+            [x] volume > 200
+            [x] volume in between 10 and 20
+        [ ] Consistent formatting with OT.One JSON
+        [x] Correctly change settings if specified
+        [ ] Error handling
+            [ ] invalid containers or locations
+[ ] add_mix_group(self,mixLocs,volumes,changeSettings=None)
+        [ ] Correctly adds container name/loc if already associated
+        [ ] Doesn't change volume in self.locations
+        [ ] Correctly assigns pipette
+        [ ] Correctly change settings if specified
+        [ ] Consistent formatting with OT.One JSON
+[ ] update_loc_vol(self,locName,addVol)
+[ ] update_ingr_vol(self,ingrName,locName,addVol)
+[x] assign_pipette(self,command,group)
+        TO FIX:
+        [ ] Currently hardcoded for p10 and p200
+[ ] assign_container(self,locName,containerName,containerLoc):
+        [x] update self.locations
+        [x] update self.instructions
+        [ ] update self.ingredients and self.ingredients_export
+        [ ] Error handling
+            [ ] assign to nonexistent location
+            [ ] ask for confirmation before overriding existing info
+            [ ] assign to invalid container
+                    [ ] nonexistent
+                    [ ] wrong volume
+                    [ ] full
+[x] list_unassigned_locations(self)
+        [x] Correctly lists all unassigned locations
+[x] fill_instruction_defaults(self,instDict,instDefaults)
+[x] add_cycler_prog(self,progName,holdTemp=None,runtime=None)
+[x] add_cycler_group(self,progName,changeSettings=None)
+[ ] export_to_JSON(self,fname)
+        [ ] Works when loaded into OT.One browser UI

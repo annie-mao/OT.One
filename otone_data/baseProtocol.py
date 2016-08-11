@@ -90,29 +90,40 @@ class BaseProtocol:
             "volume": 100
         }
 
+
     def print_info(self,key):
         print(self.key)
-    
-    def configure_transfer_tofrom(to_from,key,value):
+
+
+    def configure_transfer_tofrom(self,to_from,key,value):
         self.transfer_defaults[to_from][key]=value
 
-    def configure_transfer(key,value):
+
+    def configure_transfer(self,key,value):
         self.transfer_defaults[key]=value
 
-    def configure_mix(key,value):
+
+    def configure_mix(self,key,value):
         self.mix_defaults[key]=value
 
-    def configure_cycler(key,value):
+
+    def configure_cycler(self,key,value):
         self.cycler_defaults[key]=value
 
-    def configure_head(key,value):
+
+    def configure_head(self,key,value):
         self.head_defaults[key]=value
-    
-    def set_head():
+
+
+    def set_head(self):
         for pipette in self.head:
             self.fill_instruction_defaults(self.head[pipette],self.head_defaults)
 
-    def add_ingredient(self,ingrName,locName,volume):
+
+    def add_ingredient(self,ingrName,locName,volume,containerName=None,containerLoc=None):
+        # if container and location are specified, associate with locName
+        if containerName and containerLoc and locName:
+            self.assign_container(locName,containerName,containerLoc)
         if(ingrName not in self.ingredients):
             #if adding to an unspecified location (None), pool all volumes of the same
             #ingredient in one initial pool called ingrName_initial
@@ -150,6 +161,7 @@ class BaseProtocol:
                 self.update_ingr_vol(ingrName,locName,volume)
         return "Added "+str(volume)+"uL of "+ingrName+" to "+locName
 
+
 #    def fill_container(ingrName,source,containerName,volume,n,locations,groupName):
 #        """fill n locations in a container, going by default in alpha-num order
 #        e.g. A1,B1,C1....A2,B2,C2....A12,B12,C12
@@ -164,7 +176,12 @@ class BaseProtocol:
 
 
     def add_transfer_group(self,fromLocs,toLocs,volumes,changeSettings=None):
-        # add transfer group to instructions list
+        """ add transfer group to instructions list
+        specify fromLocs,toLocs, and volumes as lists of equal length, even if
+        only one value (e.g. pass in [fromLoc],[toLoc],[volumes])
+        optionally specify changeSettings as a list of dictionaries, with each
+        dictionary holding the keys to modify from transfer defaults
+        """
         transferGroup = []
         for i in range(0,len(fromLocs)):
             transferDict={
@@ -173,31 +190,35 @@ class BaseProtocol:
                 "volume":volumes[i]
             }
             if changeSettings:
+                changeSettings[i] = changeSettings[i] or {}
                 for key,value in changeSettings[i].items():
                     if key=="from" or key=="to":
                         for nextkey,nextvalue in value.items():
                             transferDict[key][nextkey]=nextvalue
                     else:
                         transferDict[key]=value
-            # fill in missing fields with defaults
-            transferDict=self.fill_instruction_defaults(transferDict,self.transfer_defaults)
-            # if container and location are already specified, add
-            transferDict["from"]["container"]=fromLocs[i].get("container")
-            transferDict["from"]["location"]=fromLocs[i].get("location")
-            transferDict["to"]["container"]=toLocs[i].get("container")
-            transferDict["to"]["location"]=toLocs[i].get("location")
-            # add to list of transfers in this group (same tip)
-            transferGroup.append(transferDict)
             # update locations dict
             self.update_loc_vol(fromLocs[i],-volumes[i])
             self.update_loc_vol(toLocs[i],volumes[i])
+            # fill in missing fields with defaults
+            transferDict=self.fill_instruction_defaults(transferDict,self.transfer_defaults)
+            # if container and location are already specified, add
+            transferDict["from"]["container"]=self.locations.get(fromLocs[i]).get("container")
+            transferDict["from"]["location"]=self.locations.get(fromLocs[i]).get("location")
+            transferDict["to"]["container"]=self.locations.get(toLocs[i]).get("container")
+            transferDict["to"]["location"]=self.locations.get(toLocs[i]).get("location")
+            # add to list of transfers in this group (same tip)
+            transferGroup.append(transferDict)
         # assign pipette and format group
         formattedTransfer = self.assign_pipette("transfer",transferGroup)
         # add to instructions
         self.instructions.append(formattedTransfer)
+        
 
     def add_mix_group(self,mixLocs,volumes,changeSettings=None):
-        # add mix group to instructions list
+        """ add mix group to instructions list
+        same format of arguments as add_transfer_group
+        """
         mixGroup = []
         for i in range(0,len(mixLocs)):
             mixDict={
@@ -205,6 +226,7 @@ class BaseProtocol:
                 "volume":volumes[i]
             }
             if changeSettings:
+                changeSettings[i] = changeSettings[i] or {}
                 for key,value in changeSettings[i].items():
                     mixDict[key]=value
             #fill in missing fields with defaults
@@ -221,21 +243,22 @@ class BaseProtocol:
 
     def update_loc_vol(self,locName,addVol):
         #if adding to a new location
-        if locName not in self.locations:
-            self.locations[locName]={"volume":addVol,"maxVol":addVol}
+        #if locName not in self.locations:
+        #    self.locations[locName]={"volume":addVol,"maxVol":addVol}
         #if updating existing location
-        else:
-            #sanity check to make sure volume does not go negative
-            if self.locations[locName]["volume"]+addVol<0:
-                raise InvalidEntry("Error: attempt to create negative volume at {0}".format(locName))
-                return
-            self.locations[locName]["volume"]+=addVol
-            if self.locations[locName]["volume"]>self.locations[locName]["maxVol"]:
-                self.locations[locName]["maxVol"]=self.locations[locName]["volume"]
+        #else:
+        #sanity check to make sure volume does not go negative
+        if (self.locations.setdefault(locName,{}).setdefault("volume",0)+addVol) < 0:
+            raise InvalidEntry("Error: attempt to create negative volume at {0}".format(locName))
+            return
+        self.locations[locName]["volume"]+=addVol
+        if self.locations[locName]["volume"] > self.locations[locName].setdefault("maxVol",0):
+            self.locations[locName]["maxVol"]=self.locations[locName]["volume"]
 
 
     def update_ingr_vol(self,ingrName,locName,addVol):
         self.ingredients[ingrName][locName]=self.ingredients[ingrName].setdefault(locName,0)+addVol
+
 
     def assign_pipette(self,command,group):
         """assign correct pipette for instruction based on volume
@@ -267,7 +290,7 @@ class BaseProtocol:
                 volume = volume/div
                 instDict["volume"]=volume
                 copyDict = instDict
-                for i in range(0,div):
+                for i in range(0,div-1):
                     #insert copies behind current index
                     group.insert(i,copyDict)
                 pipette = 'p200'
@@ -281,29 +304,35 @@ class BaseProtocol:
             ]
         }
         return formattedGroup
-            
+           
+
     def assign_container(self,locName,containerName,containerLoc):
         """assign a container and container location to a named location
         e.g. OrangeG_initial --> tubes-2mL, A1
         """
-        # add container and location to locations dict for future edit
         if locName not in self.locations:
             raise InvalidEntry("Attempted to assign container to nonexistent location")
+        # if container/loc are already assigned, ask for confirmation
+        if self.locations[locName].get("container") or self.locations.get("location"):
+            raise Override("Location is already assigned to {0}, {1}. Override? (Y/N)"\
+                .format(self.locations[locName].get("container"),\
+                self.locations[locName].get("location")))
+        # add container and location to locations dict for future edit
         self.locations[locName].setdefault("container",containerName)
         self.locations[locName].setdefault("location",containerLoc)
         # find all occurences of locName in instructions
         for i in range(0,len(self.instructions)):
-            if self.instructions[i].get("tool") in self.head:
+            if self.instructions[i].get("tool") in self.head: 
                 for j in range(0,len(self.instructions[i]["groups"])):
-                    for k,v, in self.instructions[i]["groups"][j].items():
+                    for k,v, in self.instructions[i]["groups"][j].items(): 
                         for k in range(0,len(v)):
-                            if "from" in v:
+                            if "from" in v[k]: 
                                 if v[k]["from"].get("locName")==locName:
                                     v[k]["from"]["container"]=containerName
                                     v[k]["from"]["location"]=containerLoc
                                 if v[k]["to"].get("locName")==locName:
                                     v[k]["to"]["container"]=containerName
-                                    v[k]["to"]["location"]=locationName
+                                    v[k]["to"]["location"]=containerLoc
                             else:
                                 if v[k].get("locName")==locName:
                                     v[k]["container"]=containerName
@@ -320,6 +349,16 @@ class BaseProtocol:
                         })
 
 
+    def list_unassigned_locations(self):
+        """return a list of all locations in self.locations without a
+        specified container and container location
+        """
+        unassigned = []
+        for locName,v in self.locations.items():
+            if not v.get("container") or not v.get("location"):
+                unassigned.append(locName)
+        return unassigned
+
 
     def fill_instruction_defaults(self,instDict,instDefaults):
         """go through transfer,mix,cycler etc. defaults and fill in any
@@ -333,6 +372,7 @@ class BaseProtocol:
                 instDict.setdefault(key,value)
         return instDict
 
+
     def add_cycler_prog(self,progName,holdTemp=None,runtime=None):
         """add new cycler program to the cycler section in the protocol
         optionally specify hold temp at end of program and runtime
@@ -342,6 +382,7 @@ class BaseProtocol:
         self.fill_instruction_defaults(newProg,self.cycler_defaults)
         #add to cycler dict
         self.cycler[progName]=newProg
+
 
     def add_cycler_group(self,progName,changeSettings=None):
         """add cycler group to instructions list
@@ -363,17 +404,10 @@ class BaseProtocol:
                 return
             newGroup["groups"].append({"run":{"name":progName[i]}})
             if changeSettings:
+                changeSettings[i] = changeSettings[i] or {}
                 for key,value in changeSettings[i].items():
                     newGroup["groups"][i]["run"].setdefault(key,value)
         self.instructions.append(newGroup)
-
-#    def suggest_containers(self):
-#        """ suggest optimum container for unspecified locations 
-#        based on volume
-#        """
-#        for locName in self.locations:
-#            if not locName["container"]:
-
 
 
     def export_to_JSON(self,fname):
@@ -389,7 +423,7 @@ class BaseProtocol:
         }
         try:
             out_file=open(fname,"w")
-            json.dump(final_dict,out_file,indent=4);
+            json.dump(final_dict,out_file,indent=2);
             print("Exported protocol to JSON")
         except EnvironmentError as err:
             print("Error exporting protocol to JSON")
@@ -399,8 +433,22 @@ class BaseProtocol:
                 out_file.close()
             
         
-
+#*****************************************************************************
+#                             EXCEPTION CLASSES
+#*****************************************************************************
 class InvalidEntry(Exception):
+    """ For handling invalid cases, e.g. negative volumes, nonexistent
+    containers, etc.
+    """
+    def __init__(self,value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
+
+class Override(Exception):
+    """ For handling cases where user-input confirmation is needed
+    to override existing data
+    """
     def __init__(self,value):
         self.value = value
     def __str__(self):
