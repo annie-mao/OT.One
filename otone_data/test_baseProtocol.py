@@ -1,4 +1,4 @@
-from baseProtocol import BaseProtocol, InvalidEntry, Override
+from baseProtocol import BaseProtocol, InvalidEntry, Prompt
 import pprint
 
 pp = pprint.PrettyPrinter(indent=2)
