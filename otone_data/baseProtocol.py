@@ -89,7 +89,7 @@ class BaseProtocol:
             "volume": 100
         }
 
-        self.instruction_stream = None
+        self.instruction_stream = {"cmds":[], "dicts":[]}
 
     def print_info(self,key):
         print(self.key)
@@ -187,7 +187,11 @@ class BaseProtocol:
         formattedTransfer = self.assign_pipette(["transfer"],[transferGroup])
         # add to instructions
         self.instructions.append(formattedTransfer)
-       
+
+    def transfer_with_mix(self,fromLocs,toLoc,volume,tr_changeSettings=[],mix_changeSettings=[]): 
+        
+        return
+
 
     def transfer_dict(self,fromLoc,toLoc,volume,changeSettings={}):
         transferDict={
@@ -196,12 +200,13 @@ class BaseProtocol:
             "volume":volume
         }
         # change any specified settings
-        for key,value in changeSettings.items():
-            if key=="from" or key=="to":
-                for nextkey,nextvalue in value.items():
-                    transferDict[key][nextkey]=nextvalue
-            else:
-                transferDict[key]=value
+        if changeSettings: 
+            for key,value in changeSettings.items():
+                if key=="from" or key=="to":
+                    for nextkey,nextvalue in value.items():
+                        transferDict[key][nextkey]=nextvalue
+                else:
+                    transferDict[key]=value
         # update locations dict
         self.update_loc_vol(fromLoc,-volume)
         self.update_loc_vol(toLoc,volume)
@@ -236,8 +241,9 @@ class BaseProtocol:
             "locName":mixLoc,
             "volume":volume
         }
-        for key,value in changeSettings.items():
-            mixDict[key]=value
+        if changeSettings:
+            for key,value in changeSettings.items():
+                mixDict[key]=value
         #fill in missing fields with defaults
         mixDict=self.fill_instruction_defaults(mixDict,self.mix_defaults)
         #if container and location are already specified, add
@@ -444,7 +450,7 @@ class BaseProtocol:
         """
         unassigned = []
         for locName,v in self.locations.items():
-            if not v.get("container") or not v.get("location"):
+            if (not v.get("container") or not v.get("location")):
                 unassigned.append(locName)
         return unassigned
 
@@ -455,7 +461,8 @@ class BaseProtocol:
         """
         unassigned = []
         for locName,v in self.locations.items():
-            if v.get("container") and v.get("container") not in self.deck:
+            if (v.get("container") and v.get("container") not in self.deck)\
+                and v.get("container") not in unassigned:
                 unassigned.append(v.get("container"))
         return unassigned
 
@@ -477,7 +484,42 @@ class BaseProtocol:
         self.instructions.pop()
 
 
-    def new_instruction_stream(self):
+    def add_transfer_to_stream(self,fromLocs,toLocs,volumes,changeSettings=None):
+        fromLocs = self.listify(fromLocs)
+        toLocs = self.listify(toLocs)
+        volumes = self.listify(volumes)
+        changeSettings = self.listify(changeSettings,len(fromLocs))
+
+        self.instruction_stream["cmds"].append("transfer")
+        transferGroup = []
+        for i in range(0,len(fromLocs)):
+            transferGroup.append(self.transfer_dict(fromLocs[i],toLocs[i],volumes[i],changeSettings[i]))
+        self.instruction_stream["dicts"].append(transferGroup)
+
+
+    def add_mix_to_stream(self,mixLocs,volumes,changeSettings=None):
+        mixLocs = self.listify(mixLocs)
+        volumes = self.listify(volumes)
+        changeSettings = self.listify(changeSettings,len(mixLocs))
+
+        self.instruction_stream["cmds"].append("mix")
+        mixGroup = []
+        for i in range(0,len(mixLocs)):
+            mixGroup.append(self.mix_dict(mixLocs[i],volumes[i],changeSettings[i]))
+        self.instruction_stream["dicts"].append(mixGroup)
+
+
+    def end_stream(self):
+        """ finalize current instruction stream, format, and append to
+        self.instructions
+        """
+        newGroup = self.assign_pipette(self.instruction_stream['cmds'],self.instruction_stream['dicts'])
+        self.instructions.append(newGroup)
+        self.instruction_stream['cmds'] = []
+        self.instruction_stream['dicts'] = []
+
+
+    def instruction_stream_cmdline(self):
         """ begin a new instruction
         can append any combination of transfers, mixes, as long as all
         volumes belong to the same pipette range
@@ -485,37 +527,29 @@ class BaseProtocol:
         # get pipette type
         pipette = input("Select a pipette:\n\tp200 (20-200uL)\n\tp10(0.5-10uL)\n\t")
         print("All movements in this instruction group will share a pipette tip.")
-        self.instruction_stream = []#{"tool": pipette,"groups": []}
         inProgress = True
-        cmdList = []
-        dictList = []
         while inProgress:
             try:
                 cmd = input("Select an instruction type:\n\tTransfer (T)\n\tMix(M)\n\tEnd (E)\n\t")
                 if cmd == 'T':
-                    cmdList.append("transfer")
                     fromLocs = input('From (location1,location2,location3...):  ').split(',')
                     toLocs = input('To (location2,location2,location3...):  ').split(',')
                     volumes = input('Transfer volumes (vol1,vol2,vol3...):  ').split(',')
+                    # TODO: changesettings
                     for i in range(0,len(volumes)): volumes[i] = float(volumes[i])
                     print(fromLocs)
                     print(toLocs)
                     print(volumes)
-                    transferGroup = []
-                    for i in range(0,len(fromLocs)):
-                        transferGroup.append(self.transfer_dict(fromLocs[i],toLocs[i],volumes[i]))
-                    dictList.append(transferGroup)
-                    print("list of cmds:\n{0}".format(cmdList))
-                    print("list of dicts:\n{0}".format(dictList))
-                    #print("sending to assign_pipette: \n{0}".format(cmdList))
+                    self.add_transfer_to_stream(fromLocs,toLocs,volumes)
+                elif cmd == 'M':
+                    mixLocs = input('Mix (location1,location2,location3...):  ').split(',')
+                    volumes = input('Mix volumes (vol1,vol2,vol3...):  ').split(',')
+                    # TODO: changesetting
+                    for i in range(0,len(volumes)): volumes[i] = float(volumes[i])
+                    self.add_mix_to_stream(mixLocs,volumes)
                 elif cmd == 'E':
-                    newGroup = self.assign_pipette(cmdList,dictList)
-                    self.instruction_stream.append(newGroup)
-                    # print out aggregate instruction and append to self.instructions
                     print(self.instruction_stream)
-                    self.instructions += self.instruction_stream
-                    # clear self.instruction_stream and exit
-                    self.instruction_stream = []
+                    self.end_stream() 
                     inProgress = False
             #except(SyntaxError,NameError,IndexError):
             #        print("Invalid input. Please try again")
@@ -547,12 +581,16 @@ class BaseProtocol:
 #        return    
 
 
-    def listify(self,arg):
+    def listify(self,arg,n=1):
         """ helper fn that converts a string,dict,or other obj to a 
         single-element list for fns that need arguments in list format
+
+        optionally specify n to return a list of [arg, arg, ...], length n
         """
         if not isinstance(arg,list):
             arg = [arg]
+            for i in range(0,n):
+                arg += arg
         return arg
 
     #------------------------------ CYCLER ------------------------------
