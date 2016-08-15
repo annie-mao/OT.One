@@ -172,6 +172,11 @@ class BaseProtocol:
         optionally specify changeSettings as a list of dictionaries, with each
         dictionary holding the keys to modify from transfer defaults
         """
+        # make sure that all arguments are in list format, evne if single-element
+        fromLocs = self.listify(fromLocs)
+        toLocs = self.listify(toLocs)
+        volumes = self.listify(volumes)
+        changeSettings = self.listify(changeSettings)
         transferGroup = []
         for i in range(0,len(fromLocs)):
             settingsDict = {}
@@ -214,6 +219,9 @@ class BaseProtocol:
         """ add mix group to instructions list
         same format of arguments as add_transfer_group
         """
+        mixLocs = self.listify(mixLocs)
+        volumes = self.listify(volumes)
+        changeSettings = self.listify(changeSettings)
         mixGroup = []
         for i in range(0,len(mixLocs)):
             mixGroup.append(self.mix_dict(mixLocs[i],volumes[i],changeSettings[i]))
@@ -285,7 +293,8 @@ class BaseProtocol:
         groups
         """
         # TO DO: add edit capabilities for head
-
+        commands = self.listify(commands)
+        groups = self.listify(groups)
         formattedGroup = {
             "tool": None,
             "groups": []
@@ -295,6 +304,8 @@ class BaseProtocol:
         volume = None
         pipette = None
         for i in range(0,len(commands)): 
+            groups[i] = self.listify(groups[i])
+            #print("groups[{0}]: \n{1}".format(i,groups[i]))
             for j in range(0,len(groups[i])):
                 # check consistency of volume range between each group
                 instDict = groups[i][j]
@@ -472,26 +483,41 @@ class BaseProtocol:
         volumes belong to the same pipette range
         """
         # get pipette type
-        pipette = input("Select a pipette:\n\tp200 (20-200uL)\n\tp20(0.5-10uL)\n\t")
+        pipette = input("Select a pipette:\n\tp200 (20-200uL)\n\tp10(0.5-10uL)\n\t")
         print("All movements in this instruction group will share a pipette tip.")
-        self.instruction_stream = {"tool": pipette,"groups": []}
+        self.instruction_stream = []#{"tool": pipette,"groups": []}
         inProgress = True
+        cmdList = []
+        dictList = []
         while inProgress:
             try:
-                cmd = input("Select an instruction type:\n\tTransfer (T)\n\tMix(M)\n\t")
+                cmd = input("Select an instruction type:\n\tTransfer (T)\n\tMix(M)\n\tEnd (E)\n\t")
                 if cmd == 'T':
+                    cmdList.append("transfer")
                     fromLocs = input('From (location1,location2,location3...):  ').split(',')
                     toLocs = input('To (location2,location2,location3...):  ').split(',')
                     volumes = input('Transfer volumes (vol1,vol2,vol3...):  ').split(',')
-                    for i in range(0,len(volumes)): volumes[i] = int(volumes[i])
+                    for i in range(0,len(volumes)): volumes[i] = float(volumes[i])
                     print(fromLocs)
                     print(toLocs)
                     print(volumes)
-                    cmdList = []
+                    transferGroup = []
                     for i in range(0,len(fromLocs)):
-                        cmdList.append(self.transfer_dict(fromLocs[i],toLocs[i],volumes[i]))
-                    self.assign_pipette("transfer",cmdList)
-            #except(SyntaxError,NameError):
+                        transferGroup.append(self.transfer_dict(fromLocs[i],toLocs[i],volumes[i]))
+                    dictList.append(transferGroup)
+                    print("list of cmds:\n{0}".format(cmdList))
+                    print("list of dicts:\n{0}".format(dictList))
+                    #print("sending to assign_pipette: \n{0}".format(cmdList))
+                elif cmd == 'E':
+                    newGroup = self.assign_pipette(cmdList,dictList)
+                    self.instruction_stream.append(newGroup)
+                    # print out aggregate instruction and append to self.instructions
+                    print(self.instruction_stream)
+                    self.instructions += self.instruction_stream
+                    # clear self.instruction_stream and exit
+                    self.instruction_stream = []
+                    inProgress = False
+            #except(SyntaxError,NameError,IndexError):
             #        print("Invalid input. Please try again")
             except InvalidEntry as e:
                     print("Error:" + e.value)
@@ -520,6 +546,14 @@ class BaseProtocol:
 #                self.add_ingredient(ingrName,locName,volume,containerName,locations[i])
 #        return    
 
+
+    def listify(self,arg):
+        """ helper fn that converts a string,dict,or other obj to a 
+        single-element list for fns that need arguments in list format
+        """
+        if not isinstance(arg,list):
+            arg = [arg]
+        return arg
 
     #------------------------------ CYCLER ------------------------------
     def add_cycler_prog(self,progName,holdTemp=None,runtime=None):
