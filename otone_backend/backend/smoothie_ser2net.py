@@ -290,7 +290,7 @@ class Smoothie(object):
                 #print('homing[key]: ',self.theState['homing'][key])
                 if key!='stat' and key!='homing' and key!='delaying':
                     if key.isalnum() and value == 0 and self.theState['homing'][key]==True:
-                        if ebug == True and verbose == True:
+                        if debug == True and verbose == True:
                             FileIO.log('smoothie_ser2net:\n\tchanging key [',key,'] homing to False')
                         self.theState['homing'][key] = False
                         self.theState['direction'][key] = 0

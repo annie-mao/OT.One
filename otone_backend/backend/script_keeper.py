@@ -3,7 +3,7 @@
 import subprocess, collections, json, asyncio, os
 from file_io import FileIO
 
-debug = False
+debug = True
 updated = False
 verbose = False
 

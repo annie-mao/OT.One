@@ -37,6 +37,7 @@ class Head:
         self.cycler = Cycler(self)
 
         self.smoothieAPI = openSmoothie.Smoothie(self,self.cycler)
+        #self.smoothieAPI = openSmoothie.Smoothie(self)
         self.PIPETTES = {'a':Pipette('a'),'b':Pipette('b')}    #need to create this dict in head setup
         self.tools = tools
         self.pubber = publisher
@@ -394,7 +395,7 @@ class Head:
                     #set current cell as q_prev for next iteration
                     q_prev = q_now
                     #set current location as loc_prev for next iteration
-                    for n in ['x','y','z']:
+                    for n in ['x','y','z','a','b']:
                         loc_prev[n]=locations[i].get(n,loc_prev[n])
 
 
