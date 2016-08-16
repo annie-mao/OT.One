@@ -1,5 +1,7 @@
 import datetime
 
+import math
+
 from collections import OrderedDict
 from containers import Containers
 
@@ -165,7 +167,7 @@ class BaseProtocol:
         return "Added "+str(volume)+"uL of "+ingrName+" to "+locName
 
 
-    def add_transfer_group(self,fromLocs,toLocs,volumes,changeSettings=[]):
+    def add_transfer_group(self,fromLocs,toLocs,volumes,changeSettings=None):
         """ add transfer group to instructions list
         specify fromLocs,toLocs, and volumes as lists of equal length, even if
         only one value (e.g. pass in [fromLoc],[toLoc],[volumes])
@@ -176,7 +178,7 @@ class BaseProtocol:
         fromLocs = self.listify(fromLocs)
         toLocs = self.listify(toLocs)
         volumes = self.listify(volumes)
-        changeSettings = self.listify(changeSettings)
+        changeSettings = self.listify(changeSettings,len(fromLocs))
         transferGroup = []
         for i in range(0,len(fromLocs)):
             settingsDict = {}
@@ -188,8 +190,25 @@ class BaseProtocol:
         # add to instructions
         self.instructions.append(formattedTransfer)
 
-    def transfer_with_mix(self,fromLocs,toLoc,volume,tr_changeSettings=[],mix_changeSettings=[]): 
-        
+    def transfer_with_mix(self,fromLocs,toLocs,volumes,tr_changeSettings=None,mix_changeSettings=None): 
+        fromLocs = self.listify(fromLocs)
+        toLocs = self.listify(toLocs)
+        volumes = self.listify(volumes)
+        tr_changeSettings = self.listify(tr_changeSettings,len(fromLocs))
+        mix_changeSettings = self.listify(mix_changeSettings,len(fromLocs))
+       
+        for i in range(0,len(toLocs)):
+            self.add_transfer_to_stream(fromLocs[i],toLocs[i],volumes[i],tr_changeSettings[i])
+            # mix using half of the container volume or the max of the pipette, whichever is lower
+            pipetteMax = 0
+            if volumes[i] < 20:
+                pipetteMax = 10
+            else:
+                pipetteMax = 200
+            locHalfVol = (self.locations.get(toLocs[i],{}).get("volume",float('inf')))/2
+            mixVol = min(locHalfVol,pipetteMax)
+            self.add_mix_to_stream(toLocs[i],mixVol,mix_changeSettings[i])
+        self.end_stream()
         return
 
 
@@ -581,7 +600,7 @@ class BaseProtocol:
 #        return    
 
 
-    def listify(self,arg,n=1):
+    def listify(self,arg,n=0):
         """ helper fn that converts a string,dict,or other obj to a 
         single-element list for fns that need arguments in list format
 
