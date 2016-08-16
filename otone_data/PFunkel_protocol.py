@@ -22,6 +22,7 @@ al2 = 'aliquot_2'
 al3 = 'aliquot_3'
 oligo2 = 'P23-Amp-rev'
 c_tube = 'cycler_tube'
+oil = 'oil'
 
 # cycler
 pf.add_cycler_prog('PFUNKEL1',4,2+60+15+10+2+15)
@@ -73,34 +74,36 @@ pf.assign_container(dil_Exo3,ice,'B5')
 print(pf.add_transfer_group(mm,c_tube,100))
 pf.assign_container(c_tube,cycler,'A1')
 pf.assign_labware(cycler,'8-tube-strip')
+print(pf.add_ingredient(oil,oil,100))
+print(pf.add_transfer_group(oil,c_tube,30,{'to':{'tip-offset':5}}))
 
 # first cycler instruction
 pf.add_cycler_group('PFUNKEL1')
 
 # aliquot 1
-pf.add_transfer_group(c_tube,al1,5)
+print(pf.add_transfer_group(c_tube,al1,5,{'from':{'tip-offset':-5}}))
 pf.assign_container(al1,ice,'D1')
 
 # add exo I and III to cycler tube
-print(pf.transfer_with_mix(UDG,c_tube,1.9))
-print(pf.transfer_with_mix(dil_Exo3,c_tube,1.9))
-print(pf.transfer_with_mix(Exo1,c_tube,1.9))
+print(pf.transfer_with_mix(UDG,c_tube,1.9,{'to':{'tip-offset':-5}}))
+print(pf.transfer_with_mix(dil_Exo3,c_tube,1.9,{'to':{'tip-offset':-5}}))
+print(pf.transfer_with_mix(Exo1,c_tube,1.9,{'to':{'tip-offset':-5}}))
 
 # second cycler instruction
 pf.add_cycler_group('PFUNKEL2')
 
 # aliquot 2
-print(pf.add_transfer_group(c_tube,al2,5))
+print(pf.add_transfer_group(c_tube,al2,5,{'from':{'tip-offset':-5}}))
 pf.assign_container(al2,ice,'D2')
 
 # add secondary oligo to cycler tube
-print(pf.transfer_with_mix(oligo2,c_tube,0.71))
+print(pf.transfer_with_mix(oligo2,c_tube,0.71,{'to':{'tip-offset':-5}}))
 
 # third cycler instruction
 pf.add_cycler_group('PFUNKEL3')
 
 # aliquot 3
-print(pf.add_transfer_group(c_tube,al3,5))
+print(pf.add_transfer_group(c_tube,al3,5,{'from':{'tip-offset':-5}}))
 pf.assign_container(al3,ice,'D3')
 
 pp.pprint(pf.deck)
