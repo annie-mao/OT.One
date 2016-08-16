@@ -3079,7 +3079,7 @@
         "8-tube-strip": {
             "locations": {
                 "A7": {
-                    "total-liquid-volume": 200,
+                    "total-liquid-volume": 300,
                     "z": 0,
                     "depth": 1.7,
                     "x": 0,
@@ -3087,7 +3087,7 @@
                     "diameter": 5
                 },
                 "A5": {
-                    "total-liquid-volume": 200,
+                    "total-liquid-volume": 300,
                     "z": 0,
                     "depth": 1.7,
                     "x": 0,
@@ -3095,7 +3095,7 @@
                     "diameter": 5
                 },
                 "A4": {
-                    "total-liquid-volume": 200,
+                    "total-liquid-volume": 300,
                     "z": 0,
                     "depth": 1.7,
                     "x": 0,
@@ -3103,7 +3103,7 @@
                     "diameter": 5
                 },
                 "A6": {
-                    "total-liquid-volume": 200,
+                    "total-liquid-volume": 300,
                     "z": 0,
                     "depth": 1.7,
                     "x": 0,
@@ -3111,7 +3111,7 @@
                     "diameter": 5
                 },
                 "A8": {
-                    "total-liquid-volume": 200,
+                    "total-liquid-volume": 300,
                     "z": 0,
                     "depth": 1.7,
                     "x": 0,
@@ -3119,7 +3119,7 @@
                     "diameter": 5
                 },
                 "A2": {
-                    "total-liquid-volume": 200,
+                    "total-liquid-volume": 300,
                     "z": 0,
                     "depth": 1.7,
                     "x": 0,
@@ -3127,7 +3127,7 @@
                     "diameter": 5
                 },
                 "A3": {
-                    "total-liquid-volume": 200,
+                    "total-liquid-volume": 300,
                     "z": 0,
                     "depth": 1.7,
                     "x": 0,
@@ -3135,7 +3135,7 @@
                     "diameter": 5
                 },
                 "A1": {
-                    "total-liquid-volume": 200,
+                    "total-liquid-volume": 300,
                     "z": 0,
                     "depth": 1.7,
                     "x": 0,

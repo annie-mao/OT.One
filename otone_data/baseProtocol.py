@@ -1,6 +1,4 @@
-import datetime
-
-import math
+import datetime, json
 
 from collections import OrderedDict
 from containers import Containers
@@ -95,6 +93,10 @@ class BaseProtocol:
 
     def print_info(self,key):
         print(self.key)
+
+    def set_container_library(self,fname):
+        self.containers = Containers(fname)
+        self.labware = self.containers.containersDict["containers"]
 
 
     def configure_transfer_tofrom(self,to_from,key,value):
@@ -386,6 +388,9 @@ class BaseProtocol:
                 pass
             elif yn == 'N' or yn == 'n':
                 return
+        # TODO : check for overlap with container/loc pairs already in
+        # self.locations but not yet assigned to self.deck, e.g. two 
+        # locNames being assigned to Container1, A1
         # --------------------------
         # add container and location to locations dict for future edit
         self.locations[locName].setdefault("container",containerName)
@@ -417,6 +422,15 @@ class BaseProtocol:
                             "location" : containerLoc,
                             "volume" : vol
                         })
+        # if container is already assigned to labware in the deck, update
+        # deck locations
+        if containerName in self.deck:
+            if containerLoc in self.deck[containerName]["empty"]:
+                self.fill_labware_location(locName,containerLoc,containerName)
+            elif containerLoc in self.deck[containerName]["locations"]:
+                raise InvalidEntry("Location {0} in {1} is already occupied".format(containerLoc,containerName))
+            else:
+                raise InvalidEntry("Location {0} in {1} does not exist".format(containerLoc,containerName))
 
 
     def assign_labware(self,containerName,labware):
@@ -432,6 +446,9 @@ class BaseProtocol:
             "container3":{....}
         }
         """
+        if containerName in self.deck:
+            raise InvalidEntry('{0} is already assigned to {1}'.format(containerName,self.deck[containerName]["labware"]))
+
         self.check_labware(labware) 
         # add to deck
         self.deck[containerName]={"labware": labware, "empty": [], "locations": {}}
@@ -443,10 +460,14 @@ class BaseProtocol:
         for locName,v in self.locations.items():
             if (v.get("container") == containerName) and \
                 (v.get("location") in self.deck[containerName]["empty"]):
-                # delete location from empty list
-                self.deck[containerName]["empty"].remove(v["location"])
-                # check that loc volume is not greater than container capacity
-                self.check_vol_overflow(containerName,v["location"],v["maxVol"])
+                self.fill_labware_location(locName,v.get("location"),v.get("container"))
+
+
+    def fill_labware_location(self,locName,location,containerName):
+        # check that loc volume is not greater than container capacity
+        self.check_vol_overflow(containerName,location,self.locations[locName]["maxVol"])
+        # delete location from empty list
+        self.deck[containerName]["empty"].remove(location)
 
 
     def check_labware(self,labware):
@@ -634,6 +655,8 @@ class BaseProtocol:
         to add just a hold/incubate step, set progName as None and
         specify a holding temp in changeSettings
         """
+        progName = self.listify(progName)
+        changeSettings = self.listify(changeSettings)
         newGroup = {
             "tool": "cycler",
             "groups": []
@@ -653,9 +676,14 @@ class BaseProtocol:
     def export_to_JSON(self,fname):
         """ aggregate all sections into one dict and export to JSON
         """
+        # simplify deck dict
+        deck_export = {}
+        for container in self.deck:
+            deck_export[container] = {"labware": self.deck[container]["labware"]}
+
         final_dict = {
             "info": self.info,
-            "deck": self.deck,
+            "deck": deck_export,
             "head": self.head,
             "cycler": self.cycler,
             "ingredients": self.ingredients_export,
