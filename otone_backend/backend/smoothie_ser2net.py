@@ -536,6 +536,12 @@ class Smoothie(object):
 
         # ANNIE'S EDITS
         targetCell=None
+        lid = None
+        # check and update lid state
+        if self.cycler.is_lid_open():
+            lid = 'open'
+        elif not self.cycler.is_lid_open():
+            lid = 'closed'
         if 'x' in axis_dict or 'X' in axis_dict:
             # check if in collision zone
             # if other axis homed previously, self.quadrant updates too fast/before
@@ -544,7 +550,7 @@ class Smoothie(object):
             if cell:
                 while cell not in self.cycler.home['x']['safe']:
                     cell = cell - 1
-                    self.move(self.cycler.cell_nodes['open'][cell])
+                    self.move(self.cycler.cell_nodes[lid][cell])
                 targetCell = self.cycler.home['x']['target'][cell]
             else:
                 # cell is None - don't home

@@ -11307,140 +11307,140 @@
         "tiprack-200ul-corner-test": {
             "locations": {
                 "B1": {
-                    "total-liquid-volume": null,
-                    "z": 0,
+                    "diameter": 3.5,
                     "depth": null,
                     "x": 0.0,
                     "y": 0,
-                    "diameter": 3.5
-                },
-                "B2": {
                     "total-liquid-volume": null,
-                    "z": 0,
-                    "depth": null,
-                    "x": 0.0,
-                    "y": 99,
-                    "diameter": 3.5
+                    "z": 0
                 },
                 "A1": {
+                    "diameter": 3.5,
+                    "depth": null,
+                    "x": 0.0,
+                    "y": 99,
                     "total-liquid-volume": null,
-                    "z": 0,
+                    "z": 0
+                },
+                "A2": {
+                    "diameter": 3.5,
                     "depth": null,
                     "x": 64.39999999999999,
                     "y": 0,
-                    "diameter": 3.5
-                },
-                "A2": {
                     "total-liquid-volume": null,
-                    "z": 0,
+                    "z": 0
+                },
+                "B2": {
+                    "diameter": 3.5,
                     "depth": null,
                     "x": 64.39999999999999,
                     "y": 99,
-                    "diameter": 3.5
+                    "total-liquid-volume": null,
+                    "z": 0
                 }
             }
         },
         "tiprack-10ul-corner-test": {
             "locations": {
                 "B1": {
-                    "total-liquid-volume": null,
-                    "z": 0,
+                    "diameter": 3.5,
                     "depth": null,
                     "x": 0.0,
                     "y": 0,
-                    "diameter": 3.5
-                },
-                "B2": {
                     "total-liquid-volume": null,
-                    "z": 0,
-                    "depth": null,
-                    "x": 0.0,
-                    "y": 99,
-                    "diameter": 3.5
+                    "z": 0
                 },
                 "A1": {
+                    "diameter": 3.5,
+                    "depth": null,
+                    "x": 0.0,
+                    "y": 99,
                     "total-liquid-volume": null,
-                    "z": 0,
+                    "z": 0
+                },
+                "A2": {
+                    "diameter": 3.5,
                     "depth": null,
                     "x": 64.39999999999999,
                     "y": 0,
-                    "diameter": 3.5
-                },
-                "A2": {
                     "total-liquid-volume": null,
-                    "z": 0,
+                    "z": 0
+                },
+                "B2": {
+                    "diameter": 3.5,
                     "depth": null,
                     "x": 64.39999999999999,
                     "y": 99,
-                    "diameter": 3.5
+                    "total-liquid-volume": null,
+                    "z": 0
                 }
             }
         },
         "8-tube-strip": {
             "locations": {
-                "A7": {
-                    "total-liquid-volume": 200,
-                    "z": 0,
-                    "depth": 1.7,
-                    "x": 0,
-                    "y": 54,
-                    "diameter": 5
-                },
-                "A5": {
-                    "total-liquid-volume": 200,
-                    "z": 0,
-                    "depth": 1.7,
-                    "x": 0,
-                    "y": 36,
-                    "diameter": 5
-                },
-                "A4": {
-                    "total-liquid-volume": 200,
-                    "z": 0,
-                    "depth": 1.7,
-                    "x": 0,
-                    "y": 27,
-                    "diameter": 5
-                },
-                "A6": {
-                    "total-liquid-volume": 200,
-                    "z": 0,
-                    "depth": 1.7,
-                    "x": 0,
-                    "y": 45,
-                    "diameter": 5
-                },
-                "A8": {
-                    "total-liquid-volume": 200,
-                    "z": 0,
-                    "depth": 1.7,
-                    "x": 0,
-                    "y": 63,
-                    "diameter": 5
-                },
-                "A2": {
-                    "total-liquid-volume": 200,
-                    "z": 0,
-                    "depth": 1.7,
-                    "x": 0,
-                    "y": 9,
-                    "diameter": 5
-                },
-                "A3": {
-                    "total-liquid-volume": 200,
-                    "z": 0,
-                    "depth": 1.7,
-                    "x": 0,
-                    "y": 18,
-                    "diameter": 5
-                },
                 "A1": {
-                    "total-liquid-volume": 200,
-                    "z": 0,
+                    "diameter": 5,
                     "depth": 1.7,
                     "x": 0,
                     "y": 0,
-                    "diameter": 5
+                    "total-liquid-volume": 300,
+                    "z": 0
+                },
+                "A6": {
+                    "diameter": 5,
+                    "depth": 1.7,
+                    "x": 0,
+                    "y": 45,
+                    "total-liquid-volume": 300,
+                    "z": 0
+                },
+                "A7": {
+                    "diameter": 5,
+                    "depth": 1.7,
+                    "x": 0,
+                    "y": 54,
+                    "total-liquid-volume": 300,
+                    "z": 0
+                },
+                "A4": {
+                    "diameter": 5,
+                    "depth": 1.7,
+                    "x": 0,
+                    "y": 27,
+                    "total-liquid-volume": 300,
+                    "z": 0
+                },
+                "A3": {
+                    "diameter": 5,
+                    "depth": 1.7,
+                    "x": 0,
+                    "y": 18,
+                    "total-liquid-volume": 300,
+                    "z": 0
+                },
+                "A8": {
+                    "diameter": 5,
+                    "depth": 1.7,
+                    "x": 0,
+                    "y": 63,
+                    "total-liquid-volume": 300,
+                    "z": 0
+                },
+                "A2": {
+                    "diameter": 5,
+                    "depth": 1.7,
+                    "x": 0,
+                    "y": 9,
+                    "total-liquid-volume": 300,
+                    "z": 0
+                },
+                "A5": {
+                    "diameter": 5,
+                    "depth": 1.7,
+                    "x": 0,
+                    "y": 36,
+                    "total-liquid-volume": 300,
+                    "z": 0
                 }
             }
         }
