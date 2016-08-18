@@ -51,30 +51,31 @@ print(pf.transfer_with_mix(oligo1,mm,1.65))
 print(pf.transfer_with_mix(ssDNA,mm,12.66))
 print(pf.transfer_with_mix(polymerase,mm,1))
 print(pf.transfer_with_mix(ligase,mm,5))
-pf.assign_container(mm,ice,'A1')
-pf.assign_container(water,ice,'A2')
-pf.assign_container(oligo1,ice,'A3')
-pf.assign_container(ssDNA,ice,'A4')
+pf.assign_container(mm,ice,'C4')
+pf.assign_container(water,ice,'C5')
+pf.assign_container(oligo1,ice,'C6')
+pf.assign_container(ssDNA,ice,'C7')
 pf.assign_labware(ice,'96-PCR-tubes')
-pf.assign_container(polymerase,ice,'A5')
-pf.assign_container(ligase,ice,'A6')
-pf.assign_container(NEBuffer_1,ice,'B1')
-pf.assign_container(Exo3,ice,'B2')
-pf.assign_container(UDG,ice,'B3')
-pf.assign_container(Exo1,ice,'B4')
-pf.assign_container(oligo2,ice,'C1')
+pf.assign_container(polymerase,ice,'C8')
+pf.assign_container(ligase,ice,'C9')
+pf.assign_container(NEBuffer_1,ice,'D4')
+pf.assign_container(Exo3,ice,'D5')
+pf.assign_container(UDG,ice,'D6')
+pf.assign_container(Exo1,ice,'D7')
+pf.assign_container(oligo2,ice,'E4')
 
 # exo III dilution
 print(pf.add_transfer_group(water,dil_Exo3,3.75))
 print(pf.add_transfer_group(NEBuffer_1,dil_Exo3,0.5))
 print(pf.transfer_with_mix(Exo3,dil_Exo3,0.75))
-pf.assign_container(dil_Exo3,ice,'B5')
+pf.assign_container(dil_Exo3,ice,'D8')
 
 # transfer to cycler
 print(pf.add_transfer_group(mm,c_tube,100))
 pf.assign_container(c_tube,cycler,'A1')
 pf.assign_labware(cycler,'8-tube-strip')
 print(pf.add_ingredient(oil,oil,100))
+pf.assign_container(oil,ice,'G4')
 print(pf.add_transfer_group(oil,c_tube,30,{'to':{'tip-offset':5}}))
 
 # first cycler instruction
@@ -82,29 +83,29 @@ pf.add_cycler_group('PFUNKEL1')
 
 # aliquot 1
 print(pf.add_transfer_group(c_tube,al1,5,{'from':{'tip-offset':-5}}))
-pf.assign_container(al1,ice,'D1')
+pf.assign_container(al1,ice,'F4')
 
 # add exo I and III to cycler tube
-print(pf.transfer_with_mix(UDG,c_tube,1.9,{'to':{'tip-offset':-5}}))
-print(pf.transfer_with_mix(dil_Exo3,c_tube,1.9,{'to':{'tip-offset':-5}}))
-print(pf.transfer_with_mix(Exo1,c_tube,1.9,{'to':{'tip-offset':-5}}))
+print(pf.transfer_with_mix(UDG,c_tube,1.9,{'to':{'tip-offset':-5,'touch-tip':False}}))
+print(pf.transfer_with_mix(dil_Exo3,c_tube,1.9,{'to':{'tip-offset':-5,'touch-tip':False}}))
+print(pf.transfer_with_mix(Exo1,c_tube,1.9,{'to':{'tip-offset':-5,'touch-tip':False}}))
 
 # second cycler instruction
 pf.add_cycler_group('PFUNKEL2')
 
 # aliquot 2
 print(pf.add_transfer_group(c_tube,al2,5,{'from':{'tip-offset':-5}}))
-pf.assign_container(al2,ice,'D2')
+pf.assign_container(al2,ice,'F5')
 
 # add secondary oligo to cycler tube
-print(pf.transfer_with_mix(oligo2,c_tube,0.71,{'to':{'tip-offset':-5}}))
+print(pf.transfer_with_mix(oligo2,c_tube,0.71,{'to':{'tip-offset':-5,'touch-tip':False}}))
 
 # third cycler instruction
 pf.add_cycler_group('PFUNKEL3')
 
 # aliquot 3
 print(pf.add_transfer_group(c_tube,al3,5,{'from':{'tip-offset':-5}}))
-pf.assign_container(al3,ice,'D3')
+pf.assign_container(al3,ice,'F6')
 
 pp.pprint(pf.deck)
 pp.pprint(pf.locations)

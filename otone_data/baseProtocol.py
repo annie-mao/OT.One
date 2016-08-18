@@ -10,7 +10,7 @@ class BaseProtocol:
 
     def __init__(self,name,description,notes):
         # load containers
-        self.containers = Containers("avail_containers.json")
+        self.containers = Containers("containers.json")
         self.labware = self.containers.containersDict["containers"]
         self.info = {
             "name": name,
@@ -45,7 +45,14 @@ class BaseProtocol:
                 ]
             }    
         }
-        self.deck={}
+        self.deck={
+            "p10-rack": {
+                "labware": "tiprack-10ul",
+            },
+            "p200-rack": {
+                "labware": "tiprack-200ul"
+            }
+        }
         self.locations={}
         self.ingredients={} #initial deck layout/setup
         self.ingredients_export={}
@@ -126,15 +133,12 @@ class BaseProtocol:
 
     def add_ingredient(self,ingrName,locName,volume,containerName=None,containerLoc=None):
         """ add ingredient to a location without specifying the source
-        """
-        # if container and location are specified, associate with locName
-        if containerName and containerLoc and locName:
-            self.assign_container(locName,containerName,containerLoc)
+        """ 
+        #if adding to an unspecified location (None), pool all volumes of the same
+        #ingredient in one initial pool called ingrName_initial
+        if not locName:
+            locName = ingrName+"_initial"
         if(ingrName not in self.ingredients):
-            #if adding to an unspecified location (None), pool all volumes of the same
-            #ingredient in one initial pool called ingrName_initial
-            if not locName:
-                locName = ingrName+"_initial"
             #new ingredient -- add ingredient to dict
             if locName not in self.locations:
                 #if ingredient and location are new
@@ -151,9 +155,6 @@ class BaseProtocol:
 
         else:
             #existing ingredient
-            #if adding to unspecified location, set location to ingredient's initial pool
-            if not locName:
-                locName = ingrName+"_initial"
             if locName in self.locations and locName != ingrName+"_initial":
                 #if existing ingredient to existing location
                 #assume ingredient is coming from ingredient's initial pool
@@ -166,6 +167,11 @@ class BaseProtocol:
                 #update location volume
                 self.update_loc_vol(locName,volume)
                 self.update_ingr_vol(ingrName,locName,volume)
+        
+        # if container and location are specified, associate with locName
+        if containerName and containerLoc and locName:
+            self.assign_container(locName,containerName,containerLoc)
+
         return "Added "+str(volume)+"uL of "+ingrName+" to "+locName
 
 
@@ -191,6 +197,8 @@ class BaseProtocol:
         formattedTransfer = self.assign_pipette(["transfer"],[transferGroup])
         # add to instructions
         self.instructions.append(formattedTransfer)
+        return "Added transfer group"
+
 
     def transfer_with_mix(self,fromLocs,toLocs,volumes,tr_changeSettings=None,mix_changeSettings=None): 
         fromLocs = self.listify(fromLocs)
@@ -210,8 +218,7 @@ class BaseProtocol:
             locHalfVol = (self.locations.get(toLocs[i],{}).get("volume",float('inf')))/2
             mixVol = min(locHalfVol,pipetteMax)
             self.add_mix_to_stream(toLocs[i],mixVol,mix_changeSettings[i])
-        self.end_stream()
-        return
+        return "Added transfer with mix"
 
 
     def transfer_dict(self,fromLoc,toLoc,volume,changeSettings={}):
@@ -255,7 +262,7 @@ class BaseProtocol:
         formattedMix = self.assign_pipette(["mix"],[mixGroup])
         # add to instructions
         self.instructions.append(formattedMix)
-
+        return "Added mix group"
 
     def mix_dict(self,mixLoc,volume,changeSettings={}):
         mixDict={
@@ -280,6 +287,7 @@ class BaseProtocol:
         #sanity check to make sure volume does not go negative
         if (self.locations.setdefault(locName,{}).setdefault("volume",0)+addVol) < 0:
             raise InvalidEntry("Attempt to create negative volume at {0}".format(locName))
+            self.locations.pop(locName,None)
             return
         self.locations[locName]["volume"]+=addVol
         if self.locations[locName]["volume"] > self.locations[locName].setdefault("maxVol",0):
@@ -530,11 +538,11 @@ class BaseProtocol:
         volumes = self.listify(volumes)
         changeSettings = self.listify(changeSettings,len(fromLocs))
 
-        self.instruction_stream["cmds"].append("transfer")
         transferGroup = []
         for i in range(0,len(fromLocs)):
             transferGroup.append(self.transfer_dict(fromLocs[i],toLocs[i],volumes[i],changeSettings[i]))
         self.instruction_stream["dicts"].append(transferGroup)
+        self.instruction_stream["cmds"].append("transfer")
 
 
     def add_mix_to_stream(self,mixLocs,volumes,changeSettings=None):
@@ -542,11 +550,11 @@ class BaseProtocol:
         volumes = self.listify(volumes)
         changeSettings = self.listify(changeSettings,len(mixLocs))
 
-        self.instruction_stream["cmds"].append("mix")
         mixGroup = []
         for i in range(0,len(mixLocs)):
             mixGroup.append(self.mix_dict(mixLocs[i],volumes[i],changeSettings[i]))
         self.instruction_stream["dicts"].append(mixGroup)
+        self.instruction_stream["cmds"].append("mix")
 
 
     def end_stream(self):
@@ -555,6 +563,10 @@ class BaseProtocol:
         """
         newGroup = self.assign_pipette(self.instruction_stream['cmds'],self.instruction_stream['dicts'])
         self.instructions.append(newGroup)
+        self.clear_stream()
+
+
+    def clear_stream(self):
         self.instruction_stream['cmds'] = []
         self.instruction_stream['dicts'] = []
 
@@ -712,7 +724,7 @@ class InvalidEntry(Exception):
     def __init__(self,value):
         self.value = value
     def __str__(self):
-        return repr(self.value)
+        return '\nError: ' + repr(self.value) + '\n'
 
 class Prompt(Exception):
     """ For handling cases where user-input confirmation is needed
