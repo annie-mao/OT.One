@@ -169,8 +169,13 @@ class BaseProtocol:
                 self.update_ingr_vol(ingrName,locName,volume)
         
         # if container and location are specified, associate with locName
-        if containerName and containerLoc and locName:
-            self.assign_container(locName,containerName,containerLoc)
+        try:
+            if containerName and containerLoc and locName:
+                self.assign_container(locName,containerName,containerLoc)
+        except InvalidEntry as e:
+            self.locations.pop(locName)
+            self.ingredients[ingrName].pop(locName)
+            raise e
 
         return "Added "+str(volume)+"uL of "+ingrName+" to "+locName
 
@@ -396,6 +401,16 @@ class BaseProtocol:
                 pass
             elif yn == 'N' or yn == 'n':
                 return
+        # if container is already assigned to labware in the deck, update
+        # deck locations
+        if containerName in self.deck:
+            if containerLoc in self.deck[containerName]["empty"]:
+                self.fill_labware_location(locName,containerLoc,containerName)
+            elif containerLoc in self.deck[containerName]["locations"]:
+                raise InvalidEntry("Location {0} in {1} is already occupied".format(containerLoc,containerName))
+            else:
+                raise InvalidEntry("Location {0} in {1} does not exist".format(containerLoc,containerName))
+
         # TODO : check for overlap with container/loc pairs already in
         # self.locations but not yet assigned to self.deck, e.g. two 
         # locNames being assigned to Container1, A1
@@ -430,15 +445,7 @@ class BaseProtocol:
                             "location" : containerLoc,
                             "volume" : vol
                         })
-        # if container is already assigned to labware in the deck, update
-        # deck locations
-        if containerName in self.deck:
-            if containerLoc in self.deck[containerName]["empty"]:
-                self.fill_labware_location(locName,containerLoc,containerName)
-            elif containerLoc in self.deck[containerName]["locations"]:
-                raise InvalidEntry("Location {0} in {1} is already occupied".format(containerLoc,containerName))
-            else:
-                raise InvalidEntry("Location {0} in {1} does not exist".format(containerLoc,containerName))
+       
 
 
     def assign_labware(self,containerName,labware):
@@ -537,7 +544,6 @@ class BaseProtocol:
         toLocs = self.listify(toLocs)
         volumes = self.listify(volumes)
         changeSettings = self.listify(changeSettings,len(fromLocs))
-
         transferGroup = []
         for i in range(0,len(fromLocs)):
             transferGroup.append(self.transfer_dict(fromLocs[i],toLocs[i],volumes[i],changeSettings[i]))

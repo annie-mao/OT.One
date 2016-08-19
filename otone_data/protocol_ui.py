@@ -1,6 +1,5 @@
 from baseProtocol import BaseProtocol, InvalidEntry
-import sys
-import pprint
+import sys, pprint, pickle
 
 pp = pprint.PrettyPrinter(indent=2)
 
@@ -15,18 +14,24 @@ class ProtocolUI:
     def welcome(self):
         userIn = input("--------------------------------------------\n\
         Welcome to the OT.One Protocol Editor.\n\
-        Create a new protocol: 'N' \n\
-        Edit existing protoco: 'E' \n\
-        Quit: 'Q' \n\n\
+        Create a new protocol (N) \n\
+        Edit existing protocol (E) \n\
+        Quit (Q) \n\n\
         Please enter your choice: ")
         if userIn == 'N': 
             self.new_protocol()
         elif userIn == 'E':
+            self.edit_protocol()
             pass
         elif userIn == 'Q':
             sys.exit()
         else:
             raise InvalidEntry('Invalid input. Please try again')
+
+
+#---------------------------- CREATE PROTOCOL --------------------------------
+#-----------------------------------------------------------------------------
+
 
     def new_protocol(self):
         print("--------------------------------------------")
@@ -40,14 +45,16 @@ class ProtocolUI:
         inProgress = True
         while inProgress:
             print("--------------------------------------------")
-            userIn =  input("\tAdd ingredient: 'I'\
-            \n\tAdd pipette group: 'G'\
-            \n\tAdd cycler program: 'P'\
-            \n\tAdd cycler instruction: 'C'\
-            \n\tAssign locations: 'A'\
-            \n\tExport to JSON: 'J'\
-            \n\tView: 'V'\
-            \n\tQuit: 'Q'\n\
+            userIn =  input("\tAdd ingredient (I)\
+            \n\tAdd pipette group (G)\
+            \n\tAdd cycler program (P)\
+            \n\tAdd cycler instruction (C)\
+            \n\tEdit instructions (E)\
+            \n\tEdit location assignments (L)\
+            \n\tUndo last instruction (U)\
+            \n\tView (V)\
+            \n\tSave to file (S)\
+            \n\tQuit (Q)\n\
             \n\tPlease enter your choice: ")
             if userIn == 'I':
                 self.ingredient()
@@ -57,18 +64,20 @@ class ProtocolUI:
                 self.cycler_instruction()
             elif userIn == 'G':
                 self.instruction_stream_cmdline()
-            elif userIn == 'A':
-                self.assign_locations()
-            elif userIn == 'J':
-                self.export()
+            elif userIn == 'E':
+                self.edit_instructions()
+            elif userIn == 'S':
+                self.save()
             elif userIn == 'V':
                 self.view()
+            elif userIn == 'U':
+                self.delete_last_instruction()
             elif userIn == 'Q':
                 if self.y_n_prompt("Save protocol?"):
-                    self.export()
+                    self.save()
                 inProgress = False
             else:
-                raise InvalidEntry('Invalid input. Please try again')
+                print('Invalid input. Please try again')
 
 
     def ingredient(self):
@@ -76,32 +85,46 @@ class ProtocolUI:
         print("Add ingredients to the protocol. If the location is not\
         \nspecified, an initial location will be created for it, and all\
         \nunspecified volumes of the same ingredient will be added there.\
-        \nIf adding an existing ingredient to an existing location, it\
-        \nwill first be added to its initial pool, and a transfer instruction\
-        \nwill be added from the pool to the target location.")
+        \nIf adding an existing ingredient to an existing location, it wil\
+        \nfirst be added to its initial pool, and a transfer instruction\
+        \nwill be added from the pool to the new location.\
+        \n\nThe location can be assigned to a container and container\
+        \nposition (e.g. ice, A1) either now or later.\
+        \n\nIf the specified container is not yet associated with to a\
+        \nlabware (e.g. 96-PCR-tubes) in the protocol deck, it can be\
+        \nassigned now or later.")
         print("--------------------------------------------")
-        ingrName = input("Ingredient name: ")
-        locName = None
-        volume = float(input("Ingredient volume (uL): "))
-        containerName = None
-        containerLoc = None
-        if self.y_n_prompt("Specify location?"):
-            locName = input("Location name: ")
-        if self.y_n_prompt("Specify container now?"):
-            containerName = input("Container name: ")
-            containerLoc = input("Location in container (e.g. A1): ")
-        print('\n'+self.protocol.add_ingredient(ingrName,locName,volume,containerName,containerLoc))
-        if containerName and (containerName in self.protocol.list_unassigned_containers()):
-            print("--------------------------------------------")
-            if self.y_n_prompt("Assign labware to {0} now?".format(containerName)):
+        try:
+            ingrName = input("Ingredient name: ")
+            volume = float(input("Ingredient volume (uL): "))
+            # get location and container info
+            while True:
+                try:
+                    locName = None
+                    containerName = None
+                    containerLoc = None
+                    if self.y_n_prompt("Specify location?"):
+                        locName = input("Location name: ")
+                    if self.y_n_prompt("Specify container now?"):
+                        containerName = input("Container name: ")
+                        containerLoc = input("Position in container (e.g. A1): ")
+                    print('\n'+self.protocol.add_ingredient(ingrName,locName,volume,containerName,containerLoc))
+                    break
+                except InvalidEntry as e:
+                    print(e)
+            # check if container needs to be assigned 
+            if containerName and (containerName in self.protocol.list_unassigned_containers()):
+                print("--------------------------------------------")
                 while True:
                     try:
-                        labware = input("Labware: ")
-                        self.protocol.assign_labware(containerName,labware)
+                        if self.y_n_prompt("Assign labware to {0} now?".format(containerName)):
+                            labware = input("Labware: ")
+                            self.protocol.assign_labware(containerName,labware)
                         break
                     except InvalidEntry as e:
                         print(e)
-
+        except Exception as e:
+            print(e)
 
     def cycler_program(self):
         print("--------------------------------------------")
@@ -157,16 +180,21 @@ class ProtocolUI:
                     print(e)
 
 
-    def export(self):
+    def save(self):
         if self.protocol.list_unassigned_locations():
             self.assign_locations()
         if self.protocol.list_unassigned_containers():
             self.assign_containers()
         print("--------------------------------------------")
+        print("Export protocol as a .json file, which can be run on the OT.One\
+        \nplatform, and as a .p file, which can be opened and modified using\
+        \nthis editor.")
+        print("--------------------------------------------")
         fname = input("Save as: ")
-        self.protocol.export_to_JSON(fname)
+        self.protocol.export_to_JSON(fname+'.json')
+        pickle.dump(self.protocol,open(fname+'.p', 'wb'))
         
-    
+
     def view(self):
         inProgress = True
         while inProgress: 
@@ -205,7 +233,8 @@ class ProtocolUI:
                 pp.pprint(self.protocol.cycler)
             elif userIn == 'Q':
                 inProgress = False
-
+            else:
+                print('Invalid input. Please try again')
 
     def instruction_stream_cmdline(self):
         """ begin a new instruction
@@ -216,9 +245,11 @@ class ProtocolUI:
         print("--------------------------------------------")
         print("All movements in this instruction group will share a pipette tip.\
         \nAny combination of pipette commands can be added, as long as they are\
-        \nin the same volume range.") 
+        \nin the same volume range.\
+        \n\nIf the volume is above the range of the pipette, the command will\
+        \nbe divided into multiple movements.") 
         print("--------------------------------------------")
-        pipette = input("Select a pipette:\n\tp200 (20-200uL)\n\tp10(0.5-10uL)\n\t")
+        pipette = input("Select a pipette:\n\tp200 (>20uL)\n\tp10(0.5-20uL)\n\t")
         inProgress = True
         while inProgress:
             try: 
@@ -245,10 +276,6 @@ class ProtocolUI:
                     toLocs = input('To (location2,location2,location3...):  ').split(',')
                     volumes = input('Transfer volumes (vol1,vol2,vol3...):  ').split(',')
                     for i in range(0,len(volumes)): volumes[i] = float(volumes[i])
-                    
-                    print(fromLocs)
-                    print(toLocs)
-                    print(volumes)
                     self.protocol.transfer_with_mix(fromLocs,toLocs,volumes,tr_changeSettings,mix_changeSettings)
                 # check for exit
                 elif cmd == 'E':
@@ -266,17 +293,6 @@ class ProtocolUI:
             #        print("Invalid input. Please try again")
             except InvalidEntry as e:
                     print("***Error:" + e.value)
-
-
-    def y_n_prompt(self,question):
-        while True:
-            yn = input(question + ' (Y/N): ')
-            if yn == 'Y':
-                return True
-            if yn == 'N':
-                return False
-            else:
-                print('Please enter Y or N')
 
 
     def change_settings(self,cmd):
@@ -303,7 +319,7 @@ class ProtocolUI:
             while inProgress:
                 try:
                     print("--------------------------------------------")
-                    print("Input changes or Q to quit")
+                    print("Input changes or Q to quit and continue")
                     userIn = input("Setting to change (setting,val,(to/from)): ").split(',')
                     if userIn[0] == 'Q':
                         print("--------------------------------------------")
@@ -325,6 +341,150 @@ class ProtocolUI:
             return {}
 
 
+#------------------------------EDIT PROTOCOL----------------------------------
+#-----------------------------------------------------------------------------
+
+    def edit_protocol(self):
+        print("--------------------------------------------")
+        print("Open a saved .p protocol file for editing.") 
+        print("--------------------------------------------")
+        fname = input("Enter file name: ")
+        if '.p' not in fname: fname = fname+'.p'
+        self.load_protocol(fname)
+        self.protocol_menu()
+
+
+    def load_protocol(self,fname):
+        self.protocol = pickle.load(open(fname,'rb'))
+
+
+    def edit_instructions(self):
+        try:
+            print("--------------------------------------------")
+            print("Press ENTER to step through instructions\
+            \nPress (D) to delete.\
+            \nPress (P) to insert a (preceding) pipette instruction\
+            \nPress (C) to insert a (preceding) cycler instruction\
+            \nPress (Q) to quit") 
+            print("--------------------------------------------")
+            for i in range(0,len(self.protocol.instructions)):
+                pp.pprint(self.protocol.instructions[i])
+                userIn = input()
+                if userIn == 'D':
+                    self.pop_instruction(i)
+                    break
+                elif userIn == 'P':
+                    self.insert_pipette_instruction(i)
+                    break
+                elif userIn == 'C':
+                    self.insert_cycler_instruction(i)
+                    break
+                elif userIn == 'Q':
+                    break
+        except Exception as e:
+            print(e)
+
+
+    def delete_last_instruction(self):
+        print("Deleted last instruction: ")
+        pp.pprint(self.rewind(len(self.protocol.instructions)-1))
+                
+    
+    def pop_instruction(self,index):
+        """ delete instruction by index
+        [1,2,3,4,5], index = 2
+        [1,2,4,5]
+        """
+        removed_instructions = self.rewind(index)
+        removed_instructions.pop(0)
+        self.fast_forward(removed_instructions)
+
+
+    def insert_pipette_instruction(self,index):
+        """ insert a pipette instruction at the index
+        [1,2,3,4,5], index = 2
+        [1,2,new,3,4,5]     
+        """
+        removed_instructions = self.rewind(index)
+        self.instruction_stream_cmdline()
+        self.fast_forward(removed_instructions)
+
+    
+    def insert_cycler_instruction(self,index):
+        """ insert a cycler instruction at the index
+        [1,2,3,4,5], index = 2
+        [1,2,new,3,4,5]
+        """
+        removed_instructions = self.rewind(indeX)
+        self.cycler_instruction()
+        self.fast_forward(removed_instructions)
+
+
+    def rev_transfer(self,fromLoc,toLoc,volume):
+        """ reverse a transfer to delete instruction """
+        self.protocol.add_transfer_to_stream(fromLoc,toLoc,-volume)
+        self.protocol.end_stream()
+        self.protocol.instructions.pop() #pop reverse instruction
+
+
+    def rewind(self,index):
+        """ rewind protocol state to an index in self.instructions
+        [1,2,3,4,5], index = 2
+             ^----- 
+        returns [3,4,5]
+        """
+        removed_instructions = []
+        for instruction in reversed(self.protocol.instructions[index:]):
+            for group in reversed(instruction["groups"]):
+                for transfer in group.get("transfer",{}):
+                    fromLoc = transfer["from"]["locName"]
+                    toLoc = transfer["to"]["locName"]
+                    volume = transfer["volume"]
+                    self.rev_transfer(fromLoc,toLoc,volume)
+            removed_instructions.insert(0,self.protocol.instructions.pop())
+        return removed_instructions
+
+    
+    def fast_forward(self,removed_instructions):
+        """ step back through the list of removed instructions and add back
+        to the protocol
+        """
+        for instruction in removed_instructions: 
+            for group in instruction["groups"]: 
+                if group.get("transfer"):
+                    fromLocs = []
+                    toLocs = []
+                    volumes = []
+                    changeSettings = []
+                    for transfer in group["transfer"]:
+                        pp.pprint(transfer)
+                        fromLocs.append(transfer["from"].pop("locName"))
+                        toLocs.append(transfer["to"].pop("locName"))
+                        volumes.append(transfer.pop("volume"))
+                        changeSettings.append(transfer)
+                    self.protocol.add_transfer_to_stream(fromLocs,toLocs,volumes,changeSettings) 
+                elif group.get("mix"):
+                    mixLocs = []
+                    volumes = []
+                    changeSettings = []
+                    for mix in group["mix"]:
+                        pp.pprint(mix)
+                        mixLocs.append(mix.pop("locName"))
+                        volumes.append(mix.pop("volume"))
+                        changeSettings.append(mix)
+                    self.protocol.add_mix_to_stream(mixLocs,volumes,changeSettings)
+                elif group.get("run"):
+                    # cycler
+                    name = group["run"].pop("name")
+                    changeSettings = group["run"] 
+                    self.protocol.add_cycler_group(name,changeSettings)
+            if self.protocol.instruction_stream["cmds"]:
+                self.protocol.end_stream()
+        
+
+#--------------------------------HELPERS--------------------------------------
+#-----------------------------------------------------------------------------
+
     def str2type(self,val):
         """parse string inputs and return numbers as numbers, bools as bools,
         strings as strings
@@ -345,3 +505,16 @@ class ProtocolUI:
             return True
         except ValueError:
             return False
+
+
+    def y_n_prompt(self,question):
+        while True:
+            yn = input(question + ' (Y/N): ')
+            if yn == 'Y':
+                return True
+            if yn == 'N':
+                return False
+            else:
+                print('Please enter Y or N')
+
+
