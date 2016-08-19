@@ -50,7 +50,6 @@ class ProtocolUI:
             \n\tAdd cycler program (P)\
             \n\tAdd cycler instruction (C)\
             \n\tEdit instructions (E)\
-            \n\tEdit location assignments (L)\
             \n\tUndo last instruction (U)\
             \n\tView (V)\
             \n\tSave to file (S)\
