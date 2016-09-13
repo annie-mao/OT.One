@@ -4,7 +4,7 @@ import asyncio, json, math
 from file_io import FileIO
 import script_keeper as sk
 
-debug = True
+debug = False
 io_debug = False
 verbose = False
 
@@ -92,16 +92,6 @@ class Smoothie(object):
             'a': False,
             'b': False,
             'c': False
-        }
-    }
-
-    # ANNIE'S EDITS
-    # areas which intersect with thermal cycler space
-    cyclerZone = {
-        'home':{
-            'x':60,
-            'y':270,
-            'z':None
         }
     }
 

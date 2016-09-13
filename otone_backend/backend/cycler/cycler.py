@@ -222,7 +222,6 @@ class Cycler:
             return self.is_busy
         except TypeError as ex:
             FileIO.log('Cycler.check_busy error {0} args {1!r}\n'.format(type(ex).__name__,ex.args))
-            FileIO.log('sn is {0}'.format(sn))
             self.is_busy = True
             return self.is_busy
 
@@ -348,6 +347,7 @@ class Cycler:
 
         """
         if debug == True: FileIO.log('CYCLER RECEIVED TASK:\n{0}'.format(data))
+        self.head.theQueue.pause_job()
         self.is_busy = True
         # parse input
         name = data.get('name')
@@ -369,13 +369,16 @@ class Cycler:
             # wait for task to finish
             while self.check_busy():
                 FileIO.log('cycler.py Still busy')
-                if self.head: self.head.smoothieAPI.delay(10)
+                #if self.head: self.head.smoothieAPI.delay(10)
             # if program has a hold step, incubate at the hold temperature
             if debug == True: FileIO.log('cycler.py exit while')
             holdTemp = data.get('hold')
+            if debug == True: FileIO.log('hold temp {0}'.format(holdTemp))
             if holdTemp:
                 incSuccess = self.incubate(holdTemp,True)
                 if not incSuccess and debug == True: FileIO.log('CYCLER INCUBATE ERROR')
                 elif debug == True: FileIO.log('CYCLER HOLD AT {0} C'.format(holdTemp))
+            self.head.theQueue.resume_job()
+            self.head.smoothieAPI.delay(1)
 
 
