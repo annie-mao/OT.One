@@ -387,6 +387,7 @@ class Cycler:
         elif('lid' in data):
             if (data.get('lid') == True and self.lidOpen) or (data.get('lid') == False and not self.lidOpen):
                 self.toggle_lid()
+            self.head.smoothieAPI.delay(1)
             
 
 
