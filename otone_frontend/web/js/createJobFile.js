@@ -376,21 +376,21 @@ function createRobotProtocol (protocol) { // 'protocol' is the human-readable js
         "Program1":{
             "runtime":7,
             "control":"CALC",
-            "lid":true,
+            "heated-lid":false,
             "vessel":"Tubes",
             "volume":100
         },
         "Program2":{
             "runtime":7,
             "control":"CALC",
-            "lid":true,
+            "heated-lid":false,
             "vessel":"Tubes",
             "volume":100
         },
         "Program3":{
             "runtime":7,
             "control":"CALC",
-            "lid":true,
+            "heated-lid":false,
             "vessel":"Tubes",
             "volume":100
         }
@@ -540,15 +540,16 @@ var createCyclerGroup = {
 
   'run' : function (theCycler, theGroup) {
     console.log('cycler run called');
-    var createdGroup = {
-      'command': 'cycler',
-      'name': theGroup.name
-    };
-    console.log(theGroup.name);
-    if(createdGroup.name in theCycler) {
+    var createdGroup = {'command': 'cycler'};
+    if('name' in theGroup){
+      if(theGroup.name in theCycler) {
+        createdGroup['name']=theGroup.name;
         for (var key in theCycler[createdGroup.name]) {
-          createdGroup[key] = theCycler[createdGroup.name][key];
+        createdGroup[key] = theCycler[createdGroup.name][key];
+        }
       }
+    } else if ('lid' in theGroup) {
+      createdGroup['lid'] = theGroup.lid;
     }
     return createdGroup;
   }
