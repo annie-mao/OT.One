@@ -12,7 +12,6 @@ from cycler.cycler import Cycler
 
 debug = True
 verbose = False
-queue_debug = True
 
 class Head:
     """A representation of the robot head
@@ -81,14 +80,12 @@ class Head:
         :todo:
         :obj:`theState` should be updated BEFORE the actions taken from given state
         """
-        if debug == True or queue_debug == True: FileIO.log('head.on_state_change called')
+        if debug == True: FileIO.log('head.on_state_change called')
         
-        if state['stat'] == 1 or state['delaying'] == 1:
-            if queue_debug == True: FileIO.log('head state {0}, delay state {1}, setting Queue busy'.format(state['stat'],state['delaying']))
+        if state['stat'] == 1 or state['delaying'] == 1: 
             self.theQueue.is_busy = True
 
         elif state['stat'] == 0 and state['delaying'] == 0: 
-            if queue_debug == True: FileIO.log('head state {0}, delay state {1}, setting Queue not busy'.format(state['stat'],state['delaying'])) 
             self.theQueue.is_busy = False
             self.theQueue.currentCommand = None
             if self.theQueue.paused==False:

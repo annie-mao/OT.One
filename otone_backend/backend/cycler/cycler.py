@@ -333,6 +333,7 @@ class Cycler:
                 self.send(self._runCmd['cancel'])
                 time.sleep(1)
 
+
     def task(self,data):
         """handle incoming task from the_queue.py
         data = {
@@ -340,36 +341,39 @@ class Cycler:
             'name': 'PFunkel_1'
             'runtime': 7,
             'control': 'CALC',
-            'lid': True,
+            'heatedlid': True,
             'vessel': 'Tubes',
             'volume': 100
+        }
+        data = {
+            'command': 'cycler',
+            'lid': True 
         }
 
         """
         if debug == True: FileIO.log('CYCLER RECEIVED TASK:\n{0}'.format(data))
-        self.head.theQueue.pause_job()
-        self.is_busy = True
-        # parse input
         name = data.get('name')
         if(name):
-            name = '"' + data.get('name') + '"'
+            self.head.theQueue.pause_job()
+            self.is_busy = True
+            # parse input
+            name = '"' + name + '"'
             ctrl = data.get('control')
-            lid = data.get('lid')
-            if lid:
-                lid = 'ON'
+            heatedLid = data.get('heated-lid')
+            if heatedLid:
+                heatedLid = 'ON'
             else:
-                lid = 'OFF'
+                heatedLid = 'OFF'
             vesselType = data.get('vessel')
             if vesselType:
                 vesselType = '"'+data.get('vessel')+'"'
             vesselVol = data.get('volume')
-            runSuccess = self.run_program(name,ctrl,lid,vesselType,vesselVol)
+            runSuccess = self.run_program(name,ctrl,heatedLid,vesselType,vesselVol)
             if not runSuccess and debug == True: FileIO.log('CYCLER RUN ERROR')
             elif debug == True: FileIO.log('CYCLER RUN SUCCESS')
             # wait for task to finish
             while self.check_busy():
                 FileIO.log('cycler.py Still busy')
-                #if self.head: self.head.smoothieAPI.delay(10)
             # if program has a hold step, incubate at the hold temperature
             if debug == True: FileIO.log('cycler.py exit while')
             holdTemp = data.get('hold')
@@ -380,5 +384,9 @@ class Cycler:
                 elif debug == True: FileIO.log('CYCLER HOLD AT {0} C'.format(holdTemp))
             self.head.theQueue.resume_job()
             self.head.smoothieAPI.delay(1)
+        elif('lid' in data):
+            if (data.get('lid') == True and self.lidOpen) or (data.get('lid') == False and not self.lidOpen):
+                self.toggle_lid()
+            
 
 

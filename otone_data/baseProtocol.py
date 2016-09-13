@@ -26,6 +26,14 @@ class BaseProtocol:
                 "axis": "a",
                 "volume": 200,
                 "tip-plunge": 4,
+                "multi-channel": False,
+                "down-plunger-speed": 300,
+                "up-plunger-speed": 500,
+                "extra-pull-volume": 50,
+                "extra-pull-delay": 10,
+                "trash-container":{
+                    "container": "trash"
+                },
                 "points": [
                     {"f1": 20, "f2": 17.7},
                     {"f1": 100, "f2": 98.5},
@@ -37,7 +45,15 @@ class BaseProtocol:
                 "tip-racks": [{"container": "p10-rack"}],
                 "axis": "b",
                 "volume": 10,
-                "tip-plunge": 7.5,
+                "tip-plunge": 8,
+                "multi-channel": False,
+                "down-plunger-speed": 300,
+                "up-plunger-speed": 500,
+                "extra-pull-volume": 5,
+                "extra-pull-delay": 10,
+                "trash-container":{
+                    "container": "trash"
+                },
                 "points": [
                     {"f1": 0.5, "f2": 0.41},
                     {"f1": 5, "f2": 4.7},
@@ -47,10 +63,13 @@ class BaseProtocol:
         }
         self.deck={
             "p10-rack": {
-                "labware": "tiprack-10ul",
+                "labware": "tiprack-10ul"
             },
             "p200-rack": {
                 "labware": "tiprack-200ul"
+            },
+            "trash": {
+                "labware": "point"
             }
         }
         self.locations={}
@@ -91,7 +110,7 @@ class BaseProtocol:
         }
         self.cycler_defaults={
             "control": "CALC",
-            "lid": False,
+            "heated-lid": False,
             "vessel": "Tubes",
             "volume": 100
         }
@@ -205,6 +224,27 @@ class BaseProtocol:
         return "Added transfer group"
 
 
+    def add_transfer_with_mix(self,fromLocs,toLocs,volumes,tr_changeSettings=None,mix_changeSettings=None): 
+        fromLocs = self.listify(fromLocs)
+        toLocs = self.listify(toLocs)
+        volumes = self.listify(volumes)
+        tr_changeSettings = self.listify(tr_changeSettings,len(fromLocs))
+        mix_changeSettings = self.listify(mix_changeSettings,len(fromLocs))
+       
+        for i in range(0,len(toLocs)):
+            self.add_transfer_group(fromLocs[i],toLocs[i],volumes[i],tr_changeSettings[i])
+            # mix using half of the container volume or the max of the pipette, whichever is lower
+            pipetteMax = 0
+            if volumes[i] < 20:
+                pipetteMax = 10
+            else:
+                pipetteMax = 200
+            locHalfVol = (self.locations.get(toLocs[i],{}).get("volume",float('inf')))/2
+            mixVol = min(locHalfVol,pipetteMax)
+            self.add_mix_group(toLocs[i],mixVol,mix_changeSettings[i])
+        return "Added transfer with mix"
+
+
     def transfer_with_mix(self,fromLocs,toLocs,volumes,tr_changeSettings=None,mix_changeSettings=None): 
         fromLocs = self.listify(fromLocs)
         toLocs = self.listify(toLocs)
@@ -240,7 +280,7 @@ class BaseProtocol:
                         transferDict[key][nextkey]=nextvalue
                 else:
                     transferDict[key]=value
-        # update locations dict
+        # update self.locations
         self.update_loc_vol(fromLoc,-volume)
         self.update_loc_vol(toLoc,volume)
         # fill in missing fields with defaults
@@ -253,7 +293,80 @@ class BaseProtocol:
         return transferDict
 
 
-    def add_mix_group(self,mixLocs,volumes,changeSettings=[]):
+    def distribute_dict(self,fromLoc,toLocs,volumes,changeSettings={}):
+        distributeDict={
+            "from":{"locName":fromLoc},
+            "to":[]
+        }
+        # fill in To locations info
+        for i in range(0,len(toLocs)):
+            distributeDict["to"].append({"locName":toLocs[i],"volume":volumes[i]})
+            # change any specified settings
+            if changeSettings:
+                for key,value in changeSettings.get('to',{}).items():
+                    distributeDict['to'][i][key]=value
+            # update self.locations
+            self.update_loc_vol(fromLoc,-volumes[i])
+            self.update_loc_vol(toLocs[i],volumes[i])
+            # fill in missing fields with defaults
+            distributeDict["to"][i]=self.fill_instruction_defaults(distributeDict["to"][i],self.transfer_defaults["to"])
+            # if container and location are already specified, add
+            distributeDict["to"][i]["container"]=self.locations.get(toLocs[i]).get("container")
+            distributeDict["to"][i]["location"]=self.locations.get(toLocs[i]).get("location")
+        # change any specified from or outside settings
+        if changeSettings:
+            for key,value in changeSettings.items():
+                if key == 'from':
+                    for nextkey,nextvalue in value.items():
+                        distributeDict['from'][nextkey]=nextvalue
+                elif key != 'to':
+                    distributeDict[key]=value
+        # fill in missing from and outside fields with defaults
+        distributeDict=self.fill_instruction_defaults(distributeDict,self.transfer_defaults)
+        # if from container and location are already specified, add
+        distributeDict["from"]["container"]=self.locations.get(fromLoc).get("container")
+        distributeDict["from"]["location"]=self.locations.get(fromLoc).get("location")
+        return distributeDict
+            
+
+    def consolidate_dict(self,fromLocs,toLoc,volumes,changeSettings={}):
+        consolidateDict={
+            "to":{"locName":toLoc},
+            "from":[]
+        }
+        # fill in To locations info
+        for i in range(0,len(fromLocs)):
+            consolidateDict["from"].append({"locName":fromLocs[i],"volume":volumes[i]})
+            # change any specified settings
+            if changeSettings:
+                for key,value in changeSettings.get('from',{}).items():
+                    distributeDict['from'][i][key]=value
+            # update self.locations
+            self.update_loc_vol(fromLocs[i],-volumes[i])
+            self.update_loc_vol(toLoc,volumes[i])
+            # fill in missing fields with defaults
+            consolidateDict["from"][i]=self.fill_instruction_defaults(distributeDict["from"][i],self.transfer_defaults["from"])
+            # if container and location are already specified, add
+            consolidateDict["from"][i]["container"]=self.locations.get(fromLocs[i]).get("container")
+            consolidateDict["from"][i]["location"]=self.locations.get(fromLocs[i]).get("location")
+        # change any specified from or outside settings
+        if changeSettings:
+            for key,value in changeSettings.items():
+                if key == 'to':
+                    for nextkey,nextvalue in value.items():
+                        consolidateDict['to'][nextkey]=nextvalue
+                elif key != 'from':
+                    consolidateDict[key]=value
+        # fill in missing from and outside fields with defaults
+        consolidateDict=self.fill_instruction_defaults(consolidateDict,self.transfer_defaults) 
+        # if from container and location are already specified, add
+        consolidateDict["to"]["container"]=self.locations.get(toLoc).get("container")
+        consolidateDict["to"]["location"]=self.locations.get(toLoc).get("location")
+        return distributeDict
+ 
+
+
+    def add_mix_group(self,mixLocs,volumes,changeSettings=None):
         """ add mix group to instructions list
         same format of arguments as add_transfer_group
         """
@@ -318,7 +431,7 @@ class BaseProtocol:
         missing fields
         """
         for key,value in instDefaults.items():
-            if key=="from" or key=="to":
+            if key=="from" or key=="to" and isinstance(value,dict):
                 for nextkey,nextvalue in value.items():
                     instDict[key].setdefault(nextkey,nextvalue)
             else:

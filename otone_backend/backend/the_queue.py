@@ -148,8 +148,6 @@ class TheQueue:
                     
                 elif self.current_command.get('command') == 'cycler':
                     self.head.cycler.task(self.current_command)
-                    if debug == True: FileIO.log('sent command to cycler')
-                    self.is_busy = False
                 else:
                     self.head.smoothieAPI.move(self.current_command)	#, self.sent_successfully );      # MOVE
 

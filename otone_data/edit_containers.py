@@ -32,7 +32,7 @@ for i in range(0,9):
 c.container_corners("tiprack-200ul")
 c.container_corners("tiprack-10ul")
 
-c.add_container("8-tube-strip",1,8,0,9,0,0,1.7,5,300)
-c.add_container("96-PCR-tubes",8,12,9,9,0,0,1.7,5,300)
+c.add_container("8-tube-strip",1,8,0,9,0,0,20,5,300)
+c.add_container("96-PCR-tubes",8,12,9,9,0,0,20,5,300)
 
 c.export_to_JSON("containers.json")

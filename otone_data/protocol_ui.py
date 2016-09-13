@@ -243,10 +243,11 @@ class ProtocolUI:
         # get pipette type 
         print("--------------------------------------------")
         print("All movements in this instruction group will share a pipette tip.\
-        \nAny combination of pipette commands can be added, as long as they are\
-        \nin the same volume range.\
-        \n\nIf the volume is above the range of the pipette, the command will\
-        \nbe divided into multiple movements.") 
+        \nand must be of the same command type and volume range.\
+        \ne.g. A group of transfers, using the p200 pipette\
+        \n\nIf the volume is above the physical range of the pipette, the command\
+        \nwill be divided into multiple movements.\
+        \ne.g. 15uL using the p10 pipette, 300uL using the p200 pipette") 
         print("--------------------------------------------")
         pipette = input("Select a pipette:\n\tp200 (>20uL)\n\tp10(0.5-20uL)\n\t")
         inProgress = True
@@ -275,7 +276,7 @@ class ProtocolUI:
                     toLocs = input('To (location2,location2,location3...):  ').split(',')
                     volumes = input('Transfer volumes (vol1,vol2,vol3...):  ').split(',')
                     for i in range(0,len(volumes)): volumes[i] = float(volumes[i])
-                    self.protocol.transfer_with_mix(fromLocs,toLocs,volumes,tr_changeSettings,mix_changeSettings)
+                    self.protocol.add_transfer_with_mix(fromLocs,toLocs,volumes,tr_changeSettings,mix_changeSettings)
                 # check for exit
                 elif cmd == 'E':
                     print('The current instruction group:')
@@ -429,8 +430,9 @@ class ProtocolUI:
     def rewind(self,index):
         """ rewind protocol state to an index in self.instructions
         [1,2,3,4,5], index = 2
-             ^----- 
-        returns [3,4,5]
+             ^-----
+        new self.instructions = [1,2]
+        returns removed instructions [3,4,5]
         """
         removed_instructions = []
         for instruction in reversed(self.protocol.instructions[index:]):
