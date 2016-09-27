@@ -340,7 +340,7 @@ class BaseProtocol:
             # change any specified settings
             if changeSettings:
                 for key,value in changeSettings.get('from',{}).items():
-                    distributeDict['from'][i][key]=value
+                    consolidateeDict['from'][i][key]=value
             # update self.locations
             self.update_loc_vol(fromLocs[i],-volumes[i])
             self.update_loc_vol(toLoc,volumes[i])
@@ -362,8 +362,17 @@ class BaseProtocol:
         # if from container and location are already specified, add
         consolidateDict["to"]["container"]=self.locations.get(toLoc).get("container")
         consolidateDict["to"]["location"]=self.locations.get(toLoc).get("location")
-        return distributeDict
+        return consolidateDict
  
+    
+    def add_distribute(self,fromLoc,toLocs,volumes,changeSettings=None):
+        """ add distribute group to instructions list
+        """
+
+
+    def add_consolidate(self,fromLocs,toLoc,volumes,changeSettings=None):
+        """ add consolidate group to instructions lit
+        """
 
 
     def add_mix_group(self,mixLocs,volumes,changeSettings=None):
@@ -372,7 +381,7 @@ class BaseProtocol:
         """
         mixLocs = self.listify(mixLocs)
         volumes = self.listify(volumes)
-        changeSettings = self.listify(changeSettings)
+        changeSettings = self.listify(changeSettings,len(mixLocs))
         mixGroup = []
         for i in range(0,len(mixLocs)):
             mixGroup.append(self.mix_dict(mixLocs[i],volumes[i],changeSettings[i]))
@@ -751,8 +760,8 @@ class BaseProtocol:
 #                self.add_ingredient(ingrName,locName,volume,containerName,locations[i])
 #        return    
 
-
-    def listify(self,arg,n=0):
+    @staticmethod
+    def listify(arg,n=0):
         """ helper fn that converts a string,dict,or other obj to a 
         single-element list for fns that need arguments in list format
 
@@ -803,6 +812,20 @@ class BaseProtocol:
                     newGroup["groups"][i]["run"].setdefault(key,value)
         self.instructions.append(newGroup)
 
+
+    def add_cycler_lid_cmd(self,lid):
+        """add command to open or close lid
+        lid = True for close, lid = False for open
+        """
+        newGroup = {
+            "tool": "cycler",
+            "groups": [
+                {
+                    "run":{"lid":lid}
+                }
+            ]
+        }
+        self.instructions.append(newGroup)
 
     def export_to_JSON(self,fname):
         """ aggregate all sections into one dict and export to JSON

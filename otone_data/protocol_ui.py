@@ -138,12 +138,20 @@ class ProtocolUI:
 
     def cycler_instruction(self):
         print("--------------------------------------------")
-        print("Add a cycler program to the protocol instructons")
+        userIn = input("\tAdd cycler program to protocol instructions (C)\
+        \n\tAdd cycler lid instruction (L)")
         print("--------------------------------------------")
-        progName = input("Program name: ")
-        changeSettings = self.change_settings('C')
-        self.protocol.add_cycler_group(progName,changeSettings)
-
+        if userIn == 'C':
+            progName = input("Program name: ")
+            changeSettings = self.change_settings('C')
+            self.protocol.add_cycler_group(progName,changeSettings)
+        elif userIn == 'L':
+            lid = input("\tClose lid (C)\n\tOpen lid (O)")
+            if lid == 'C':
+                self.protocol.add_cycler_lid_cmd(True)
+            elif lid == 'O':
+                self.protocol.add_cycler_lid_cmd(False)
+            
 
     def assign_locations(self):
         print("--------------------------------------------")
