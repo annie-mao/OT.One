@@ -2,6 +2,7 @@ import sys
 sys.path.insert(0,'../otone_backend/backend')
 from file_io import FileIO
 import json
+from collections import OrderedDict
 
 # container class facilitating update/generation of containers.json file
 
@@ -42,12 +43,19 @@ class Containers:
             overwrite = input("{0} already in dictionary. Overwrite? (Y/N):  ".format(containerName))
             if overwrite == 'N':
                 return
-        self.containersDict["containers"][containerName]={"locations":{}}
+        self.containersDict["containers"][containerName]={"locations":OrderedDict()}
         # columns=numbers/y axis, rows=letters/x axis
         for col in range(0,numColumns):
             for row in range (0,numRows):
                 locName=chr(ord('A')+row) + str(col+1)
-                newLocation={"x":row*xInc, "y":col*yInc, "z":(row*zInc_x + col*zInc_y), "depth":depth, "diameter":diameter, "total-liquid-volume":TLV}
+                newLocation={
+                    "x": row*xInc,
+                    "y": col*yInc,
+                    "z": (row*zInc_x + col*zInc_y),
+                    "depth": depth,
+                    "diameter": diameter,
+                    "total-liquid-volume": TLV
+                }
                 self.containersDict["containers"][containerName]["locations"][locName]=newLocation
         return containerName		
 

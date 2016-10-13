@@ -131,6 +131,9 @@ class BaseProtocol:
 
     def configure_transfer(self,key,value):
         self.transfer_defaults[key]=value
+        if key == "to" or key == "from":
+            for nextkey in value:
+                self.configure_transfer_tofrom(key,nextkey,value[nextkey])
 
 
     def configure_mix(self,key,value):
@@ -152,6 +155,7 @@ class BaseProtocol:
 
     def add_ingredient(self,ingrName,locName,volume,containerName=None,containerLoc=None):
         """ add ingredient to a location without specifying the source
+            returns name of the modified location
         """ 
         #if adding to an unspecified location (None), pool all volumes of the same
         #ingredient in one initial pool called ingrName_initial
@@ -174,7 +178,7 @@ class BaseProtocol:
 
         else:
             #existing ingredient
-            if locName in self.locations and locName != ingrName+"_initial":
+            if locName in self.locations and locName != ingrName+"_initial" and locName != ingrName:
                 #if existing ingredient to existing location
                 #assume ingredient is coming from ingredient's initial pool
                 self.update_loc_vol(ingrName+"_initial",volume)
@@ -196,8 +200,7 @@ class BaseProtocol:
             self.ingredients[ingrName].pop(locName)
             raise e
 
-        return "Added "+str(volume)+"uL of "+ingrName+" to "+locName
-
+        return "Added {0} uL of {1} to {2}".format(volume,ingrName,locName) 
 
     def add_transfer_group(self,fromLocs,toLocs,volumes,changeSettings=None):
         """ add transfer group to instructions list
@@ -284,12 +287,17 @@ class BaseProtocol:
         self.update_loc_vol(fromLoc,-volume)
         self.update_loc_vol(toLoc,volume)
         # fill in missing fields with defaults
-        transferDict=self.fill_instruction_defaults(transferDict,self.transfer_defaults)
+        transferDict=self.fill_instruction_defaults\
+                (transferDict,self.transfer_defaults)
         # if container and location are already specified, add
-        transferDict["from"]["container"]=self.locations.get(fromLoc).get("container")
-        transferDict["from"]["location"]=self.locations.get(fromLoc).get("location")
-        transferDict["to"]["container"]=self.locations.get(toLoc).get("container")
-        transferDict["to"]["location"]=self.locations.get(toLoc).get("location")
+        transferDict["from"]["container"]=\
+                self.locations.get(fromLoc).get("container")
+        transferDict["from"]["location"]=\
+                self.locations.get(fromLoc).get("location")
+        transferDict["to"]["container"]=\
+                self.locations.get(toLoc).get("container")
+        transferDict["to"]["location"]=\
+                self.locations.get(toLoc).get("location")
         return transferDict
 
 
@@ -309,10 +317,13 @@ class BaseProtocol:
             self.update_loc_vol(fromLoc,-volumes[i])
             self.update_loc_vol(toLocs[i],volumes[i])
             # fill in missing fields with defaults
-            distributeDict["to"][i]=self.fill_instruction_defaults(distributeDict["to"][i],self.transfer_defaults["to"])
+            distributeDict["to"][i]=self.fill_instruction_defaults\
+                    (distributeDict["to"][i],self.transfer_defaults["to"])
             # if container and location are already specified, add
-            distributeDict["to"][i]["container"]=self.locations.get(toLocs[i]).get("container")
-            distributeDict["to"][i]["location"]=self.locations.get(toLocs[i]).get("location")
+            distributeDict["to"][i]["container"]=\
+                    self.locations.get(toLocs[i]).get("container")
+            distributeDict["to"][i]["location"]=\
+                    self.locations.get(toLocs[i]).get("location")
         # change any specified from or outside settings
         if changeSettings:
             for key,value in changeSettings.items():
@@ -322,10 +333,13 @@ class BaseProtocol:
                 elif key != 'to':
                     distributeDict[key]=value
         # fill in missing from and outside fields with defaults
-        distributeDict=self.fill_instruction_defaults(distributeDict,self.transfer_defaults)
+        distributeDict=self.fill_instruction_defaults\
+                (distributeDict,self.transfer_defaults)
         # if from container and location are already specified, add
-        distributeDict["from"]["container"]=self.locations.get(fromLoc).get("container")
-        distributeDict["from"]["location"]=self.locations.get(fromLoc).get("location")
+        distributeDict["from"]["container"]=\
+                self.locations.get(fromLoc).get("container")
+        distributeDict["from"]["location"]=\
+                self.locations.get(fromLoc).get("location")
         return distributeDict
             
 
@@ -345,10 +359,13 @@ class BaseProtocol:
             self.update_loc_vol(fromLocs[i],-volumes[i])
             self.update_loc_vol(toLoc,volumes[i])
             # fill in missing fields with defaults
-            consolidateDict["from"][i]=self.fill_instruction_defaults(distributeDict["from"][i],self.transfer_defaults["from"])
+            consolidateDict["from"][i]=self.fill_instruction_defaults\
+                    (distributeDict["from"][i],self.transfer_defaults["from"])
             # if container and location are already specified, add
-            consolidateDict["from"][i]["container"]=self.locations.get(fromLocs[i]).get("container")
-            consolidateDict["from"][i]["location"]=self.locations.get(fromLocs[i]).get("location")
+            consolidateDict["from"][i]["container"]=\
+                    self.locations.get(fromLocs[i]).get("container")
+            consolidateDict["from"][i]["location"]=\
+                    self.locations.get(fromLocs[i]).get("location")
         # change any specified from or outside settings
         if changeSettings:
             for key,value in changeSettings.items():
@@ -358,10 +375,13 @@ class BaseProtocol:
                 elif key != 'from':
                     consolidateDict[key]=value
         # fill in missing from and outside fields with defaults
-        consolidateDict=self.fill_instruction_defaults(consolidateDict,self.transfer_defaults) 
+        consolidateDict=self.fill_instruction_defaults\
+                (consolidateDict,self.transfer_defaults) 
         # if from container and location are already specified, add
-        consolidateDict["to"]["container"]=self.locations.get(toLoc).get("container")
-        consolidateDict["to"]["location"]=self.locations.get(toLoc).get("location")
+        consolidateDict["to"]["container"]=\
+                self.locations.get(toLoc).get("container")
+        consolidateDict["to"]["location"]=\
+                self.locations.get(toLoc).get("location")
         return consolidateDict
  
     
@@ -514,7 +534,7 @@ class BaseProtocol:
             if self.locations[locName].get("container") or self.locations.get("location"):
                 raise Prompt("Location is already assigned to {0}, {1}. Override? (Y/N)"\
                     .format(self.locations[locName].get("container"),\
-                    self.locations[locName].get("location")))
+                    self.locations[locName].get("location"),locName))
         except Prompt as e:
             yn = input(e.value)
             if yn == 'y' or yn == 'Y':
@@ -529,9 +549,11 @@ class BaseProtocol:
             if containerLoc in self.deck[containerName]["empty"]:
                 self.fill_labware_location(locName,containerLoc,containerName)
             elif containerLoc in self.deck[containerName]["locations"]:
-                raise InvalidEntry("Location {0} in {1} is already occupied".format(containerLoc,containerName))
+                raise InvalidEntry("Location {0} in {1} is already occupied"\
+                    .format(containerLoc,containerName))
             else:
-                raise InvalidEntry("Location {0} in {1} does not exist".format(containerLoc,containerName))
+                raise InvalidEntry("Location {0} in {1} does not exist"\
+                    .format(containerLoc,containerName))
 
         # TODO : check for overlap with container/loc pairs already in
         # self.locations but not yet assigned to self.deck, e.g. two 
@@ -584,7 +606,8 @@ class BaseProtocol:
         }
         """
         if containerName in self.deck:
-            raise InvalidEntry('{0} is already assigned to {1}'.format(containerName,self.deck[containerName]["labware"]))
+            raise InvalidEntry('{0} is already assigned to {1}'\
+                .format(containerName,self.deck[containerName]["labware"]))
 
         self.check_labware(labware) 
         # add to deck

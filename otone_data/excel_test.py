@@ -1,7 +1,7 @@
 from openpyxl import load_workbook
 from openpyxl.styles import colors
 
-wb = load_workbook('PFunkel.xlsx', data_only = True)
+wb = load_workbook('robot_protocol_09_29.xlsx', data_only = True)
 sheet = wb['Combinatorial (no delay)']
 ssDNA = sheet['B3'].value
 oligo1 = sheet['B10'].value
@@ -31,4 +31,10 @@ while looking:
         print(sheet['B'+str(row)].value)
         looking = False
     row = row + 1
-    
+print('max rows: ' + str(sheet.max_row))    
+print('max cols: ' + str(sheet.max_column))
+print('B27: ' + str(sheet['B27'].fill.start_color.index))
+print('B28: ' + str(sheet['B28'].fill.start_color.index))
+print('B29: ' + str(sheet['B29'].fill.start_color.index))
+print('B30: ' + str(sheet['B30'].fill.start_color.index))
+print('B35: ' + str(sheet['B35'].fill.start_color.index))

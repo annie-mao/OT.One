@@ -40,11 +40,11 @@ cycler = 'cycler'
 
 # prepare ingredients
 pf.add_ingredient(mm,mm,50)
-pf.add_ingredient(enzymes,enzymes,20)
-pf.add_ingredient(exo,exo,15)
+pf.add_ingredient(enzymes,enzymes,15)
+pf.add_ingredient(exo,exo,10)
 pf.add_ingredient(water,water,200)
 pf.add_ingredient(oil,oil,200)
-pf.add_ingredient(dye,dye,50)
+pf.add_ingredient(dye,dye,20)
 
 pf.add_ingredient(oligo1_1,oligo1_1,10)
 pf.add_ingredient(oligo2_1,oligo2_1,10)
@@ -74,20 +74,20 @@ pf.assign_container(ssDNA_2,ice,'E6')
 pf.assign_labware(ice,'96-PCR-tubes')
 
 # make mix in cycler
-pf.add_transfer_group(water,c_tube_1,51.22,{'to':{'touch-tip':False}})
-pf.add_transfer_group(water,c_tube_2,51.22,{'to':{'touch-tip':False}})
+pf.add_transfer_group(water,c_tube_1,36.72,{'to':{'touch-tip':False}})
+pf.add_transfer_group(water,c_tube_2,36.72,{'to':{'touch-tip':False}})
 
-pf.add_transfer_group(mm,c_tube_1,22.0)
-pf.add_transfer_group(mm,c_tube_2,22.0)
-pf.add_transfer_group(ssDNA_1,c_tube_1,26.32)
-pf.add_transfer_group(ssDNA_2,c_tube_2,26.32)
-pf.add_transfer_group(oligo1_1,c_tube_1,0.47)
-pf.add_transfer_group(oligo1_2,c_tube_2,0.47)
-pf.add_transfer_group(enzymes,c_tube_1,6.0)
-pf.add_transfer_group(enzymes,c_tube_2,6.0)
+pf.add_transfer_group(mm,c_tube_1,16.5)
+pf.add_transfer_group(mm,c_tube_2,16.5)
+pf.add_transfer_group(ssDNA_1,c_tube_1,21.43)
+pf.add_transfer_group(ssDNA_2,c_tube_2,21.43)
+pf.add_transfer_group(oligo1_1,c_tube_1,0.35)
+pf.add_transfer_group(oligo1_2,c_tube_2,0.35)
+pf.add_transfer_group(enzymes,c_tube_1,4.5)
+pf.add_transfer_group(enzymes,c_tube_2,4.5)
 
-pf.add_mix_group(c_tube_1,50)
-pf.add_mix_group(c_tube_2,50)
+pf.add_mix_group(c_tube_1,40)
+pf.add_mix_group(c_tube_2,40)
 
 pf.assign_container(c_tube_1,cycler,'A1')
 pf.assign_container(c_tube_2,cycler,'A2')
@@ -104,23 +104,23 @@ pf.add_cycler_group('PFUNKEL1')
 
 # add exo I and III to cycler tube
 afterOilSettings_tr = {'to':{'tip-offset':-10,'touch-tip':False}}
-afterOilSettings_mix = {'tip-ffset':-10}
+afterOilSettings_mix = {'tip-offset':-10}
 
-pf.add_transfer_group(exo,c_tube_1,4.01,afterOilSettings_tr)
-pf.add_transfer_group(exo,c_tube_2,4.01,afterOilSettings_tr)
+pf.add_transfer_group(exo,c_tube_1,2.95,afterOilSettings_tr)
+pf.add_transfer_group(exo,c_tube_2,2.95,afterOilSettings_tr)
 
-pf.add_mix_group(c_tube_1,20,afterOilSettings_mix)
-pf.add_mix_group(c_tube_2,20,afterOilSettings_mix)
+pf.add_mix_group(c_tube_1,40,afterOilSettings_mix)
+pf.add_mix_group(c_tube_2,40,afterOilSettings_mix)
 
 # second cycler instruction
 pf.add_cycler_group('PFUNKEL2')
 
 # add secondary oligo to cycler tube
-pf.add_transfer_group(oligo2_1,c_tube_1,0.44,afterOilSettings_tr)
-pf.add_transfer_group(oligo2_2,c_tube_2,0.44,afterOilSettings_tr)
+pf.add_transfer_group(oligo2_1,c_tube_1,0.32,afterOilSettings_tr)
+pf.add_transfer_group(oligo2_2,c_tube_2,0.32,afterOilSettings_tr)
 
-pf.add_mix_group(c_tube_1,20,afterOilSettings_mix)
-pf.add_mix_group(c_tube_2,20,afterOilSettings_mix)
+pf.add_mix_group(c_tube_1,40,afterOilSettings_mix)
+pf.add_mix_group(c_tube_2,40,afterOilSettings_mix)
 
 # third cycler instruction
 pf.add_cycler_group('PFUNKEL3')
