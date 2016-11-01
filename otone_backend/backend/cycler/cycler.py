@@ -64,6 +64,8 @@ class Cycler:
     # location on deck
     # restrict movement of pipette head to never cross these boundaries
 
+    cyclerCell = 5
+
     move_between = {
         'safe':[[1,1],[1,2],[2,1],[2,2],[2,3],[3,2],[3,3],[3,4],[4,3],[4,4],[4,5],[5,4],[5,5],[2,4],[4,2]],
         'collision':[[1,3],[3,1],[3,5],[5,3],[4,1],[1,4],[2,5],[5,2],[1,5],[5,1]],
@@ -227,7 +229,7 @@ class Cycler:
 
 #------------------------------ HELPERS---------------------------------
 
-    def cell(self,x,y):
+    def cell(self,x,y,lid=None):
         """ Returns cell of x,y location relative to cycler
         lid closed          lid open
         0-------------x     0-------------x
@@ -237,11 +239,14 @@ class Cycler:
         |2     |3|4   |     |2  |3  |4    |
         |      | |    |     |   |   |     |
         y-------------.     y-------------.
+
+        Optionally specify lid, in which case lid will not be set
+        according to lidOpen status of the cycler
         """
         
-        if self.lidOpen:
+        if not lid and self.lidOpen:
             lid = 'open'
-        else:
+        elif not lid:
             lid = 'closed'
         bounds = self.cell_bounds[lid]
 
