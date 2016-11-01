@@ -365,8 +365,10 @@ class Head:
 
 
     def check_target_locations(self,locPrev,locations):
+        locations_edited = [];
         cellPrev = self.loc_to_cell(locPrev)
         for i in range(0,len(locations)):
+            FileIO.log("current index: {0}".format(i))
             if debug == True: FileIO.log('head.move location: {0}'.format(locations[i]))
             # update cycler lid status
             lid = self.update_lid()
@@ -375,34 +377,55 @@ class Head:
             # check target cell
             cellNow = self.update_cell(locPrev,locations[i])
             if debug == True: FileIO.log('cellPrev {0}  cellNow {1}'.format(cellPrev,cellNow))
-            # check for collisions and invalid moves
+            # check for collisions
             if self.is_collision(cellPrev,cellNow):         
                 # collision
                 if debug == True: FileIO.log('found collision,adding intermediates')
                 # add intermediate location to prevent collision
-                self.add_intermediate_locations(locations,i,cellPrev,cellNow,lid)
+                for j in range(0,abs(cellNow-cellPrev)-1):
+                    #for every skipped cell, add int. step
+                    #cell next to cellPrev
+                    cellNext = int(cellPrev + math.copysign(1,cellNow-cellPrev)*(j+1))
+                    locNext = OrderedDict(sorted(self.cycler.cell_nodes[lid][cellNext].items()))
+                    #append locations_edited
+                    FileIO.log('appending: ')
+                    FileIO.log('cell: ')
+                    FileIO.log(cellNext)
+                    FileIO.log(locNext)
+                    locations_edited.append(locNext)
+            # check for invalid moves
             elif not self.is_safe(cellPrev,cellNow):
                 # invalid move
                 if debug == True: FileIO.log('Invalid move')
                 if self.update_cell(locPrev,locations[i],'closed') == 1:
                     # if invalid move can be fixed by closing cycler lid,
-                    # make sure pipette is out of cycler cell and close lid
-                    lid = self.close_cycler_lid(cellNow,lid)
+                    # add close lid command before target location
+                    locations_edited.append(self.close_lid_cmd())
                 else:
-                    # remove this location and all following locations
-                    del locations[i:]
+                    # stop adding locations
+                    #del locations[i:]
+                    break
                 # TODO: add error handling for this case
-                break
             #if moving to cycler cell, check lid
-            lid = self.open_cycler_lid(cellPrev,cellNow,lid)
+            if self.open_lid(cellPrev,cellNow,lid):
+                locations_edited.append(self.open_lid_cmd())
+            #lid = self.open_cycler_lid(cellPrev,cellNow,lid)
+            #append target location to locations_edited
+            FileIO.log("Appending target location[{0}]: ".format(i))
+            FileIO.log(locations[i])
+            locations_edited.append(locations[i])
             #set current cell as q_prev for next iteration
             cellPrev = cellNow
             #set current location as loc_prev for next iteration
             for n in ['x','y','z','a','b']:
                 locPrev[n]=locations[i].get(n,locPrev[n])
-        return locations
+        return locations_edited
 
+    def close_lid_cmd(self):
+        return {'command': 'cycler', 'lid': True}
 
+    def open_lid_cmd(self):
+        return {'command': 'cycler', 'lid': False}
 
     def add_intermediate_locations(self,locations,indexNow,cellPrev,cellNow,lid):
         for i in range(0,abs(cellNow-cellPrev)-1):
@@ -458,6 +481,10 @@ class Head:
             FileIO.log(self.update_lid())
             FileIO.log("lid not open, waiting")
             pass
+
+    def open_lid(self,cellPrev,cellNow,lid):
+        if (lid != 'open') and ([cellPrev,cellNow] in self.cycler.move_between['check_lid']):
+            return True
 
 
     def open_cycler_lid(self,cellPrev,cellNow,lid):

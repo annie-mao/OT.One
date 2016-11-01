@@ -123,12 +123,6 @@ class TheQueue:
             if debug == True and verbose == True: FileIO.log('\tthe_queue len(self.qlist): ',len(self.qlist))
             if len(self.qlist)>0:
                 # pull out the first in line from the queue
-#                self.current_command = self.qlist.s and self.paused==False
-                    #while self.is_busy:
-                    #    if debug == True: FileIO.log('queue delaying 1min')
-                    #    self.head.smoothieAPI.delay(60)
-                    #    self.is_busy= self.head.cycler.is_busy
-                    #    if debug == True: FileIO.log('Cycler busy? {0}'.format(self.is_busy))plice(0,1)[0];
                 self.current_command = self.qlist.pop(0)
                 self.is_busy = True;
                 if debug == True and verbose == True: FileIO.log('\n\n\tthe_queue.current_command:\n\n',self.current_command,'\n')
