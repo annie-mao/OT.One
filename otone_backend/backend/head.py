@@ -368,7 +368,6 @@ class Head:
         locations_edited = [];
         cellPrev = self.loc_to_cell(locPrev)
         for i in range(0,len(locations)):
-            FileIO.log("current index: {0}".format(i))
             if debug == True: FileIO.log('head.move location: {0}'.format(locations[i]))
             # update cycler lid status
             lid = self.update_lid()
@@ -383,66 +382,45 @@ class Head:
                 if debug == True: FileIO.log('found collision,adding intermediates')
                 # add intermediate location to prevent collision
                 for j in range(0,abs(cellNow-cellPrev)-1):
-                    #for every skipped cell, add int. step
-                    #cell next to cellPrev
+                    #for every skipped cell, add int. step to cell next to cellPrev
                     cellNext = int(cellPrev + math.copysign(1,cellNow-cellPrev)*(j+1))
                     locNext = OrderedDict(sorted(self.cycler.cell_nodes[lid][cellNext].items()))
-                    #append locations_edited
-                    FileIO.log('appending: ')
-                    FileIO.log('cell: ')
-                    FileIO.log(cellNext)
-                    FileIO.log(locNext)
                     locations_edited.append(locNext)
             # check for invalid moves
             elif not self.is_safe(cellPrev,cellNow):
                 # invalid move
                 if debug == True: FileIO.log('Invalid move')
                 if self.update_cell(locPrev,locations[i],'closed') == 1:
-                    FileIO.log('can fix by closing cycler lid')
-                    FileIO.log('current lid state: ' + lid)
                     # if invalid move can be fixed by closing cycler lid,
                     # add close lid command before target location
                     # first check if pipette head needs to be moved out of the way
                     if (lid != 'closed') and (cellPrev == self.cycler.cyclerCell):
-                        FileIO.log("close_cycler_lid() pipette in cycler space")
                         moveTo = OrderedDict(sorted(self.cycler.cell_nodes[lid][cellPrev-1].items()))
                         locations_edited.append(moveTo)
                         lid = 'closed' 
                     locations_edited.append(self.close_lid_cmd())
                 else:
                     # stop adding locations
-                    #del locations[i:]
                     break
-                # TODO: add error handling for this case
             #if moving to cycler cell, check lid
             if self.open_lid(cellPrev,cellNow,lid):
                 locations_edited.append(self.open_lid_cmd())
-            #lid = self.open_cycler_lid(cellPrev,cellNow,lid)
+                lid = 'open'
             #append target location to locations_edited
-            FileIO.log("Appending target location[{0}]: ".format(i))
-            FileIO.log(locations[i])
             locations_edited.append(locations[i])
-            #set current cell as q_prev for next iteration
+            #set current cell and location as prevs for next iteration
             cellPrev = cellNow
-            #set current location as loc_prev for next iteration
             for n in ['x','y','z','a','b']:
                 locPrev[n]=locations[i].get(n,locPrev[n])
         return locations_edited
 
+
     def close_lid_cmd(self):
         return {'command': 'cycler', 'lid': True}
 
+
     def open_lid_cmd(self):
         return {'command': 'cycler', 'lid': False}
-
-    def add_intermediate_locations(self,locations,indexNow,cellPrev,cellNow,lid):
-        for i in range(0,abs(cellNow-cellPrev)-1):
-            #for every skipped cell, add int. step
-            #cell next to cellPrev
-            cellNext = int(cellPrev + math.copysign(1,cellNow-cellPrev)*(i+1))
-            locNext = OrderedDict(sorted(self.cycler.cell_nodes[lid][cellNext].items()))
-            #insert int location in locations
-            locations.insert(indexNow+i,locNext)
 
 
     def loc_to_cell(self,loc,lid=None):
@@ -454,13 +432,6 @@ class Head:
                                 locNow.get('y',locPrev['y']),lid)
 
     def update_lid(self):
-        if self.cycler.is_lid_open():
-            lid = 'open'
-        else:
-            lid = 'closed'
-        return lid
-
-    def get_lid(self):
         if self.cycler.lidOpen:
             lid = 'open'
         else:
@@ -468,61 +439,9 @@ class Head:
         return lid
 
 
-    def wait_before_opening_lid(self):
-        FileIO.log("head.wait_before_opening_lid")
-        state = self.get_state()
-        while self.loc_to_cell(state,'open') == None:
-            # if pipette head is in invalid part of the 'open lid' deck, wait
-            state = self.get_state()
-
-    def wait_before_closing_lid(self):
-        FileIO.log("head.wait_before_closing_lid")
-        state = self.get_state()
-        while self.loc_to_cell(state) == self.cycler.cyclerCell:
-            # if pipette head is in the cycler cell, wait before closing lid
-            state = self.get_state()
-
-
-    def wait_before_moving_to_cycler(self):
-        FileIO.log("head.wait_before_moving_to_cycler")
-        while self.update_lid() != 'open':
-            FileIO.log(self.update_lid())
-            FileIO.log("lid not open, waiting")
-            pass
-
     def open_lid(self,cellPrev,cellNow,lid):
         if (lid != 'open') and ([cellPrev,cellNow] in self.cycler.move_between['check_lid']):
             return True
-
-
-    def open_cycler_lid(self,cellPrev,cellNow,lid):
-        FileIO.log("called head.open_cycler_lid")
-        if (lid != 'open') and ([cellPrev,cellNow] in self.cycler.move_between['check_lid']):
-            #if lid is unopen, open lid
-            FileIO.log("lid is unopen, checking")
-            self.wait_before_opening_lid()
-            self.cycler.toggle_lid()
-            self.wait_before_moving_to_cycler()
-            lid = 'open'
-        return lid
-
-
-    def close_cycler_lid(self,cellNow,lid):
-        if (lid != 'closed') and (cellNow != self.cycler.cyclerCell):
-            # if lid is open and pipette not in cycler space, close lid
-            FileIO.log("close_cycler_lid() pipette not incycler space")
-            self.wait_before_closing_lid()
-            self.cycler.toggle_lid()
-        elif (lid != 'closed') and (cellNow == self.cycler.cyclerCell):
-            FileIO.log("close_cycler_lid() pipette in cycler space")
-            # if pipette in cycler space, move out of the way before closing lid
-            moveTo = OrderedDict(sorted(self.cycler.cell_nodes[lid][cellNow-1].items()))
-            FileIO.log("move to cell: " + moveTo)
-            self.move(moveTo)
-            self.wait_before_closing_lid()
-            self.cycler.toggle_lid()
-        lid = 'closed'
-        return lid
 
 
     def is_safe(self,cellPrev,cellNow):
@@ -534,8 +453,9 @@ class Head:
 
 
     def rel_to_abs(self,locPrev,locNow):
-        if locNow.get('relative'):
+        if locNow.get('relative'): 
             if debug == True: FileIO.log('relative move')
+            locNow['relative'] = False
             keys = ['x','y','z','a','b']
             for key in keys:
                 locNow[key] = locPrev.get(key,0) + locNow.get(key,0)
