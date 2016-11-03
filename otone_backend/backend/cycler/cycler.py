@@ -261,12 +261,20 @@ class Cycler:
     def toggle_lid(self):
         """close lid if open, open if closed
         """
+        FileIO.log("toggle_lid(), current state {0}".format(self.lidOpen))
         if self.lidOpen == True:
             self.send(self._lid['close'])
+            while(self.is_lid_open() == True):
+                FileIO.log("waiting for lid to close")
+                pass
             self.lidOpen = False
         elif self.lidOpen == False:
             self.send(self._lid['open'])
+            while(self.is_lid_open() == False):
+                FileIO.log("waiting for lid to open")
+                pass
             self.lidOpen = True
+        FileIO.log("end toggle_lid()")
 
     def is_lid_open(self):
         """Returns True if lid is open, False if closed
@@ -357,9 +365,10 @@ class Cycler:
 
         """
         if debug == True: FileIO.log('CYCLER RECEIVED TASK:\n{0}'.format(data))
+        self.head.theQueue.pause_job()
         name = data.get('name')
         if(name):
-            self.head.theQueue.pause_job()
+            #self.head.theQueue.pause_job()
             self.is_busy = True
             # parse input
             name = '"' + name + '"'
@@ -387,12 +396,12 @@ class Cycler:
                 incSuccess = self.incubate(holdTemp,True)
                 if not incSuccess and debug == True: FileIO.log('CYCLER INCUBATE ERROR')
                 elif debug == True: FileIO.log('CYCLER HOLD AT {0} C'.format(holdTemp))
-            self.head.theQueue.resume_job()
-            self.head.smoothieAPI.delay(1)
         elif('lid' in data):
             if (data.get('lid') == True and self.lidOpen) or (data.get('lid') == False and not self.lidOpen):
                 self.toggle_lid()
-            self.head.smoothieAPI.delay(1)
-            
+            #self.head.smoothieAPI.delay(1)
+            #self.head.theQueue.resume_job()
+        self.head.theQueue.resume_job()
+        self.head.smoothieAPI.delay(1)
 
 

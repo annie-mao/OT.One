@@ -398,8 +398,16 @@ class Head:
                 # invalid move
                 if debug == True: FileIO.log('Invalid move')
                 if self.update_cell(locPrev,locations[i],'closed') == 1:
+                    FileIO.log('can fix by closing cycler lid')
+                    FileIO.log('current lid state: ' + lid)
                     # if invalid move can be fixed by closing cycler lid,
                     # add close lid command before target location
+                    # first check if pipette head needs to be moved out of the way
+                    if (lid != 'closed') and (cellPrev == self.cycler.cyclerCell):
+                        FileIO.log("close_cycler_lid() pipette in cycler space")
+                        moveTo = OrderedDict(sorted(self.cycler.cell_nodes[lid][cellPrev-1].items()))
+                        locations_edited.append(moveTo)
+                        lid = 'closed' 
                     locations_edited.append(self.close_lid_cmd())
                 else:
                     # stop adding locations
