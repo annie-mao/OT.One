@@ -397,8 +397,8 @@ class Head:
                     if (lid != 'closed') and (cellPrev == self.cycler.cyclerCell):
                         moveTo = OrderedDict(sorted(self.cycler.cell_nodes[lid][cellPrev-1].items()))
                         locations_edited.append(moveTo)
-                        lid = 'closed' 
                     locations_edited.append(self.close_lid_cmd())
+                    lid = 'closed' 
                 else:
                     # stop adding locations
                     break
