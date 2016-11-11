@@ -64,6 +64,9 @@ class Cycler:
     # location on deck
     # restrict movement of pipette head to never cross these boundaries
 
+    delayInterval = 2 #seconds
+    delayLimit = 15 #seconds
+
     cyclerCell = 5
 
     move_between = {
@@ -264,9 +267,15 @@ class Cycler:
         FileIO.log("open_lid(), current state {0}".format(self.lidOpen))
         if self.lidOpen != True:
             self.send(self._lid['open'])
+            totalDelay = 0
             while(self.is_lid_open() != True):
                 FileIO.log("waiting for lid to open")
-                pass
+                self.head.smoothieAPI.delay(self.delayInterval)
+                totalDelay = totalDelay + self.delayInterval
+                if (totalDelay > self.delayLimit):
+                    FileIO.log("sending again")
+                    self.send(self._lid['open'])
+                    totalDelay = 0
             self.lidOpen = True
         FileIO.log("end open_lid()")
 
@@ -277,9 +286,15 @@ class Cycler:
         FileIO.log("close_lid(), current state {0}".format(self.lidOpen))
         if self.lidOpen != False:
             self.send(self._lid['close'])
+            totalDelay = 0
             while(self.is_lid_open() != False):
                 FileIO.log("waiting for lid to close")
-                pass
+                self.head.smoothieAPI.delay(self.delayInterval)
+                totalDelay = totalDelay + self.delayInterval
+                if (totalDelay > self.delayLimit):
+                    FileIO.log("sending again")
+                    self.send(self._lid['close'])
+                    totalDelay = 0
             self.lidOpen = False
         FileIO.log("end close_lid()")
 
@@ -411,6 +426,6 @@ class Cycler:
             #self.head.smoothieAPI.delay(1)
             #self.head.theQueue.resume_job()
         self.head.theQueue.resume_job()
-        self.head.smoothieAPI.delay(1)
+        self.head.smoothieAPI.delay(self.delayInterval)
 
 

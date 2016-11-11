@@ -404,7 +404,7 @@ class Head:
                     cellNow = 1
                     lid = 'closed'
                     if self.is_collision(cellPrev,cellNow):
-                        locations_edited.append(self.collision_waypoints(cellPrev,cellNow,lid));
+                        locations_edited = locations_edited + self.collision_waypoints(cellPrev,cellNow,lid)
                 else:
                     # stop adding locations
                     break 
@@ -422,7 +422,7 @@ class Head:
         return locations_edited
 
 
-    def collision_waypoints(self,cellNow,cellPrev,lid):
+    def collision_waypoints(self,cellPrev,cellNow,lid):
         """check for collisions and add intermediate waypoints if necessary
         """
         # collision
