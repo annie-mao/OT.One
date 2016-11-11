@@ -541,13 +541,17 @@ class Smoothie(object):
                 while cell not in self.cycler.home['x']['safe']:
                     cell = cell - 1
                     self.move(self.cycler.cell_nodes[lid][cell])
+                    FileIO.log("x unsafe moving to " + str(cell))
+                    FileIO.log(str(self.cycler.cell_nodes[lid][cell]))
                 targetCell = self.cycler.home['x']['target'][cell]
+                FileIO.log("target cell " + str(targetCell))
             else:
                 # cell is None - don't home
                 return False
             # home x
             homeCommand = self._dict['home']+'X\r\n'
             self.theState['homing']['x'] = True
+            FileIO.log("adding homeCommand: " + str(homeCommand))
             self.try_add(homeCommand)
 
         if 'y' in axis_dict or 'Y' in axis_dict:
@@ -559,13 +563,17 @@ class Smoothie(object):
                 while cell not in self.cycler.home['y']['safe']:
                     cell = cell-1
                     self.move(self.cycler.cell_nodes['open'][cell])
+                    FileIO.log("y unsafe moving to " + str(cell))
+                    FileIO.log(str(self.cycler.cell_nodes[lid][cell]))
                 targetcell = self.cycler.home['y']['target'][cell]
+                FileIO.log("target cell " + str(targetCell))
             else:
                 # cell is None - don't home
                 return False
             # home y
             homeCommand = self._dict['home']+'Y\r\n'
             self.theState['homing']['y'] = True
+            FileIO.log("adding homeCommand: " + str(homeCommand))
             self.try_add(homeCommand) 
 
 

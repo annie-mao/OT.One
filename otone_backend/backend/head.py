@@ -367,43 +367,50 @@ class Head:
     def check_target_locations(self,locPrev,locations):
         locations_edited = [];
         cellPrev = self.loc_to_cell(locPrev)
+        # update cycler lid status
+        lid = self.update_lid()
+        FileIO.log('initial lid status: {0}'.format(lid))
         for i in range(0,len(locations)):
-            if debug == True: FileIO.log('head.move location: {0}'.format(locations[i]))
-            # update cycler lid status
-            lid = self.update_lid()
+            if debug == True: FileIO.log('head.move location: {0}'.format(locations[i])) 
             # convert relative to absolute location if necessary
             locations[i] = self.rel_to_abs(locPrev,locations[i]) 
             # check target cell
-            cellNow = self.update_cell(locPrev,locations[i])
+            cellNow = self.update_cell(locPrev,locations[i],lid)
             if debug == True: FileIO.log('cellPrev {0}  cellNow {1}'.format(cellPrev,cellNow))
             # check for collisions
-            if self.is_collision(cellPrev,cellNow):         
-                # collision
-                if debug == True: FileIO.log('found collision,adding intermediates')
-                # add intermediate location to prevent collision
-                for j in range(0,abs(cellNow-cellPrev)-1):
-                    #for every skipped cell, add int. step to cell next to cellPrev
-                    cellNext = int(cellPrev + math.copysign(1,cellNow-cellPrev)*(j+1))
-                    locNext = OrderedDict(sorted(self.cycler.cell_nodes[lid][cellNext].items()))
-                    locations_edited.append(locNext)
+#            if self.is_collision(cellPrev,cellNow):         
+#                # collision
+#                if debug == True: FileIO.log('found collision,adding intermediates')
+#                # add intermediate location to prevent collision
+#                for j in range(0,abs(cellNow-cellPrev)-1):
+#                    #for every skipped cell, add int. step to cell next to cellPrev
+#                    cellNext = int(cellPrev + math.copysign(1,cellNow-cellPrev)*(j+1))
+#                    locNext = OrderedDict(sorted(self.cycler.cell_nodes[lid][cellNext].items()))
+#                    locations_edited.append(locNext) 
+            if self.is_collision(cellPrev,cellNow):
+                locations_edited = locations_edited + self.collision_waypoints(cellPrev,cellNow,lid)
             # check for invalid moves
             elif not self.is_safe(cellPrev,cellNow):
                 # invalid move
                 if debug == True: FileIO.log('Invalid move')
-                if self.update_cell(locPrev,locations[i],'closed') == 1:
+                if (lid != 'closed') and (self.update_cell(locPrev,locations[i],'closed') == 1):
                     # if invalid move can be fixed by closing cycler lid,
                     # add close lid command before target location
                     # first check if pipette head needs to be moved out of the way
-                    if (lid != 'closed') and (cellPrev == self.cycler.cyclerCell):
+                    if cellPrev == self.cycler.cyclerCell:
                         moveTo = OrderedDict(sorted(self.cycler.cell_nodes[lid][cellPrev-1].items()))
                         locations_edited.append(moveTo)
                     locations_edited.append(self.close_lid_cmd())
-                    lid = 'closed' 
+                    cellNow = 1
+                    lid = 'closed'
+                    if self.is_collision(cellPrev,cellNow):
+                        locations_edited.append(self.collision_waypoints(cellPrev,cellNow,lid));
                 else:
                     # stop adding locations
-                    break
+                    break 
             #if moving to cycler cell, check lid
-            if self.open_lid(cellPrev,cellNow,lid):
+            if (self.open_lid(cellPrev,cellNow,lid)) and (lid == 'closed'):
+                FileIO.log('Moving to cycler cell, open lid');
                 locations_edited.append(self.open_lid_cmd())
                 lid = 'open'
             #append target location to locations_edited
@@ -413,6 +420,24 @@ class Head:
             for n in ['x','y','z','a','b']:
                 locPrev[n]=locations[i].get(n,locPrev[n])
         return locations_edited
+
+
+    def collision_waypoints(self,cellNow,cellPrev,lid):
+        """check for collisions and add intermediate waypoints if necessary
+        """
+        # collision
+        if debug == True: FileIO.log('found collision,adding intermediates')
+        waypoints = [];
+        # add intermediate location to prevent collision
+        for j in range(0,abs(cellNow-cellPrev)-1):
+            #for every skipped cell, add int. step to cell next to cellPrev
+            cellNext = int(cellPrev + math.copysign(1,cellNow-cellPrev)*(j+1))
+            locNext = OrderedDict(sorted(self.cycler.cell_nodes[lid][cellNext].items()))
+            FileIO.log('cellNext: {0}'.format(cellNext))
+            FileIO.log('locNext: {0}'.format(locNext))
+            waypoints.append(locNext);
+        FileIO.log('returning waypoints: {0}'.format(waypoints))
+        return waypoints
 
 
     def close_lid_cmd(self):
