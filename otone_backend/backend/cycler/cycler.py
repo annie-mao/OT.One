@@ -270,7 +270,8 @@ class Cycler:
             totalDelay = 0
             while(self.is_lid_open() != True):
                 FileIO.log("waiting for lid to open")
-                self.head.smoothieAPI.delay(self.delayInterval)
+                time.sleep(self.delayInterval)
+                #self.head.smoothieAPI.delay(self.delayInterval)
                 totalDelay = totalDelay + self.delayInterval
                 if (totalDelay > self.delayLimit):
                     FileIO.log("sending again")
@@ -289,7 +290,8 @@ class Cycler:
             totalDelay = 0
             while(self.is_lid_open() != False):
                 FileIO.log("waiting for lid to close")
-                self.head.smoothieAPI.delay(self.delayInterval)
+                time.sleep(self.delayInterval)
+                #self.head.smoothieAPI.delay(self.delayInterval)
                 totalDelay = totalDelay + self.delayInterval
                 if (totalDelay > self.delayLimit):
                     FileIO.log("sending again")
