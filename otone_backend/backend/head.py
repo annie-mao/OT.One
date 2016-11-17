@@ -378,15 +378,6 @@ class Head:
             cellNow = self.update_cell(locPrev,locations[i],lid)
             if debug == True: FileIO.log('cellPrev {0}  cellNow {1}'.format(cellPrev,cellNow))
             # check for collisions
-#            if self.is_collision(cellPrev,cellNow):         
-#                # collision
-#                if debug == True: FileIO.log('found collision,adding intermediates')
-#                # add intermediate location to prevent collision
-#                for j in range(0,abs(cellNow-cellPrev)-1):
-#                    #for every skipped cell, add int. step to cell next to cellPrev
-#                    cellNext = int(cellPrev + math.copysign(1,cellNow-cellPrev)*(j+1))
-#                    locNext = OrderedDict(sorted(self.cycler.cell_nodes[lid][cellNext].items()))
-#                    locations_edited.append(locNext) 
             if self.is_collision(cellPrev,cellNow):
                 locations_edited = locations_edited + self.collision_waypoints(cellPrev,cellNow,lid)
             # check for invalid moves
