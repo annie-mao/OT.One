@@ -1,0 +1,207 @@
+{
+  "cycler": {
+    "PFUNKEL2": {
+      "control": "CALC",
+      "runtime": null,
+      "hold": 4.0,
+      "vessel": "Tubes",
+      "volume": 100,
+      "lid": false
+    },
+    "": {
+      "control": "CALC",
+      "hold": 4.0,
+      "runtime": null,
+      "vessel": "Tubes",
+      "volume": 100,
+      "lid": false
+    },
+    "PFUNKEL1": {
+      "control": "CALC",
+      "runtime": null,
+      "hold": 4.0,
+      "vessel": "Tubes",
+      "volume": 100,
+      "lid": false
+    },
+    "PFUNKEL3": {
+      "control": "CALC",
+      "runtime": null,
+      "hold": 4.0,
+      "vessel": "Tubes",
+      "volume": 100,
+      "lid": false
+    }
+  },
+  "info": {
+    "run-notes": "test",
+    "create-date": "2016-08-19",
+    "name": "PFunkel",
+    "description": "test"
+  },
+  "deck": {
+    "p200-rack": {
+      "labware": "tiprack-200ul"
+    },
+    "p10-rack": {
+      "labware": "tiprack-10ul"
+    },
+    "Spicecabinet": {
+      "labware": "96-PCR-tubes"
+    },
+    "ice": {
+      "labware": "96-PCR-tubes"
+    }
+  },
+  "instructions": [
+    {
+      "groups": [
+        {
+          "run": {
+            "name": "",
+            "volume": 50.0
+          }
+        }
+      ],
+      "tool": "cycler"
+    }
+  ],
+  "head": {
+    "p10": {
+      "tip-racks": [
+        {
+          "container": "p10-rack"
+        }
+      ],
+      "tool": "pipette",
+      "axis": "b",
+      "volume": 10,
+      "tip-plunge": 7.5,
+      "points": [
+        {
+          "f1": 0.5,
+          "f2": 0.41
+        },
+        {
+          "f1": 5,
+          "f2": 4.7
+        },
+        {
+          "f1": 10,
+          "f2": 10
+        }
+      ]
+    },
+    "p200": {
+      "tip-racks": [
+        {
+          "container": "p200-rack"
+        }
+      ],
+      "tool": "pipette",
+      "axis": "a",
+      "volume": 200,
+      "tip-plunge": 4,
+      "points": [
+        {
+          "f1": 20,
+          "f2": 17.7
+        },
+        {
+          "f1": 100,
+          "f2": 98.5
+        },
+        {
+          "f1": 200,
+          "f2": 200
+        }
+      ]
+    }
+  },
+  "ingredients": {
+    "UDH": [
+      {
+        "location": "E7",
+        "container": "ice",
+        "volume": 10.0
+      }
+    ],
+    "master-mix": [
+      {
+        "location": "D4",
+        "container": "ice",
+        "volume": 26.0
+      }
+    ],
+    "Exo1": [
+      {
+        "location": "E4",
+        "container": "ice",
+        "volume": 10.0
+      }
+    ],
+    "oil": [
+      {
+        "location": "G5",
+        "container": "ice",
+        "volume": 100.0
+      }
+    ],
+    "Exo3": [
+      {
+        "location": "E5",
+        "container": "ice",
+        "volume": 10.0
+      }
+    ],
+    "ssDNA": [
+      {
+        "location": "D6",
+        "container": "ice",
+        "volume": 10.0
+      }
+    ],
+    "water": [
+      {
+        "location": "G4",
+        "container": "ice",
+        "volume": 100.0
+      }
+    ],
+    "ligase": [
+      {
+        "location": "D8",
+        "container": "ice",
+        "volume": 10.0
+      }
+    ],
+    "NEBuffer1": [
+      {
+        "location": "E6",
+        "container": "ice",
+        "volume": 10.0
+      }
+    ],
+    "Thyme": [
+      {
+        "location": "C3",
+        "container": "Spicecabinet",
+        "volume": 200.0
+      }
+    ],
+    "oligo1": [
+      {
+        "location": "D5",
+        "container": "ice",
+        "volume": 10.0
+      }
+    ],
+    "polymerase": [
+      {
+        "location": "D7",
+        "container": "ice",
+        "volume": 10.0
+      }
+    ]
+  }
+}

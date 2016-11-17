@@ -1,0 +1,1163 @@
+{
+  "deck": {
+    "p200-rack": {
+      "labware": "tiprack-200ul"
+    },
+    "trash": {
+      "labware": "point"
+    },
+    "p10-rack": {
+      "labware": "tiprack-10ul"
+    },
+    "cycler": {
+      "labware": "8-tube-strip"
+    },
+    "ice": {
+      "labware": "96-PCR-tubes"
+    }
+  },
+  "cycler": {
+    "PFUNKEL2": {
+      "control": "CALC",
+      "vessel": "Tubes",
+      "hold": 4,
+      "heated-lid": false,
+      "runtime": 80,
+      "volume": 100
+    },
+    "PFUNKEL1": {
+      "control": "CALC",
+      "vessel": "Tubes",
+      "hold": 4,
+      "heated-lid": false,
+      "runtime": 104,
+      "volume": 100
+    },
+    "4": {
+      "control": "CALC",
+      "vessel": "Tubes",
+      "hold": null,
+      "heated-lid": false,
+      "runtime": null,
+      "volume": 100
+    },
+    "PFUNKEL3": {
+      "control": "CALC",
+      "vessel": "Tubes",
+      "hold": 4,
+      "heated-lid": false,
+      "runtime": 47,
+      "volume": 100
+    }
+  },
+  "head": {
+    "p10": {
+      "trash-container": {
+        "container": "trash"
+      },
+      "points": [
+        {
+          "f1": 0.5,
+          "f2": 0.41
+        },
+        {
+          "f1": 5,
+          "f2": 4.7
+        },
+        {
+          "f1": 10,
+          "f2": 10
+        }
+      ],
+      "tool": "pipette",
+      "tip-racks": [
+        {
+          "container": "p10-rack"
+        }
+      ],
+      "extra-pull-delay": 10,
+      "extra-pull-volume": 5,
+      "multi-channel": false,
+      "up-plunger-speed": 500,
+      "volume": 10,
+      "tip-plunge": 8,
+      "down-plunger-speed": 300,
+      "axis": "b"
+    },
+    "p200": {
+      "trash-container": {
+        "container": "trash"
+      },
+      "points": [
+        {
+          "f1": 20,
+          "f2": 17.7
+        },
+        {
+          "f1": 100,
+          "f2": 98.5
+        },
+        {
+          "f1": 200,
+          "f2": 200
+        }
+      ],
+      "tool": "pipette",
+      "tip-racks": [
+        {
+          "container": "p200-rack"
+        }
+      ],
+      "extra-pull-delay": 10,
+      "extra-pull-volume": 50,
+      "multi-channel": false,
+      "up-plunger-speed": 500,
+      "volume": 200,
+      "tip-plunge": 4,
+      "down-plunger-speed": 300,
+      "axis": "a"
+    }
+  },
+  "ingredients": {
+    "ssDNA_2": [
+      {
+        "location": "E6",
+        "container": "ice",
+        "volume": 30
+      }
+    ],
+    "oligo1_2": [
+      {
+        "location": "E4",
+        "container": "ice",
+        "volume": 10
+      }
+    ],
+    "oligo2_2": [
+      {
+        "location": "E5",
+        "container": "ice",
+        "volume": 10
+      }
+    ],
+    "oligo2_1": [
+      {
+        "location": "D5",
+        "container": "ice",
+        "volume": 10
+      }
+    ],
+    "polymerase_ligase_mix": [
+      {
+        "location": "C4",
+        "container": "ice",
+        "volume": 15
+      }
+    ],
+    "exonuclease_mix": [
+      {
+        "location": "C5",
+        "container": "ice",
+        "volume": 10
+      }
+    ],
+    "water": [
+      {
+        "location": "C6",
+        "container": "ice",
+        "volume": 200
+      }
+    ],
+    "master_mix": [
+      {
+        "location": "C3",
+        "container": "ice",
+        "volume": 50
+      }
+    ],
+    "oil": [
+      {
+        "location": "C7",
+        "container": "ice",
+        "volume": 200
+      }
+    ],
+    "loading_dye": [
+      {
+        "location": "C8",
+        "container": "ice",
+        "volume": 20
+      }
+    ],
+    "ssDNA_1": [
+      {
+        "location": "D6",
+        "container": "ice",
+        "volume": 30
+      }
+    ],
+    "oligo1_1": [
+      {
+        "location": "D4",
+        "container": "ice",
+        "volume": 10
+      }
+    ]
+  },
+  "instructions": [
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 36.72,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A1",
+                "locName": "cycler_tube_1",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C6",
+                "locName": "water",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p200"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 36.72,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A2",
+                "locName": "cycler_tube_2",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C6",
+                "locName": "water",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p200"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 8.25,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A1",
+                "locName": "cycler_tube_1",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C3",
+                "locName": "master_mix",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            },
+            {
+              "blowout": true,
+              "volume": 8.25,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A1",
+                "locName": "cycler_tube_1",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C3",
+                "locName": "master_mix",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 8.25,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A2",
+                "locName": "cycler_tube_2",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C3",
+                "locName": "master_mix",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            },
+            {
+              "blowout": true,
+              "volume": 8.25,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A2",
+                "locName": "cycler_tube_2",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C3",
+                "locName": "master_mix",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 21.43,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A1",
+                "locName": "cycler_tube_1",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "D6",
+                "locName": "ssDNA_1",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p200"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 21.43,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A2",
+                "locName": "cycler_tube_2",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "E6",
+                "locName": "ssDNA_2",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p200"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 0.35,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A1",
+                "locName": "cycler_tube_1",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "D4",
+                "locName": "oligo1_1",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 0.35,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A2",
+                "locName": "cycler_tube_2",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "E4",
+                "locName": "oligo1_2",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 4.5,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A1",
+                "locName": "cycler_tube_1",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C4",
+                "locName": "polymerase_ligase_mix",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 4.5,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A2",
+                "locName": "cycler_tube_2",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C4",
+                "locName": "polymerase_ligase_mix",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "mix": [
+            {
+              "blowout": true,
+              "volume": 40,
+              "repetitions": 5,
+              "location": "A1",
+              "locName": "cycler_tube_1",
+              "container": "cycler",
+              "liquid-tracking": true
+            }
+          ]
+        }
+      ],
+      "tool": "p200"
+    },
+    {
+      "groups": [
+        {
+          "mix": [
+            {
+              "blowout": true,
+              "volume": 40,
+              "repetitions": 5,
+              "location": "A2",
+              "locName": "cycler_tube_2",
+              "container": "cycler",
+              "liquid-tracking": true
+            }
+          ]
+        }
+      ],
+      "tool": "p200"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 60,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A1",
+                "locName": "cycler_tube_1",
+                "tip-offset": 5,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C7",
+                "locName": "oil",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": true
+            }
+          ]
+        }
+      ],
+      "tool": "p200"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 60,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A2",
+                "locName": "cycler_tube_2",
+                "tip-offset": 5,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C7",
+                "locName": "oil",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": true
+            }
+          ]
+        }
+      ],
+      "tool": "p200"
+    },
+    {
+      "groups": [
+        {
+          "run": {
+            "name": "PFUNKEL1"
+          }
+        }
+      ],
+      "tool": "cycler"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 2.95,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A1",
+                "locName": "cycler_tube_1",
+                "tip-offset": -10,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C5",
+                "locName": "exonuclease_mix",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 2.95,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A2",
+                "locName": "cycler_tube_2",
+                "tip-offset": -10,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C5",
+                "locName": "exonuclease_mix",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "mix": [
+            {
+              "blowout": true,
+              "volume": 40,
+              "repetitions": 5,
+              "location": "A1",
+              "locName": "cycler_tube_1",
+              "container": "cycler",
+              "tip-ffset": -10,
+              "liquid-tracking": true
+            }
+          ]
+        }
+      ],
+      "tool": "p200"
+    },
+    {
+      "groups": [
+        {
+          "mix": [
+            {
+              "blowout": true,
+              "volume": 40,
+              "repetitions": 5,
+              "location": "A2",
+              "locName": "cycler_tube_2",
+              "container": "cycler",
+              "tip-ffset": -10,
+              "liquid-tracking": true
+            }
+          ]
+        }
+      ],
+      "tool": "p200"
+    },
+    {
+      "groups": [
+        {
+          "run": {
+            "name": "PFUNKEL2"
+          }
+        }
+      ],
+      "tool": "cycler"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 0.32,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A1",
+                "locName": "cycler_tube_1",
+                "tip-offset": -10,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "D5",
+                "locName": "oligo2_1",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 0.32,
+              "to": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A2",
+                "locName": "cycler_tube_2",
+                "tip-offset": -10,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "E5",
+                "locName": "oligo2_2",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "mix": [
+            {
+              "blowout": true,
+              "volume": 40,
+              "repetitions": 5,
+              "location": "A1",
+              "locName": "cycler_tube_1",
+              "container": "cycler",
+              "tip-ffset": -10,
+              "liquid-tracking": true
+            }
+          ]
+        }
+      ],
+      "tool": "p200"
+    },
+    {
+      "groups": [
+        {
+          "mix": [
+            {
+              "blowout": true,
+              "volume": 40,
+              "repetitions": 5,
+              "location": "A2",
+              "locName": "cycler_tube_2",
+              "container": "cycler",
+              "tip-ffset": -10,
+              "liquid-tracking": true
+            }
+          ]
+        }
+      ],
+      "tool": "p200"
+    },
+    {
+      "groups": [
+        {
+          "run": {
+            "name": "PFUNKEL3"
+          }
+        }
+      ],
+      "tool": "cycler"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 5,
+              "to": {
+                "container": "ice",
+                "delay": 0,
+                "location": "D7",
+                "locName": "aliquot_1",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A1",
+                "locName": "cycler_tube_1",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 5,
+              "to": {
+                "container": "ice",
+                "delay": 0,
+                "location": "E7",
+                "locName": "aliquot_2",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "cycler",
+                "delay": 0,
+                "location": "A2",
+                "locName": "cycler_tube_2",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 3.33,
+              "to": {
+                "container": "ice",
+                "delay": 0,
+                "location": "D7",
+                "locName": "aliquot_1",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C8",
+                "locName": "loading_dye",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 3.33,
+              "to": {
+                "container": "ice",
+                "delay": 0,
+                "location": "E7",
+                "locName": "aliquot_2",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C8",
+                "locName": "loading_dye",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 5.83,
+              "to": {
+                "container": "ice",
+                "delay": 0,
+                "location": "D7",
+                "locName": "aliquot_1",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C6",
+                "locName": "water",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            },
+            {
+              "blowout": true,
+              "volume": 5.83,
+              "to": {
+                "container": "ice",
+                "delay": 0,
+                "location": "D7",
+                "locName": "aliquot_1",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C6",
+                "locName": "water",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "transfer": [
+            {
+              "blowout": true,
+              "volume": 5.83,
+              "to": {
+                "container": "ice",
+                "delay": 0,
+                "location": "E7",
+                "locName": "aliquot_2",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C6",
+                "locName": "water",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            },
+            {
+              "blowout": true,
+              "volume": 5.83,
+              "to": {
+                "container": "ice",
+                "delay": 0,
+                "location": "E7",
+                "locName": "aliquot_2",
+                "tip-offset": 0,
+                "touch-tip": true,
+                "liquid-tracking": true
+              },
+              "from": {
+                "container": "ice",
+                "delay": 0,
+                "location": "C6",
+                "locName": "water",
+                "tip-offset": 0,
+                "touch-tip": false,
+                "liquid-tracking": true
+              },
+              "extra-pull": false
+            }
+          ]
+        }
+      ],
+      "tool": "p10"
+    },
+    {
+      "groups": [
+        {
+          "run": {
+            "lid": true
+          }
+        }
+      ],
+      "tool": "cycler"
+    }
+  ],
+  "info": {
+    "description": "PFunkel Mutagenesis starting from master mix",
+    "run-notes": "note: testing",
+    "create-date": "2016-09-29",
+    "name": "PFunkel"
+  }
+}

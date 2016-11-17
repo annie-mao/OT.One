@@ -15,7 +15,7 @@ class PCR:
         self.cyclerPtr = 0
         self.cyclerPrograms = ["PFUNKEL1","PFUNKEL2","PFUNKEL3"]
         self.excel = {
-            'sheet_name': 'Combinatorial (no delay)',
+            'sheet_name': 'For Robot (w Mastermixes)',
             'start_row': 20,
             'reagent': {'key': 'D4', 'scan': 'D', 'name': 'A'},
             'cycler': {'key': 'D5', 'scan': 'B'},
@@ -37,18 +37,27 @@ class PCR:
         self.oil_transfer_settings = {
             "extra-pull": True,
             "to": {
-                "tip-offset": 5,
+                "tip-offset": 10,
                 "touch-tip": False
             }
         }
         self.after_oil_transfer_settings = {
+            "extra-pull": False,
             "to": {
-                "tip-offset": -10,
+                "tip-offset": -15,
                 "touch-tip": False
             }
         }
         self.after_oil_mix_settings = {
-            "tip-offset": -10
+            "tip-offset": -15
+        }
+        self.aliquot_transfer_settings = {
+            "from": {
+                "tip-offset": -15
+            },
+            "to": {
+                "tip-offset": 0
+            }
         }
         self.minVol = 5
         self.volScaleFactor = 0.1
@@ -62,6 +71,7 @@ class PCR:
         self.addedOil = False
         self.useDye = True
         self.holdTemp = 4
+        self.waterName = 'DI-NF water'
         self.cyclerContainer = "2-8-tube-strip"
         self.iceContainer = "96-PCR-tubes"
         self.sharedContainerOptions = OrderedDict([
@@ -215,6 +225,15 @@ class PCR:
         # add instructions to protocol
         self.add_instructions_to_protocol(rxnTubes)
 
+    
+    def export_to_JSON(self,fname):
+        """ export baseProtocol to JSON
+        """
+        print("Exporting protocol to " + fname)
+        print("Total p10 tips: " + str(self.p.numTips_p10))
+        print("Total p200 tips: " + str(self.p.numTips_p200))
+        return self.p.export_to_JSON(fname)
+
 
     def add_instructions_to_protocol(self,rxnTubes):
         # loop through instruction groups and add to protocol
@@ -237,7 +256,8 @@ class PCR:
             self.p.assign_container(rxnTubes[i],"cycler",location)
         # assign shared reagents to shared container
         maxVol = self.findMaxVol(self.p.list_unassigned_locations())
-        self.p.assign_labware("shared",self.findContainer(maxVol))
+        self.sharedContainer = self.findContainer(maxVol)
+        self.p.assign_labware("shared",self.sharedContainer)
         for reagent in self.p.list_unassigned_locations():
             location = self.next_empty_location("shared")
             self.p.assign_container(reagent,"shared",location)
@@ -342,9 +362,9 @@ class PCR:
         for rxn in rxnTubes:
             # add dye and water to ingredients
             self.p.add_ingredient("dye","dye",dyeVol)
-            self.p.add_ingredient("DI-NF water","DI-NF water",waterVol)
+            self.p.add_ingredient(self.waterName,self.waterName,waterVol)
         self.scale_volumes("dye","dye",self.p.locations["dye"]["volume"])
-        self.scale_volumes("DI-NF water","DI-NF water",self.p.locations["DI-NF water"]["volume"])
+        self.scale_volumes(self.waterName,self.waterName,self.p.locations[self.waterName]["volume"])
 
 
     def convert_aliquot_group(self,group,rxnTubes):
@@ -353,7 +373,7 @@ class PCR:
         for i in range(0,len(rxnTubes)):
             name = "aliquot_{0}_{1}".format(str(i+1),self.aliquotNum)
             volume = group["volume"]
-            self.p.add_transfer_group(rxnTubes[i],name,volume)
+            self.p.add_transfer_group(rxnTubes[i],name,volume,self.aliquot_transfer_settings)
             # load dye for gel electrophoresis
             if self.useDye:
                 self.transfer_dye(name,volume)
@@ -374,7 +394,7 @@ class PCR:
         waterVol = self.aliquotTotalVol - dyeVol - aliquotVol
         # transfer dye and water to aliquot, mix at end
         self.p.add_transfer_group("dye",aliquotName,dyeVol)
-        self.p.add_transfer_with_mix("DI-NF water",aliquotName,waterVol)
+        self.p.add_transfer_with_mix(self.waterName,aliquotName,waterVol)
 
 
 #------------------------------- CYCLER ---------------------------------

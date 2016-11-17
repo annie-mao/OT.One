@@ -95,7 +95,7 @@ class BaseProtocol:
             },
             "to":{
                 "tip-offset":0,
-                "touch-tip":True,
+                "touch-tip":False,
                 "delay":0,
                 "liquid-tracking":True
             },
@@ -116,6 +116,9 @@ class BaseProtocol:
         }
 
         self.instruction_stream = {"cmds":[], "dicts":[]}
+        self.numTips_p10 = 0
+        self.numTips_p200 = 0
+
 
     def print_info(self,key):
         print(self.key)
@@ -494,25 +497,33 @@ class BaseProtocol:
                 volume = instDict["volume"]
                 if volume >= 20 and volume <= 200:
                     pipette = 'p200'
+                    self.numTips_p200 = self.numTips_p200 + 1
                 elif volume <= 10:
                     pipette = 'p10'
+                    self.numTips_p10 = self.numTips_p10 + 1
                 elif volume > 10 and volume < 20:
                     # split volume group up into two p10 movements
                     volume = volume/2
                     instDict["volume"]=volume
                     copyDict = instDict
+                    # keep tip above liquid level to prevent cross-contamination
+                    copyDict["to"]["tip-offset"] = 15;
                     # insert copy behind current index
                     groups[i].insert(j,copyDict)
                     pipette = 'p10'
+                    self.numTips_p10 = self.numTips_p10 + 2
                 elif volume > 200:
                     # split volume group up into multiple p200 movements
                     div = (volume//200)+1
                     volume = volume/div
                     instDict["volume"]=volume
                     copyDict = instDict
+                    # keep tip above liquid level to prevent cross-contamination
+                    copyDict["to"]["tip-offset"] = 15;
                     for j in range(0,div-1):
                         #insert copies behind current index
                         groups[i].insert(j,copyDict)
+                        self.numTips_p200 = self.numTips_p200 + 1
                     pipette = 'p200'
                 if prevPipette and (pipette != prevPipette):
                     raise InvalidEntry('Volume {0} does not match rest of group'.format(volume))
@@ -869,7 +880,7 @@ class BaseProtocol:
         try:
             out_file=open(fname,"w")
             json.dump(final_dict,out_file,indent=2);
-            print("Exported protocol to JSON")
+            return "Exported protocol to {0}".format(fname)
         except EnvironmentError as err:
             print("Error exporting protocol to JSON")
             raise
