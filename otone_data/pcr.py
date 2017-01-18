@@ -225,13 +225,17 @@ class PCR:
         # add instructions to protocol
         self.add_instructions_to_protocol(rxnTubes)
 
-    
+
     def export_to_JSON(self,fname):
         """ export baseProtocol to JSON
         """
+        # add dead volumes
+        for key,value in self.p.ingredients_export.items():
+            value[0]["volume"] = self.add_dead_volume(value[0]["volume"])
         print("Exporting protocol to " + fname)
         print("Total p10 tips: " + str(self.p.numTips_p10))
         print("Total p200 tips: " + str(self.p.numTips_p200))
+        print("Shared container: " + str(self.sharedContainer))
         return self.p.export_to_JSON(fname)
 
 
@@ -457,11 +461,22 @@ class PCR:
         if volume < self.minVol:
             addVol = self.minVol - volume
         else:
+            addVol = self.minVol
             # round up final volume to nearest whole number
-            addVol = self.volScaleFactor*volume
-            addVol = addVol + (math.ceil(volume+addVol)-(volume+addVol))
+            #addVol = self.volScaleFactor*volume
+            #addVol = addVol + (math.ceil(volume+addVol)-(volume+addVol))
         self.p.add_ingredient(reagent,location,addVol)
 
+
+    def add_dead_volume(self,volume):
+        """scale starting volumes of reagents up to reduce pipetting
+        errors. If volume is below minimum volume threshold, set to
+        self.minVol
+        """
+        if volume < self.minVol:
+            return self.minVol
+        else:
+            return volume + self.minVol
 
     def next_empty_location(self,containerName):
         """ return the next empty location in a container
