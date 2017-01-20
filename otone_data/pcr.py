@@ -7,9 +7,9 @@ import math
 
 class PCR:
     def __init__(self, name, description, notes):
-        self.name = name
-        self.description = description
-        self.notes = notes
+        # instantiate protocol
+        self.p = BaseProtocol(name, description, notes)
+        
         self.copies = 1
         self.groups = []
         self.cyclerPtr = 0
@@ -21,7 +21,8 @@ class PCR:
             'cycler': {'key': 'D5', 'scan': 'B'},
             'aliquot': {'key': 'D6', 'scan': 'D'},
             'unshared' : ['Primary oligos (uM)',' secondary oligo  (uM)',\
-                        'ssDNA (ng/uL)']
+                        'ssDNA (ng/uL)'],
+            'ice' : ['Mastermix 2 - Pol/Lig (X)', 'Mastermix 3 - Exo/UDG']
         } 
         self.mix_settings = {
             "repetitions": 5,
@@ -67,7 +68,7 @@ class PCR:
         self.aliquotVol = 5
         self.aliquotTotalVol = 20
         self.aliquotNum = 1
-        self.useOil = True
+        self.robotAddsOil = True
         self.addedOil = False
         self.useDye = True
         self.holdTemp = 4
@@ -80,6 +81,9 @@ class PCR:
             (2000, "tube-strip-2ml")
         ])
         self.row = "A"
+        self.lastIceRow = "A"
+        self.useMM1and2 = True
+        self.mixRxns = True
         self.printer = PrettyPrinter(indent = 2)
 
 
@@ -108,8 +112,24 @@ class PCR:
             ws[self.excel['aliquot']['key']].fill.start_color.index
         row = self.excel['start_row']
         
+        # if not using Mastermixes 1 and 2 and placing prepared
+        # rxn tubes directly in the cycler, pre-add these tubes
+        # to the protocol with their starting volume and don't
+        # add instruction groups until the first cycler step
+        startAfterFirstCyclerStep = False
+        if not self.useMM1and2:
+            startAfterFirstCyclerStep = True
+            # robot doesn't add oil to rxn tubes
+            # (oil already added by user)
+            self.robotAddsOil = False
+            # don't need to mix rxns before first cycler step
+            self.mixRxns = False
+            self.change_to_oil_settings()
+
+        
         # scan down sheet and look for color-coded reagent, cycler,
         # and aliquot groups
+        foundFirstCyclerStep = False
         while (row < ws.max_row):
             rCell = self.excel['reagent']['scan'] + str(row)
             cCell = self.excel['cycler']['scan'] + str(row)
@@ -117,9 +137,15 @@ class PCR:
             rColor = ws[rCell].fill.start_color.index
             cColor = ws[cCell].fill.start_color.index
             aColor = ws[aCell].fill.start_color.index
+            # don't load the first group of reagents if not using
+            # the mastermixes
             if (rColor == self.excel['reagent']['color']):
-                row = self.get_reagent_group_from_excel(ws,row)
+                if startAfterFirstCyclerStep and not foundFirstCyclerStep:
+                    row = row + 1
+                else:
+                    row = self.get_reagent_group_from_excel(ws,row)
             elif (cColor == self.excel['cycler']['color']):
+                if not foundFirstCyclerStep: foundFirstCyclerStep = True
                 row = self.get_cycler_group_from_excel(ws,row)
             elif (aColor == self.excel['aliquot']['color']):
                 row = self.get_aliquot_group_from_excel(ws,row)
@@ -143,7 +169,8 @@ class PCR:
                 # get reagent volume from scanCell
                 "volume": ws[scanCell].value,
                 # look for reagent in the set of shared reagents
-                "shared": (name not in self.excel["unshared"])
+                "shared": (name not in self.excel["unshared"]),
+                "ice": (name in self.excel["ice"])
             }
             # add reagent group to self.groups
             self.groups.append(reagentGroup)
@@ -207,8 +234,6 @@ class PCR:
     def convert_to_protocol(self):
         """ convert to a baseProtocol class
         """
-        # instantiate protocol
-        self.p = BaseProtocol(self.name,self.description,self.notes)
         # assign cycler and ice containers
         self.p.assign_labware("ice",self.iceContainer)
         
@@ -216,6 +241,9 @@ class PCR:
         rxnTubes = []
         for i in range(0,self.copies):
             rxnTubes.append("rxn_"+str(i+1))
+        # preload rxnTubes if starting from first cycler step
+        if not self.useMM1and2:
+            self.preload_rxnTubes(rxnTubes)
         # preload reagents
         self.preload_reagents(rxnTubes)
         # preload aliquots
@@ -286,11 +314,23 @@ class PCR:
         return maxVol
 
 #---------------------------- REAGENTS ----------------------------------
+    def preload_rxnTubes(self,rxnTubes):
+        """ Load the pre-filled rxnTubes into the protocol
+        (user prepares the first set of reagents and the robot
+        does not need to add Mastermixes 1 and 2)
+        """
+        # add each rxn tube to the cycler, with its starting volume
+        for rxn in rxnTubes:
+            self.p.add_ingredient(rxn,rxn,self.rxnVol)
+
+
     def preload_reagents(self,rxnTubes):
         """ Pre-load all reagents into protocol for accurate volume
         calculations
         """
         for group in self.groups:
+            if group["type"] == "reagent" and group["shared"] and group["ice"]:
+                self.add_iced_reagent(group,rxnTubes)
             if group["type"] == "reagent" and group["shared"]:
                 self.add_shared_reagent(group,rxnTubes)
             elif group["type"] == "reagent" and not group["shared"]:
@@ -307,6 +347,24 @@ class PCR:
             self.p.add_ingredient(name,name,volume)
         self.scale_volumes(name,name,self.p.locations[name]["volume"])
 
+
+    def add_iced_reagent(self,group,rxnTubes):
+        """add a reagent kept on ice to baseProtocol ingredients
+        dictionary. Place in column 12 of the ice block
+        """
+        name = group["name"]
+        volume = group["volume"]
+        # assign to the last column of the ice container
+        container = "ice"
+        col = str(12)
+        row = self.lastIceRow
+        for i in range(0,len(rxnTubes)):
+            # add ingredient to protocol
+            self.p.add_ingredient(name,name,volume)
+        self.p.assign_container(name,container,row+col)
+        self.scale_volumes(name,name,self.p.locations[name]["volume"])
+        # increment row for next reagent
+        self.lastIceRow = chr(ord(row) + 1)
 
     def add_reagent(self,group,rxnTubes):
         """ add a reagent to baseProtocol ingredients dictionary
@@ -329,6 +387,17 @@ class PCR:
     def convert_shared_reagent_group(self,group,rxnTubes):
         """ convert a reagent group to baseProtocol transfer instructions
         when the reagent is being shared among all rxns
+        """
+        name = group["name"]
+        volume = group["volume"]
+        for i in range(0,len(rxnTubes)):  
+            # transfer ingredient to rxn tube
+            self.p.add_transfer_group(name,rxnTubes[i],volume)
+
+
+    def convert_iced_reagent_group(self,group,rxnTubes):
+        """ convert a reagent group to baseProtocol transfer instructions
+        when the reagent is needs to be kept on ice
         """
         name = group["name"]
         volume = group["volume"]
@@ -398,7 +467,7 @@ class PCR:
         waterVol = self.aliquotTotalVol - dyeVol - aliquotVol
         # transfer dye and water to aliquot, mix at end
         self.p.add_transfer_group("dye",aliquotName,dyeVol)
-        self.p.add_transfer_with_mix(self.waterName,aliquotName,waterVol)
+        self.p.add_transfer_group(self.waterName,aliquotName,waterVol)
 
 
 #------------------------------- CYCLER ---------------------------------
@@ -413,21 +482,26 @@ class PCR:
         for prog in self.cyclerPrograms:
             self.p.add_cycler_prog(prog,self.holdTemp)
         # if using PCR oil, add to protocol ingredients section
-        if self.useOil:
+        if self.robotAddsOil:
             for rxn in rxnTubes:
                 self.p.add_ingredient("oil","oil",self.oilVol)
-        self.scale_volumes("oil","oil",self.p.locations["oil"]["volume"])
+            self.scale_volumes("oil","oil",self.p.locations["oil"]["volume"])
 
 
     def convert_cycler_group(self,group,rxnTubes):
         """ convert a cycler group to baseProtocol instructions
         """
         # mix rxn tubes
-        for rxn in rxnTubes: 
-            self.p.add_mix_group(rxn,self.mixVol)
+        if self.mixRxns:
+            for rxn in rxnTubes: 
+                self.p.add_mix_group(rxn,self.mixVol)
+        else:
+            # if not mixing before the first cyler step,
+            # start mixing on subsequent steps
+            self.mixRxns = True
         # add PCR oil if necessary (only add oil once, before 1st
         # cycler group)
-        if self.useOil and not self.addedOil:
+        if self.robotAddsOil and not self.addedOil:
             self.transfer_oil(rxnTubes)
         # add cycler instruction to protocol
         self.p.add_cycler_group(group["name"])
@@ -443,7 +517,13 @@ class PCR:
         # add oil to the top of each rxn tube
         for rxn in rxnTubes:
             self.p.add_transfer_group("oil",rxn,self.oilVol)
-        # change default settings for subsequent instructions
+        # change transfer settings to account for oil layer
+        self.change_to_oil_settings()
+        
+    def change_to_oil_settings(self):
+        """ change default settings for subsequent instructions
+        to account for oil layer
+        """
         for key,value in self.after_oil_transfer_settings.items():
             self.p.configure_transfer(key,value)
         for key,value in self.after_oil_mix_settings.items():
