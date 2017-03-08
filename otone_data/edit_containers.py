@@ -1,6 +1,6 @@
 from containers import Containers
 
-c = Containers("containers.json")
+c = Containers("/home/pi/otone_data/containers.json")
 
 c.edit_container_yInc("tube-rack-2ml",19.5)
 c.edit_container_xInc("tube-rack-2ml",19.5)
@@ -33,12 +33,12 @@ for i in range(0,9):
 c.container_corners("tiprack-200ul")
 c.container_corners("tiprack-10ul")
 
-c.add_container("8-tube-strip",1,8,0,9,0,0,20,5,300)
-c.add_container("2-8-tube-strip",2,8,9,9,0,0,20,5,300)
-c.add_container("96-PCR-tubes",8,12,9,9,0,0,20,5,300)
+c.add_container("8-tube-strip",1,8,0,9,0,0,19.5,5,300)
+c.add_container("2-8-tube-strip",2,8,9,9,0,0,19.5,5,300)
+c.add_container("96-PCR-tubes",8,12,9,9,0,0,19.5,5,300)
 c.add_container("tube-rack-600ul",4,6,19.5,19.5,0,0,29.5,6,650)
 c.add_container("tube-rack-1.5ml",4,6,19.5,19.5,0,0,37.5,9,1700)
 c.add_container("tube-strip-600ul",1,6,19.5,19.5,0,0,29.5,6,650)
 c.add_container("tube-strip-1.5ml",1,6,19.5,19.5,0,0,37.5,9,1700)
 c.add_container("tube-strip-2ml",4,6,19.5,19.5,0,0,39,9,2400)
-c.export_to_JSON("containers.json")
+c.export_to_JSON("/home/pi/otone_data/containers.json")

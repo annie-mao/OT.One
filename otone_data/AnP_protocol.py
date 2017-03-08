@@ -1,3 +1,6 @@
+# Generates a JSON protocol for Accuracy/Precision volume transfer
+# calibration on the OT.One
+
 from baseProtocol import BaseProtocol, InvalidEntry, Prompt
 import pprint
 
@@ -62,13 +65,13 @@ for well in test_wells:
 
 p.assign_labware(plate,"96-PCR-flat")
 
-# starting volumes of Working Solutions with a 5uL dead volume
-p.add_ingredient(OrangeG10,OrangeG10,11)
-p.add_ingredient(OrangeG100,OrangeG100,65)
-p.add_ingredient(OrangeG200,OrangeG200,1325)
-p.add_ingredient(OrangeG40,OrangeG40,245)
-p.add_ingredient(OrangeG400_1,OrangeG400_1,1205)
-p.add_ingredient(OrangeG400_2,OrangeG400_2,1205)
+# starting volumes of Working Solutions with a 10uL dead volume
+p.add_ingredient(OrangeG10,OrangeG10,16)
+p.add_ingredient(OrangeG100,OrangeG100,70)
+p.add_ingredient(OrangeG200,OrangeG200,1330)
+p.add_ingredient(OrangeG40,OrangeG40,250)
+p.add_ingredient(OrangeG400_1,OrangeG400_1,1210)
+p.add_ingredient(OrangeG400_2,OrangeG400_2,1210)
 
 p.assign_container(OrangeG10,WS,"A1")
 p.assign_container(OrangeG40,WS,"A2")

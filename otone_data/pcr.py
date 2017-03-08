@@ -85,6 +85,7 @@ class PCR:
         self.useMM1and2 = True
         self.mixRxns = True
         self.printer = PrettyPrinter(indent = 2)
+        self.multichannel = False
 
 
     def duplicate(self,copies):

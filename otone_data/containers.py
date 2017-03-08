@@ -1,6 +1,6 @@
-import sys
-sys.path.insert(0,'../otone_backend/backend')
-from file_io import FileIO
+import imp
+file_io = imp.load_source('file_io','/home/pi/otone_backend/backend/file_io.py')
+#from file_io import FileIO
 import json
 from collections import OrderedDict
 
@@ -17,7 +17,7 @@ class Containers:
         """ Read in current containers.json and convert 
         from JSON to python dict
         """
-        self.containersDict = FileIO.get_dict_from_json(fname)
+        self.containersDict = file_io.FileIO.get_dict_from_json(fname)
         #fout=open("exportorder.json","w")
         #json.dump(self.containersDict,fout)
 
