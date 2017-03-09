@@ -29,7 +29,7 @@ while True:
         if(input("----------------------------------------------\n\
         Use default cycler programs? (PFUNKEL1, PFUNKEL2, PFUNKEL3)\n\n\
         Please enter your choice (Y/n): ") != "Y"):
-            cyclerProgs = input("\tEnter program names (name1,name2,name3): ").split(',')
+            cyclerProgs = input("\tEnter program names (NAME1,NAME2,NAME3): ").split(',')
             protocol.cyclerPrograms = cyclerProgs
             break
         else:

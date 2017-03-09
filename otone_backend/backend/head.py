@@ -37,7 +37,6 @@ class Head:
         self.cycler = Cycler(self)
 
         self.smoothieAPI = openSmoothie.Smoothie(self,self.cycler)
-        #self.smoothieAPI = openSmoothie.Smoothie(self)
         self.PIPETTES = {'a':Pipette('a'),'b':Pipette('b')}    #need to create this dict in head setup
         self.tools = tools
         self.pubber = publisher
