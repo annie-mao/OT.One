@@ -24,8 +24,22 @@ while True:
     except NameError:
         print("\tInvalid input. Please try again")
 
+while True:
+    try:
+        if(input("----------------------------------------------\n\
+        Use default cycler programs? (PFUNKEL1, PFUNKEL2, PFUNKEL3)\n\n\
+        Please enter your choice (Y/n): ") != "Y"):
+            cyclerProgs = input("\tEnter program names (name1,name2,name3): ").split(',')
+            protocol.cyclerPrograms = cyclerProgs
+            break
+        else:
+            break
+    except NameError:
+        print("\tInvalid input. Please try again")
+
 protocol.import_from_excel(fname)
-duplicates = int(input("\tHow many reactions? (max. 11): "))
+duplicates = int(input("----------------------------------------------\n\
+        How many reactions? (max. 11): "))
 protocol.duplicate(duplicates)
 protocol.convert_to_protocol()
 jsonname = input("\tJSON file name (*.json): ")
