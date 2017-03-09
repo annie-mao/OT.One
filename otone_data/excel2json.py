@@ -37,6 +37,10 @@ while True:
     except NameError:
         print("\tInvalid input. Please try again")
 
+if input("\tHave robot add dye and water to the aliquots? (Y/n): ") == "Y":
+    protocol.useDye = True
+else:
+    protocol.useDye = False
 protocol.import_from_excel(fname)
 duplicates = int(input("----------------------------------------------\n\
         How many reactions? (max. 11): "))

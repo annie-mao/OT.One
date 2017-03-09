@@ -70,13 +70,13 @@ class PCR:
         self.aliquotNum = 1
         self.robotAddsOil = True
         self.addedOil = False
-        self.useDye = True
+        self.useDye = False
         self.holdTemp = 4
         self.waterName = 'DI-NF water'
         self.cyclerContainer = "2-8-tube-strip"
         self.iceContainer = "96-PCR-tubes"
         self.sharedContainerOptions = OrderedDict([
-            (600, "tube-strip-600ul"),
+            #(600, "tube-strip-600ul"),
             (1500, "tube-strip-1.5ml"),
             (2000, "tube-strip-2ml")
         ])
